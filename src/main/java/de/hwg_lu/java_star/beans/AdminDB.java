@@ -1,5 +1,13 @@
 package de.hwg_lu.java_star.beans;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.net.URI;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -7,6 +15,9 @@ import java.sql.SQLException;
 import de.hwg_lu.java_star.jdbc.PostgreSQLAccess;
 
 public class AdminDB {
+	
+	private static final int NUM_EXECISES = 2;
+	String pathToData = "/home/bau/Documents/Zhanna/website/JavaStarWebsite/data/";
 	
 	private void createSchema(Connection conn, String schemaName) throws SQLException {
 		System.out.println("Creating schema " + schemaName);
@@ -32,7 +43,7 @@ public class AdminDB {
 		prep.executeUpdate();
 	}
 	
-	public void insertExcercise(Connection connection) throws SQLException {
+	public void _insertExcercise(Connection connection) throws SQLException {
 		System.out.println("INSERT INTO excercises");
 		String sql = "INSERT INTO excercise (id, exercise_text, exercise_out) VALUES (?, ?, ?)";
 		try {
@@ -48,6 +59,55 @@ public class AdminDB {
 
 	}
 	
+	private void insertExercise(Connection connection, int number) {
+		String string_instructions = this.readFile(
+				this.pathToData + File.separator + 
+				"exercise_" + number + "_instructions.txt"
+		);
+		String string_out = this.readFile(
+				this.pathToData + File.separator + 
+				"exercise_" + number + "_out.txt"
+		);
+		String string_test = this.readFile(
+				this.pathToData + File.separator + 
+				"exercise_" + number + "_test.txt"
+		);
+		String string_solution = this.readFile(
+				this.pathToData + File.separator + 
+				"exercise_" + number + "_solution.txt"
+		);
+		
+		System.out.println("INSERT INTO excercises");
+		String sql = "INSERT INTO excercise ("
+				+ "id, "
+				+ "exercise_text, "
+				+ "exercise_out,  "
+				+ "exercise_solution, "
+				+ "exercise_test) "
+				+ "VALUES (?, ?, ?, ?, ?)";
+		try {
+			PreparedStatement prep = connection.prepareStatement(sql);
+			prep.setInt(1, number);
+			prep.setString(2, string_instructions);
+			prep.setString(3, string_out);
+			prep.setString(4, string_solution);
+			prep.setString(5, string_test);
+			prep.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		System.out.println("DONE");
+		
+	}
+	
+	public void insertExcercise(Connection connection) throws SQLException {
+		for (int i = 1; i <= NUM_EXECISES; ++i) {
+			insertExercise(connection, i);
+		}
+
+	}
+	
+	
 	public static void main(String[] args) {
 		
 		AdminDB adminDB = new AdminDB();
@@ -62,6 +122,22 @@ public class AdminDB {
 		}
 	}
 	
+	String readFile(String filename) {
+		StringBuilder contentBuilder = new StringBuilder();
+		try (BufferedReader br = new BufferedReader(new FileReader(filename))) 
+		{
+		    String sCurrentLine;
+		    while ((sCurrentLine = br.readLine()) != null) {
+		        contentBuilder.append(sCurrentLine).append("\n");
+		    }
+		} 
+		catch (IOException e) 
+		{
+		    e.printStackTrace();
+		}
+
+		return contentBuilder.toString();
+	}
 	
 	// ========================================================= //
 	// SQL statements
@@ -76,10 +152,20 @@ public class AdminDB {
 			+ "correctExcercise INTEGER DEFAULT 0"
 			+ ")";
 	
-	String CREATE_EXCERCISE_TABLE = "CREATE TABLE IF NOT EXISTS \"excercise\" (" 
+	String _CREATE_EXCERCISE_TABLE = "CREATE TABLE IF NOT EXISTS \"excercise\" (" 
 			+ "id INTEGER PRIMARY KEY NOT NULL, "
 			+ "exercise_text  CHAR(1024) NOT NULL, "
 			+ "exercise_out   CHAR(512) NOT NULL"
 			+ ")";
+	
+	
+	String CREATE_EXCERCISE_TABLE = "CREATE TABLE IF NOT EXISTS \"excercise\" (" 
+			+ "id                  INTEGER       PRIMARY KEY NOT NULL, "
+			+ "exercise_text       VARCHAR(1024)             NOT NULL, "
+			+ "exercise_out        VARCHAR(1024)             NOT NULL,"
+			+ "exercise_solution   VARCHAR(1024)             NOT NULL,"
+			+ "exercise_test       VARCHAR(1024)             NOT NULL"
+			+ ")";
+	
 	
 }

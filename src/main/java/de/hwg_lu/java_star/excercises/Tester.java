@@ -2,8 +2,6 @@ package de.hwg_lu.java_star.excercises;
 
 import java.io.IOException;
 
-import de.hwg_lu.java_star.excercises.MyTester.HelloWorld;
-
 public class Tester {
 
 	public String testExcercise(String sourceCode) throws IOException {

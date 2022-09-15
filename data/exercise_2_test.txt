@@ -1,0 +1,27 @@
+class MyTester {
+	
+	%%INSERT_CODE_HERE%%
+	
+	public static void main(String[] args) {
+		
+		String output = "OK";
+		
+		Person hw = new MyTester().new Person();
+		hw.setAge(18);
+		hw.setName("Mark");
+		hw.setAddress("Berlin");
+		
+		if (hw.getAddress() != "Berlin") {
+			output += "error setting 'address' attribute";
+		}
+		if (hw.getName() != "Mark") {
+			output += "error setting 'name' attribute";
+		}
+		if (hw.getAge() != 18) {
+			output += "error setting 'age' attribute";
+		}
+		
+		System.out.println(output);
+		
+	}
+}

@@ -1,0 +1,1 @@
+Write a class Person to store name, age and address. 
