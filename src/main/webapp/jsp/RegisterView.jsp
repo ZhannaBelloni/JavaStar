@@ -17,7 +17,7 @@
 			<td>Nickname:</td>
 			<td>
 				<input type="text" name="userid" 
-					value='<!-- jsp:getProperty name="accountBean" property="userid" /-->'
+					value=''
 					required 
 					onkeyup="checkValueAndSetFehlerMsg(this.name, this.value)"
 				/>
@@ -39,7 +39,7 @@
 			<td>e-mail:</td>
 			<td>
 				<input type="text" name="email" 
-					value='<!-- jsp:getProperty name="accountBean" property="email" /-->'
+					value=''
 					onkeyup="checkValueAndSetFehlerMsg(this.name, this.value)"
 				/>
 			</td>
@@ -48,12 +48,9 @@
 		<tr>
 			<td></td>
 			<td>
-				<input type="submit" name="btnRegister" value="Registrieren" 
+				<input type="submit" name="logon" value="logon" 
 					onclick="setButtonClicked(this.name)"
 				/>
-				<!-- input type="submit" name="btnZumLogin" value="zum Login" 
-					onclick="setButtonClicked(this.name)"
-				/-->
 			</td>
 			<td></td>
 		</tr>

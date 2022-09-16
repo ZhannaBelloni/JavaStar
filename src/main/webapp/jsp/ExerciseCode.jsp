@@ -18,7 +18,12 @@
     Integer numEx = Integer.parseInt(exerciseNumber);
     ExcerciseDB ex = new ExcerciseDB();
     out.println("Excercise<br>");
-    out.println(ex.getExcerciseText(numEx));
+    String textEx = ex.getExcerciseText(numEx);
+    if (textEx==null) {
+    	response.sendRedirect("./HomePageView.jsp");
+    } else {
+    	out.println(textEx);
+    }
     %>
     
     <form action='compileCode.jsp'>
@@ -36,6 +41,11 @@ out.println(sourceCode);
     
     <input type="submit" value="verify">  
     </form> 
+    
+    <form action='./HomePageView.jsp' method='get'>
+	<input type='submit' value='home'/>
+	</form>
+
 
 </body>
 </html>

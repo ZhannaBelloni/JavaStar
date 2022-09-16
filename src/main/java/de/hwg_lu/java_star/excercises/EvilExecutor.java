@@ -21,43 +21,6 @@ import java.net.URL;
 */
 public class EvilExecutor {
 
-	public String prepareRequest(String sourceCode) {
-		String jsonInputString = "{";
-		jsonInputString += "\"source\": \"" + sourceCode.replaceAll("/\\*{1,2}[\\s\\S]*?\\*/", "").replaceAll("//[\\s\\S]*?\\n", "").replace("\"", "\\\"").replace("\n", " ").replace("\r", "") + "\"";
-		jsonInputString += ", \"options\": {" + "\"compilerOptions\": {" + "    \"executorRequest\": true" + "},"
-				+ "\"filters\": {" + "    \"execute\": true" + "}";
-		jsonInputString += "}}";
-		return jsonInputString;
-		
-		
-	}
-	
-	public String execute(String sourceCode) throws IOException {
-		URL url = new URL("https://godbolt.org/api/compiler/java1800/compile");
-		HttpURLConnection con = (HttpURLConnection) url.openConnection();
-		con.setRequestMethod("POST");
-		// con.setRequestProperty("Accept", "application/json");
-		con.setRequestProperty("Content-Type", "application/json");
-		con.setDoOutput(true);
 
-		String jsonInputString = prepareRequest(sourceCode);
-
-		try (OutputStream os = con.getOutputStream()) {
-			byte[] input = jsonInputString.getBytes("utf-8");
-			os.write(input, 0, input.length);
-		}
-
-		String stdOut = "";
-		try (BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"))) {
-			StringBuilder response = new StringBuilder();
-			String responseLine = null;
-			while ((responseLine = br.readLine()) != null) {
-				response.append(responseLine.trim());
-			}
-			stdOut += response.toString();
-		}
-
-		return stdOut;
-	}
 
 }

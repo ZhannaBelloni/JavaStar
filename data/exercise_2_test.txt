@@ -12,13 +12,13 @@ class MyTester {
 		hw.setAddress("Berlin");
 		
 		if (hw.getAddress() != "Berlin") {
-			output += "error setting 'address' attribute";
+			output += "error setting address attribute";
 		}
 		if (hw.getName() != "Mark") {
-			output += "error setting 'name' attribute";
+			output += "error setting name attribute";
 		}
 		if (hw.getAge() != 18) {
-			output += "error setting 'age' attribute";
+			output += "error setting age attribute";
 		}
 		
 		System.out.println(output);

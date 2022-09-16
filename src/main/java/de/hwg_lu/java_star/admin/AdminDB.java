@@ -1,4 +1,4 @@
-package de.hwg_lu.java_star.beans;
+package de.hwg_lu.java_star.admin;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -16,7 +16,6 @@ import de.hwg_lu.java_star.jdbc.PostgreSQLAccess;
 
 public class AdminDB {
 	
-	private static final int NUM_EXECISES = 2;
 	String pathToData = "/home/bau/Documents/Zhanna/website/JavaStarWebsite/data/";
 	
 	private void createSchema(Connection conn, String schemaName) throws SQLException {
@@ -43,22 +42,6 @@ public class AdminDB {
 		prep.executeUpdate();
 	}
 	
-	public void _insertExcercise(Connection connection) throws SQLException {
-		System.out.println("INSERT INTO excercises");
-		String sql = "INSERT INTO excercise (id, exercise_text, exercise_out) VALUES (?, ?, ?)";
-		try {
-			PreparedStatement prep = connection.prepareStatement(sql);
-			prep.setInt(1, 1);
-			prep.setString(2, "Write a program that print to console \"Hello Java Star\"");
-			prep.setString(3, "Hello Java Star");		
-			prep.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		System.out.println("DONE");
-
-	}
-	
 	private void insertExercise(Connection connection, int number) {
 		String string_instructions = this.readFile(
 				this.pathToData + File.separator + 
@@ -77,7 +60,7 @@ public class AdminDB {
 				"exercise_" + number + "_solution.txt"
 		);
 		
-		System.out.println("INSERT INTO excercises");
+		System.out.print("INSERT data for excercise " + number + ": ");
 		String sql = "INSERT INTO excercise ("
 				+ "id, "
 				+ "exercise_text, "
@@ -101,7 +84,16 @@ public class AdminDB {
 	}
 	
 	public void insertExcercise(Connection connection) throws SQLException {
-		for (int i = 1; i <= NUM_EXECISES; ++i) {
+		
+		int numExercises = 1;
+		
+		while (true) {
+			File f = new File(this.pathToData + "exercise_" + numExercises + "_instructions.txt");
+			if(f.exists()) { ++numExercises; } 
+			else { numExercises--; break; }
+		}
+		
+		for (int i = 1; i <= numExercises; ++i) {
 			insertExercise(connection, i);
 		}
 

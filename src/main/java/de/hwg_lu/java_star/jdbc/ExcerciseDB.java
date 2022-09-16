@@ -21,7 +21,7 @@ public class ExcerciseDB {
 			return dbRes.getString(1);
 		}
 		
-		return "";
+		return null;
 	}
 	
 	public String getExcericeSolution(Integer exerciseNumber) throws SQLException {
@@ -39,4 +39,21 @@ public class ExcerciseDB {
 		
 		return "";
 	}
+	
+	public String getExcericeTestSourceCode(Integer exerciseNumber) throws SQLException {
+		String sql = "SELECT exercise_test FROM bwi420_6xxxxx.excercise WHERE id = ?";
+		System.out.println(sql);
+		Connection dbConn = new PostgreSQLAccess().getConnection();
+		PreparedStatement prep = dbConn.prepareStatement(sql);
+		prep.setInt(1, exerciseNumber);
+		prep.execute();
+		
+		ResultSet dbRes = prep.executeQuery();
+		if (dbRes.next()) {
+			return dbRes.getString(1).trim();
+		}
+		
+		return "";
+	}
+	
 }

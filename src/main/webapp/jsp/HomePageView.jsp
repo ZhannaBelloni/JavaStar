@@ -64,6 +64,9 @@ if (!loginBean.isLoggedIn()) {
 <form action="./ExerciseCode.jsp" method="get">
     <input type="submit" name="exerciseNum" value="1" />
 </form>
+<form action="./ExerciseCode.jsp" method="get">
+    <input type="submit" name="exerciseNum" value="2" />
+</form>
 
 
 </html>

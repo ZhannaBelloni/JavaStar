@@ -3,11 +3,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<jsp:useBean id="obj" class="de.hwg_lu.java_star.excercises.EvilExecutor" />
 <jsp:useBean id="tester" class="de.hwg_lu.java_star.excercises.Tester" />
 <jsp:useBean id="loginBean" class="de.hwg_lu.java_star.beans.LoginBean" scope="session" />
-
-<jsp:setProperty property="*" name="obj" />
     
 <%
 if (loginBean.isLoggedIn()) {
@@ -35,12 +32,14 @@ String sourceCode = request.getParameter("sourceCode");
 // 
 
 String executionOut = "";
+boolean compilationError = false;
 
+/*
 if (sourceCode.contains("main(String[] ")) {
 	// out.println("main found<br>");
 	// out.println(obj.prepareRequest(sourceCode) + "<br>");
 
-	executionOut = obj.execute(sourceCode);
+	executionOut = tester.execute(sourceCode);
 	// out.print("##################################<br>");
 	// out.print(executionOut + "<br>");
 	if (executionOut.contains("Compiler exited with result code")) {
@@ -50,39 +49,58 @@ if (sourceCode.contains("main(String[] ")) {
 	}
 
 } else {
+	*/
 	// out.println("main NOT found<br>");
-	// out.println(tester.prepareRequest(sourceCode) + "<br>");
-	
-	executionOut = tester.testExcercise(sourceCode);
+	out.println("preparedSourceCode<br>");
+	String preparedSourceCode = tester.prepareSourceCode(sourceCode, numEx);
+	out.println(preparedSourceCode + "<br>");
+	out.println("preparedRequest<br>");
+	out.println(tester.prepareRequest(preparedSourceCode) + "<br>");
+	executionOut = tester.testExcercise(sourceCode, numEx);
 
 	// out.print("##################################<br>");
 	// out.print(executionOut + "<br>");
 	if (executionOut.contains("Compiler exited with result code")) {
 		out.print("Try again there was an error<br>");
+		compilationError = true;
 	} else {
 		out.print("Compiled: Very good!<br>");
 	}
-}
+// }
 
 
 int indexOut = executionOut.indexOf("out:");
 
-if (executionOut.substring(indexOut + 4).equals(expectedOut)) {
+if (!compilationError && !executionOut.isEmpty() && executionOut.substring(indexOut + 4).equals(expectedOut)) {
 	out.print("Very good!<br>");
-	out.print("Expected " + expectedOut + ", got " + executionOut.substring(indexOut + 4) + "<br>");
-
+	// out.print("Expected " + expectedOut + ", got " + executionOut.substring(indexOut + 4) + "<br>");
+	out.print("<form action='./ExerciseCode.jsp' method='get'>");
+	int next = numEx + 1;
+	out.print("<input type='hidden' name='exerciseNum' value=" + next + " />");
+	out.print("<input type='submit' value='next'/>");
+	out.print("</form>");
 }
 else {
 	out.print("Error!<br>");
-	out.print("Expected " + expectedOut + ", got " + executionOut.substring(indexOut + 4));
+	// out.print("Expected " + expectedOut + ", got " + executionOut.substring(executionOut.isEmpty() ? 0 : (indexOut + 4)));
 	
 	out.print("<form action='./ExerciseCode.jsp' method='get'>");
 	out.print("<input type='hidden' name='exerciseNum' value=" + exerciseNumber + " />");
 	out.print("<input type='hidden' name='sourceCode' value='" + sourceCode + "'/>");
 	out.print("<input type='submit' value='retry'/>");
 	out.print("</form>");
+	
+	int next = numEx + 1;
+	out.print("<form action='./ExerciseCode.jsp' method='get'>");
+	out.print("<input type='hidden' name='exerciseNum' value=" + next + " />");
+	out.print("<input type='submit' value='next'/>");
+	out.print("</form>");
 
 }
+
+out.print("<form action='./HomePageView.jsp' method='get'>");
+out.print("<input type='submit' value='home'/>");
+out.print("</form>");
 
 %>
 
