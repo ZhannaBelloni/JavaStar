@@ -1,0 +1,10 @@
+Write a Java Class LexicalCompare to compare two strings lexicographically.<br>
+Two strings are lexicographically equal if<br> 
+they are the same length and contain the same characters in the same positions.<br>
+The class set the first string in the constructor and implements the method:<br>
+int compare(String secondString)<br>
+x.compare(y)<br> 
+will return value <br>
+0: if (x==y) <br>
+-1: if (x < y) <br>
+1: if (x > y) <br>

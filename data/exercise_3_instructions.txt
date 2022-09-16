@@ -1,0 +1,5 @@
+Write a class IntegerSum that performs arbitrary sums of integer in different steps.<br>
+It has 2 method<br> 
+    void addAddend(int a): add a number to be added <br>
+    int execute(): finalize the addition <br>
+

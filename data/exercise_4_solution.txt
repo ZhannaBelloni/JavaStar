@@ -1,0 +1,17 @@
+class LexicalCompare {
+    private String lhs = "";
+    LexicalCompare(String lhs) {
+        this.lhs = lhs;
+    } 
+    
+    int compare(String rhs) {
+        if (lhs == null) {
+            if (rhs == null) {
+                return 0;
+            } else {
+                return 1;
+            }
+        }
+        return lhs.compareTo(rhs);
+    }
+}

@@ -1,1 +1,1 @@
-"Write a program that print to console "Hello Java Star"
+Write a program that print to console "Hello Java Star"

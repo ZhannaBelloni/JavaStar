@@ -1,0 +1,18 @@
+class IntegerSum {
+	ArrayList<Integer> addends = new ArrayList<Integer>();
+	
+	public void addAddend(int n) {
+	    addends.add(n);
+	}
+	
+	public int execute() {
+		int total = 0;
+	    for (Integer a : addends) {
+	    	total += a;
+	    }
+	    // clean container
+	    addends = new ArrayList<Integer>();
+	    return total;
+	}
+
+}
