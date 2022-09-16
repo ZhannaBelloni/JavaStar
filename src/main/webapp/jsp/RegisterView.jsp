@@ -6,8 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>JavaStar-Registration</title>
-<script type="text/javascript" src="../js/BW4S.js" ></script>
-<link rel="stylesheet" type="text/css" href="../css/BW4S.css" />
+<link rel="stylesheet" href="../css/JavaStarBasic.css">
 </head>
 <body>
 

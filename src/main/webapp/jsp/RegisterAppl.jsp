@@ -11,6 +11,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Register in JavaStar</title>
+<link rel="stylesheet" href="../css/JavaStarBasic.css">
 </head>
 
 

@@ -9,60 +9,8 @@
 <head>
 
 
-<style>
-body {
-  font-family: "Lato", sans-serif;
-}
-
-.sidenav {
-  height: 100%;
-  width: 0;
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  left: 0;
-  background-color: #111;
-  overflow-x: hidden;
-  transition: 0.5s;
-  padding-top: 60px;
-}
-
-.sidenav a {
-  padding: 8px 8px 8px 32px;
-  text-decoration: none;
-  font-size: 25px;
-  color: #818181;
-  display: block;
-  transition: 0.3s;
-}
-
-.sidenav input {
-  padding: 1px 1px 1px 12px;
-  text-decoration: none;
-  font-size: 15px;
-  color: #818181;
-  display: block;
-  transition: 0.3s;
-  margin-left: 50px;
-}
-
-.sidenav a:hover {
-  color: #f1f1f1;
-}
-
-.sidenav .closebtn {
-  position: absolute;
-  top: 0;
-  right: 25px;
-  font-size: 36px;
-  margin-left: 50px;
-}
-
-@media screen and (max-height: 450px) {
-  .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
-}
-</style>
+<!-- style></style-->
+<link rel="stylesheet" href="../css/JavaStarBasic.css">
 
 
 <jsp:useBean id="loginBean" class="de.hwg_lu.java_star.beans.LoginBean" scope="session" />
@@ -141,6 +89,17 @@ function closeNav() {
 <p>This website will help you to ...</p>
 <p>Register or login to take the course and solve exercises</p>
 
+<pre>
+  <code>
+// Your First Program
+class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello, World!"); 
+    }
+}
+  </code>
+</pre>
+
 <%
 if (!loginBean.isLoggedIn()) {
 	
@@ -154,11 +113,12 @@ if (!loginBean.isLoggedIn()) {
 }
 %>
 <%
-	for (int num = 1; num <= numTot; ++num) {
-		out.println("<form action='./ExerciseCode.jsp' method='get'>");
-		out.println("	    <input type='submit' name='exerciseNum' value='" + num + "' />");
-		out.println("</form>");
-	}
+for (int num = 1; num <= numTot; ++num) {
+	out.println("<form action='./ExerciseCode.jsp' method='get'>");
+	out.println("    <input type='hidden' name='exerciseNum' value=" + num + " />");
+	out.println("	 <input type='submit' value='Exercise " + num + "' />");
+	out.println("</form>");
+}
 %>
 
 
