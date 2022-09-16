@@ -29,7 +29,11 @@
     <form action='compileCode.jsp'>
     <textarea id="sourceCode" name="sourceCode" rows="10" cols="80"><%
     String sourceCode = request.getParameter("sourceCode");
-    if (sourceCode != null) {
+    String withSolution = request.getParameter("withSolution");    
+    if (withSolution != null) {
+    	String expectedOut = ex.getExcericeSourceCodeSolution(numEx);
+out.println(expectedOut);
+    } else if (sourceCode != null) {
 out.println(sourceCode);
     } else {
 // Insert Code
@@ -41,6 +45,28 @@ out.println(sourceCode);
     
     <input type="submit" value="verify">  
     </form> 
+    
+    <form action='./ExerciseCode.jsp' method='get'>
+	<input type='submit' value='solution'/>
+	<%
+    out.println("<input type='hidden' name='exerciseNum' value='" + exerciseNumber + "'/>");
+    out.println("<input type='hidden' name='withSolution' value='true'/>");
+    %>
+	</form>
+
+	<form action='./ExerciseCode.jsp' method='get'>
+	<input type='submit' value='previous'/>
+	<%
+    out.println("<input type='hidden' name='exerciseNum' value='" + (numEx - 1) + "'/>");
+    %>
+	</form>
+	
+	<form action='./ExerciseCode.jsp' method='get'>
+	<input type='submit' value='next'/>
+	<%
+    out.println("<input type='hidden' name='exerciseNum' value='" + (numEx + 1) + "'/>");
+    %>
+	</form>
     
     <form action='./HomePageView.jsp' method='get'>
 	<input type='submit' value='home'/>

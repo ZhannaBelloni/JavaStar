@@ -28,6 +28,7 @@ public class AdminDB {
 	public void createJavaStarSchema(PostgreSQLAccess jdbcAccess) throws SQLException {
 		System.out.println("Creating schema for 'JAVA_STAR' application");
 		this.createSchema(jdbcAccess.createConnection(), jdbcAccess.getSchema());
+		
 	}
 	
 	public void createTableAccounts(Connection connection) throws SQLException {
@@ -101,6 +102,15 @@ public class AdminDB {
 	
 	
 	public static void main(String[] args) {
+		
+		AdminDBCleaner admin = new AdminDBCleaner();
+		try {
+			PostgreSQLAccess access = new PostgreSQLAccess();
+			admin.cleanupJavaStarSchema(access);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 		
 		AdminDB adminDB = new AdminDB();
 		try {

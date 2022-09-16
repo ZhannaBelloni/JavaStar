@@ -17,7 +17,9 @@ public class AdminDBCleaner {
 	
 	public void cleanupJavaStarSchema(PostgreSQLAccess jdbcAccess) throws SQLException {
 		System.out.println("Creating schema for 'JAVA_STAR' application");
-		this.deleteSchema(jdbcAccess.createConnection(), jdbcAccess.getSchema());
+		Connection conn = jdbcAccess.createConnection();
+		this.deleteSchema(conn, jdbcAccess.getSchema());
+		conn.close();
 	}
 	
 	

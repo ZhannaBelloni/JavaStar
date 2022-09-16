@@ -1,4 +1,5 @@
 <%@page import="de.hwg_lu.java_star.jdbc.ExcerciseDB"%>
+<%@page import="java.util.regex.*"%>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -9,8 +10,10 @@
 <%
 if (loginBean.isLoggedIn()) {
 	out.println("<p style=\"text-align:right;\"> hallo, " + loginBean.getUserid() + "</p>" );
+	/*
 	out.println("<p style=\"text-align:right;\"> execise done " + loginBean.getNumberExDone() + "</p>" );
 	out.println("<p style=\"text-align:right;\"> execise correct " + loginBean.getCorrectEx() + "</p>" );
+	*/
 	out.println("<form action=\"./LogoutAppl.jsp\" method=\"get\">" +
 			"<input style=\"float: right;\" type=\"submit\" name=\"logout\" value=\"logout\" />" +
 	"</form>");
@@ -51,15 +54,25 @@ if (sourceCode.contains("main(String[] ")) {
 } else {
 	*/
 	// out.println("main NOT found<br>");
+	/* 
 	out.println("preparedSourceCode<br>");
 	String preparedSourceCode = tester.prepareSourceCode(sourceCode, numEx);
 	out.println(preparedSourceCode + "<br>");
 	out.println("preparedRequest<br>");
 	out.println(tester.prepareRequest(preparedSourceCode) + "<br>");
+	*/
 	executionOut = tester.testExcercise(sourceCode, numEx);
 
 	// out.print("##################################<br>");
-	// out.print(executionOut + "<br>");
+	String pattern = ".{1,80}(?!\\S)";
+	Pattern r = Pattern.compile(pattern);
+	Matcher m = r.matcher(executionOut);
+	out.print("<xmp>");
+	while (m.find()) {
+    	out.println(m.group(0).trim());
+	}
+	out.println("</xmp><br>");
+	
 	if (executionOut.contains("Compiler exited with result code")) {
 		out.print("Try again there was an error<br>");
 		compilationError = true;
@@ -75,7 +88,12 @@ if (!compilationError && !executionOut.isEmpty() && executionOut.substring(index
 	out.print("Very good!<br>");
 	// out.print("Expected " + expectedOut + ", got " + executionOut.substring(indexOut + 4) + "<br>");
 	out.print("<form action='./ExerciseCode.jsp' method='get'>");
+	out.print("<input type='hidden' name='exerciseNum' value=" + exerciseNumber + " />");
+	out.print("<input type='hidden' name='sourceCode' value='" + sourceCode + "'/>");
+	out.print("<input type='submit' value='retry'/>");
+	out.print("</form>");
 	int next = numEx + 1;
+	out.print("<form action='./ExerciseCode.jsp' method='get'>");
 	out.print("<input type='hidden' name='exerciseNum' value=" + next + " />");
 	out.print("<input type='submit' value='next'/>");
 	out.print("</form>");
