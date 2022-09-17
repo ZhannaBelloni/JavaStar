@@ -1,0 +1,8 @@
+Write a Java Class IntMatrix that implements matrix operation:<br>
+* the Constructor accept number of rows and number of columns as parameters in this order.<br>
+* IntMatrix add(IntMatrix b): add matrix b and save the result in a new matrix. It does not modify the original matrix!<br>
+  it thorws ArithmeticException if necessary<br>
+* InMatrix multiply(IntMatrix b): multiply this matrix and b, without modifying this matrix.<br>
+it thorws ArithmeticException if necessary<br>
+* void set(int row, int column, int value): throw ArrayIndexOutOfBoundsException if necessary<br>
+* int get(int row, int column):  throw ArrayIndexOutOfBoundsException if necessary<br>

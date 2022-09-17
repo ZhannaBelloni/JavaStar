@@ -107,6 +107,7 @@ if (!compilationError && !executionOut.isEmpty() && executionOut.substring(index
 	out.println("<input type='hidden' name='exerciseNum' value='" + (numEx - 1) + "'/>");
 	%>
 </form>
+
 <%
 out.println("<form action='./ExerciseCode.jsp' method='get'>");
 out.println("<input type='hidden' name='exerciseNum' value=" + exerciseNumber + " />");

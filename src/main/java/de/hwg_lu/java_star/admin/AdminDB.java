@@ -165,8 +165,8 @@ public class AdminDB {
 			+ "id                  INTEGER       PRIMARY KEY NOT NULL, "
 			+ "exercise_text       VARCHAR(1024)             NOT NULL, "
 			+ "exercise_out        VARCHAR(1024)             NOT NULL,"
-			+ "exercise_solution   VARCHAR(1024)             NOT NULL,"
-			+ "exercise_test       VARCHAR(1024)             NOT NULL"
+			+ "exercise_solution   VARCHAR(2048)             NOT NULL,"
+			+ "exercise_test       VARCHAR(2048)             NOT NULL"
 			+ ")";
 	
 	

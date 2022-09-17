@@ -28,9 +28,19 @@ public class Tester {
 				
 	}
 	
+	public String cleanStringForRequest(String sourceCode) {
+		return sourceCode.replaceAll("/\\*{1,2}[\\s\\S]*?\\*/", "")
+		  .replaceAll("//[\\s\\S]*?\\n", "")
+		  .replace("\t", " ")
+		  .replace("\n", " ")
+		  .replace("\\n", " ")
+		  .replace("\r", " ")
+		  .replace("\"", "\\\"");
+	}
+	
 	public String prepareRequest(String sourceCode) {
 		String jsonInputString = "{";
-		jsonInputString += "\"source\": \"" + sourceCode.replaceAll("/\\*{1,2}[\\s\\S]*?\\*/", "").replaceAll("//[\\s\\S]*?\\n", "").replace("\"", "\\\"").replace("\t", " ").replace("\n", " ").replace("\r", "") + "\"";
+		jsonInputString += "\"source\": \"" + cleanStringForRequest(sourceCode) + "\"";
 		jsonInputString += ", \"options\": {" + "\"compilerOptions\": {" + "    \"executorRequest\": true" + "},"
 				+ "\"filters\": {" + "    \"execute\": true" + "}";
 		jsonInputString += "}}";
