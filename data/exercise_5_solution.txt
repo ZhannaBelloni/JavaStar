@@ -1,59 +1,59 @@
-class IntMatrix {	
-		int numberOfRows = 0;
-		int numberOfColumns = 0;
-		int[][] matrix = null;
-		
-		IntMatrix(int rows, int columns) {
-			this.numberOfRows = rows;
-			this.numberOfColumns = columns;
-			this.matrix = new int[rows][columns];
-		}
-		
-		IntMatrix add(IntMatrix other) {
-			if (this.numberOfRows != other.numberOfRows || this.numberOfColumns != other.numberOfColumns) {
-				throw new ArithmeticException();
-			}
-			
-			IntMatrix sum = new IntMatrix(this.numberOfRows, this.numberOfColumns);
-			for (int i = 0; i < this.numberOfRows; ++i) {
-				for (int j = 0; j < this.numberOfColumns; ++j) {
-					sum.matrix[i][j] = this.matrix[i][j] + other.matrix[i][j];
-				}
-			}
-			return sum;
-		}
-		
-		IntMatrix multiply(IntMatrix other) {
-			if (this.numberOfColumns != other.numberOfRows) {
-				throw new ArithmeticException();
-			}
-			
-			IntMatrix product = new IntMatrix(this.numberOfRows, other.numberOfColumns);
-			
-			for (int i = 0; i < this.numberOfRows; ++i) {
-				for (int j = 0; j < this.numberOfColumns; ++j) {
-					product.matrix[i][j] = 0;
-					for (int k = 0; k < this.numberOfColumns; ++k) {
-						product.matrix[i][j] += this.matrix[i][k] * other.matrix[k][j];
-					} 
-				}
-			}
-			
-			return product;
-		}
-		
-		void set(int row, int column, int value) {
-			if (row > this.numberOfRows || column > this.numberOfColumns) {
-				throw new ArrayIndexOutOfBoundsException();
-			}
-			this.matrix[row][column] = value;
-		}
-		
-		int get(int row, int column) {
-			if (row > this.numberOfRows || column > this.numberOfColumns) {
-				throw new ArrayIndexOutOfBoundsException();
-			}
-			return this.matrix[row][column];
-		}
-		
-	}
+class IntMatrix {   
+   int numberOfRows = 0;
+   int numberOfColumns = 0;
+   int[][] matrix = null;
+   
+   IntMatrix(int rows, int columns) {
+      this.numberOfRows = rows;
+      this.numberOfColumns = columns;
+      this.matrix = new int[rows][columns];
+   }
+   
+   IntMatrix add(IntMatrix other) {
+      if (this.numberOfRows != other.numberOfRows || this.numberOfColumns != other.numberOfColumns) {
+      throw new ArithmeticException();
+      }
+      
+      IntMatrix sum = new IntMatrix(this.numberOfRows, this.numberOfColumns);
+      for (int i = 0; i < this.numberOfRows; ++i) {
+      for (int j = 0; j < this.numberOfColumns; ++j) {
+      sum.matrix[i][j] = this.matrix[i][j] + other.matrix[i][j];
+      }
+      }
+      return sum;
+   }
+   
+   IntMatrix multiply(IntMatrix other) {
+      if (this.numberOfColumns != other.numberOfRows) {
+      throw new ArithmeticException();
+      }
+      
+      IntMatrix product = new IntMatrix(this.numberOfRows, other.numberOfColumns);
+      
+      for (int i = 0; i < this.numberOfRows; ++i) {
+      for (int j = 0; j < this.numberOfColumns; ++j) {
+      product.matrix[i][j] = 0;
+      for (int k = 0; k < this.numberOfColumns; ++k) {
+         product.matrix[i][j] += this.matrix[i][k] * other.matrix[k][j];
+      } 
+      }
+      }
+      
+      return product;
+   }
+   
+   void set(int row, int column, int value) {
+      if (row > this.numberOfRows || column > this.numberOfColumns) {
+      throw new ArrayIndexOutOfBoundsException();
+      }
+      this.matrix[row][column] = value;
+   }
+   
+   int get(int row, int column) {
+      if (row > this.numberOfRows || column > this.numberOfColumns) {
+      throw new ArrayIndexOutOfBoundsException();
+      }
+      return this.matrix[row][column];
+   }
+   
+   }

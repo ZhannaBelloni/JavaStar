@@ -1,34 +1,34 @@
 import java.util.*;
 
 class MyTester {
-	
-	%%INSERT_CODE_HERE%%
-	
-	public static void main(String[] args) {
-		
-		String output = "OK";
-		
-		IntegerSum isum = new MyTester().new IntegerSum();
-		isum.addAddend(0);
-		isum.addAddend(1);
-		isum.addAddend(2);
-		isum.addAddend(3);
-		isum.addAddend(4);
-		isum.addAddend(5);
-		int totalSum = isum.execute();
-		if (totalSum != 15) {
-			output += "error sum of 0 + 1 + 2 + 3 + 4 + 5 is 15!";
-		}
-		isum.addAddend(10);
-		isum.addAddend(1);
-		isum.addAddend(2);
-		isum.addAddend(3);
-		isum.addAddend(4);
-		isum.addAddend(5);
-		totalSum = isum.execute();
-		if (totalSum != 25) {
-			output += "error sum of 10 + 1 + 2 + 3 + 4 + 5 is 25, your program calculated it to be " + totalSum;
-		}		
-		System.out.println(output);
-	}
+   
+   %%INSERT_CODE_HERE%%
+   
+   public static void main(String[] args) {
+   
+   String output = "OK";
+   
+   IntegerSum isum = new MyTester().new IntegerSum();
+   isum.addAddend(0);
+   isum.addAddend(1);
+   isum.addAddend(2);
+   isum.addAddend(3);
+   isum.addAddend(4);
+   isum.addAddend(5);
+   int totalSum = isum.execute();
+   if (totalSum != 15) {
+      output += "error sum of 0 + 1 + 2 + 3 + 4 + 5 is 15!";
+   }
+   isum.addAddend(10);
+   isum.addAddend(1);
+   isum.addAddend(2);
+   isum.addAddend(3);
+   isum.addAddend(4);
+   isum.addAddend(5);
+   totalSum = isum.execute();
+   if (totalSum != 25) {
+      output += "error sum of 10 + 1 + 2 + 3 + 4 + 5 is 25, your program calculated it to be " + totalSum;
+   }   
+   System.out.println(output);
+   }
 }
