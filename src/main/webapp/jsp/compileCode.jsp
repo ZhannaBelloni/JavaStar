@@ -10,6 +10,10 @@
 <jsp:useBean id="loginBean" class="de.hwg_lu.java_star.beans.LoginBean"
 	scope="session" />
 
+<form action='./HomePageView.jsp' method='get'>
+<input type='image' alt='Submit' value='home' src='../images/home.png' width='48' height='48'/>
+</form>
+
 <%
 if (loginBean.isLoggedIn()) {
 	out.println("<p style=\"text-align:right;\"> hallo, " + loginBean.getUserid() + "</p>");
@@ -120,9 +124,6 @@ out.println("<input type='hidden' name='exerciseNum' value=" + next + " />");
 out.println("<input type='image' alt='Submit' value='home' src='../images/next.png' width='48' height='48'/>");
 out.println("</form>");
 
-out.print("<form action='./HomePageView.jsp' method='get'>");
-out.print("<input type='image' alt='Submit' value='home' src='../images/home.png' width='48' height='48'/>");
-out.print("</form>");
 %>
 
 </div>

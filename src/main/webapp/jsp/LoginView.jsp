@@ -5,40 +5,59 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<link rel="stylesheet" href="../css/JavaStarBasic.css">
+<link rel="stylesheet" href="../css/Login.css">
 <title>JAVA STAR-Login</title>
 </head>
 <body>
 
 <jsp:useBean id="loginBean" class="de.hwg_lu.java_star.beans.LoginBean" scope="session" />
 
+
+
+<div>
+<form action='./HomePageView.jsp' method='get'>
+<input type='image' alt='Submit' value='home' src='../images/home.png' width='48' height='48'/>
+</form>
+<div class="login-two">
+  <p class="login-if-you-already-a-student-or-regist">
+    Login if you already a student or register if you a new
+    one<br>
+  </p>
+
 <form action="./LoginAppl.jsp" method="get">
 	<table>
 		<tr>
-			<td>Nickname:</td>
+			<td><div class="flex-wrapper-four">
+      <p class="name">Name:</p>
+          </div>:</td>
 			<td>
-				<input type="text" name="userid" 
+				<input class="rectangle-2" type="text" name="userid" 
 					value='<jsp:getProperty name="loginBean" property="userid" />' 
 				/>
 			</td>
 		</tr>
 		<tr>
-			<td>Passwort:</td>
+			<td><div class="flex-wrapper-four">
+      <p class="name">Password:</p></div></td>
 			<td>
-				<input type="password" name="password" 
+				<input class="rectangle-2" type="password" name="password" 
 					value="" />
 			</td>
 		</tr>
 		<tr>
 			<td></td>
 			<td>
-				<input type="submit" name="btnLogin" value="login" />
+				<input class="flex-wrapper-two" type="submit" name="btnLogin" value="login" />
 			</td>
 		</tr>
 	</table>
 </form>
-<p>Noch kein Nickname? Registrieren Sie sich
-<a href="./RegisterView.jsp">hier</a>!
+
+</div></div>
+
+<div class="flex-wrapper-three">
+<a class="login" href="./RegisterView.jsp">I am a new one here</a>!
+</div>
 
 </body>
 </html>

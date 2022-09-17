@@ -14,6 +14,11 @@
 <title>Insert title here</title>
 </head>
 <body>
+
+<form action='./HomePageView.jsp' method='get'>
+<input type='image' alt='Submit' value='home' src='../images/home.png' width='48' height='48'/>
+</form>
+
     <p style="border-width:3px; border-style:solid; border-color:#FF0000; padding: 1em;">
     <%
     String exerciseNumber = request.getParameter("exerciseNum");
@@ -72,10 +77,6 @@ out.println(sourceCode);
 	<%
     out.println("<input type='hidden' name='exerciseNum' value='" + (numEx + 1) + "'/>");
     %>
-	</form>
-    
-    <form action='./HomePageView.jsp' method='get'>
-		<input type='image' alt='Submit' value='home' src='../images/home.png' width='48' height='48'/>
 	</form>
 	</div>
 
