@@ -17,6 +17,8 @@
 		scope="session" />
 	<jsp:useBean id="messageBean"
 		class="de.hwg_lu.java_star.beans.MessageBean" scope="session" />
+
+		
 	<%
 	String userid = request.getParameter("userid");
 	String password = request.getParameter("password");

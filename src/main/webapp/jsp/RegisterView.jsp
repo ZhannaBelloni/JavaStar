@@ -9,67 +9,85 @@
 <!-- meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"-->
 <title>JavaStar-Registration</title>
 <!-- link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/Register.css" -->
-<link type="text/css" rel="stylesheet" href="../css/Register.css">
+<link type="text/css" rel="stylesheet" href="../css/Register.css?2">
+
 
 </head>
 <body>
 
-	<form action='./HomePageView.jsp' method='get'>
-		<input type='image' alt='Submit' value='home' src='../images/home.png'
-			width='48' height='48' />
-	</form>
+	<jsp:useBean id="loginBean" class="de.hwg_lu.java_star.beans.LoginBean"
+		scope="session" />
 
-	<div class="register">
-		<p class="join-us-now">Join us now!</p>
-		<form action="./RegisterAppl.jsp" method="get"
-			onsubmit="return checkInput(this)">
-			<table>
-				<tr>
-					<td>
-						<div class="flex-wrapper-one">
-							<p class="label">Name:</p>
-						</div>
-					</td>
-					<td><input class="rectangle-2" type="text" name="userid"
-						value=''
-						onkeyup="checkValueAndSetFehlerMsg(this.name, this.value)" /></td>
-					<td id="useridMsg"></td>
-				</tr>
-				<tr>
-					<td>
-						<div class="flex-wrapper-one">
-							<p class="label">Password:</p>
-						</div>
-					</td>
-					<td><input class="rectangle-2" type="password" name="password"
-						value=""
-						onchange="checkValueAndSetFehlerMsg('password', this.value)"
-						onkeyup="checkValueAndSetFehlerMsg('password', this.value)" /></td>
-					<td id="passwordMsg"></td>
-				</tr>
-				<tr>
-					<td>
-						<div class="flex-wrapper-one">
-							<p class="label">e-mail:</p>
-						</div>
-					</td>
-					<td><input class="rectangle-2" type="text" name="email"
-						value=''
-						onkeyup="checkValueAndSetFehlerMsg(this.name, this.value)" /></td>
-					<td id="emailMsg"></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td><div class='relative-wrapper-one'>
-							<input class="rectangle-5" type="submit" name="logon"
-								value="logon" onclick="setButtonClicked(this.name)" />
-						</div></td>
-					<td></td>
-				</tr>
-			</table>
+	<div class='topnav'>
+		<div class='login-container'>
+			<%
+			if (loginBean.isLoggedIn()) {
+				out.println("<div style='display: flex;'>");
+				out.println("  <img src='../images/user_0.png' width='48' height='48'/>");
+				out.println("  <p class='hallo_user'>Hello, " + loginBean.getUserid() + "!!</p>");
+				out.println("  <form class='logout' action='./LogoutAppl.jsp' method='get'>");
+				out.println(
+				"    <input type='image' alt='Submit' name='logout' value='logout' src='../images/logout.jpg'  width='48' height='48'/>");
+				out.println("    </form>");
+				out.println("</div>");
+			} else {
+				out.println("<form action='LoginAppl.jsp'>");
+				out.println("   <input type='text' placeholder='Username' name='userid'>");
+				out.println("   <input type='text' placeholder='Password' name='password'>");
+				out.println("<button type='submit'>Login</button>");
+				out.println("</form>");
+			}
+			out.println("<form action='./HomePageView.jsp' method='get'>" +
+			"<input type='image' alt='Submit' value='home' src='../images/home.png' width='48' height='48'/>						</form>");
 
-
-		</form>
+			%>
+			
+							
+		</div>
 	</div>
-</body>
+
+
+	<div class="signup__container">
+		<div class="container__child signup__thumbnail">
+			<div class="thumbnail__logo">
+			</div>
+			<div class="thumbnail__content text-center">
+				<h1 class="heading--primary">Welcome to Java Star.</h1>
+				<h2 class="heading--secondary">Are you ready to join?</h2>
+			</div>	
+			<div class="signup__overlay"></div>
+		</div>
+		<div class="container__child signup__form">
+			<form action="./RegisterAppl.jsp">
+				<div class="form-group">
+					<label for="username">Username</label> <input class="form-control"
+						type="text" name="userid" id="username" placeholder="username"
+						required />
+				</div>
+				<div class="form-group">
+					<label for="email">Email</label> <input class="form-control"
+						type="text" name="email" id="email"
+						placeholder="user@name.de" required />
+				</div>
+				<div class="form-group">
+					<label for="password">Password</label> <input class="form-control"
+						type="password" name="password" id="password"
+						placeholder="********" required />
+				</div>
+				<div class="form-group">
+					<label for="passwordRepeat">Repeat Password</label> <input
+						class="form-control" type="password" name="passwordRepeat"
+						id="passwordRepeat" placeholder="********" required />
+				</div>
+				<div class="m-t-lg">
+					<ul class="list-inline">
+						<li><input class="btn btn--form" type="submit"
+							value="Register" /></li>
+						<li><a class="signup__link" href="./LoginView.jsp">I am already a
+								register</a></li>
+					</ul>
+				</div>
+			</form>
+		</div>
+	</div>
 </html>
