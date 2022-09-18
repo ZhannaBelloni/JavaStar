@@ -21,7 +21,10 @@
 	loginBean.setUserid("");
 	loginBean.setPassword("");
 	loginBean.setLoggedIn(false);
+//	response.sendRedirect("./HomePageView.jsp");
 	response.sendRedirect("./HomePageView.jsp");
+
 	%>
+	
 </body>
 </html>
