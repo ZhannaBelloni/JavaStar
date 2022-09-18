@@ -98,10 +98,16 @@ if (loginBean.isLoggedIn()) {
 <p class="welcome">
    Welcome to our Online school of JAVA Programming!
 </p>
-<div class="rectangle-7">
-<p class="start-study-with-us">Start Study with us!</p>
-</div>
 
+<%
+if (!loginBean.isLoggedIn()) {
+	out.println("<div class='rectangle-7'>");
+	out.println("<form action=\"./RegisterView.jsp\" method=\"get\">");
+	out.println("<input class='start-study-with-us' type=\"submit\" name='register' value='Start Study with us!' />");
+	out.println("</form>");
+	out.println("</div>");
+}
+%>
 
 <p>This website will help you to ...</p>
 <p>Register or login to take the course and solve exercises</p>
@@ -119,11 +125,6 @@ class HelloWorld {
 
 <%
 if (!loginBean.isLoggedIn()) {
-	
-	out.println("<form action=\"./RegisterView.jsp\" method=\"get\">");
-	out.println("<input type=\"submit\" name=\"register\" value=\"register\" />");
-	out.println("</form>");
-
 	out.println("<form action='./LoginView.jsp' method='get'>");
 	out.println("<input type='submit' name='login' value='login' />");
 	out.println("</form>");
