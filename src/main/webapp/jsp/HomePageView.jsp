@@ -24,8 +24,8 @@
 	<div class="sidenav" id="mySidenav" style="width: 0">
 		<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
 
-		<a href="#">Course</a> 
-		<a onclick="toggleExcericeSideBar('exSideBar')"	href="#">Exercises</a>
+		<a href="#">Course</a> <a onclick="toggleExcericeSideBar('exSideBar')"
+			href="#">Exercises</a>
 		<div id='exSideBar' style="display: none">
 			<%
 			ExcerciseDB ex = new ExcerciseDB();
@@ -42,8 +42,8 @@
 		<a href="#">Forum</a> <a href="#">Contact</a>
 	</div>
 	<div class='topnav'>
-	<div class='login-container'>
-	<%
+		<div class='login-container'>
+			<%
 	if (loginBean.isLoggedIn()) {
 		out.println("<div style='display: flex;'>");
 		out.println("  <img src='../images/user_0.png' width='48' height='48'/>");
@@ -60,9 +60,9 @@
 		out.println("</form>");
 	}
 	%>
+		</div>
 	</div>
-	</div>
-	
+
 	<p class="welcome">Welcome to our Online school of JAVA
 		Programming!</p>
 	<%

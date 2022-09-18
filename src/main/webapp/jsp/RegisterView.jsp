@@ -21,15 +21,17 @@
 	<div class='topnav'>
 		<div class='login-container'>
 			<%
+			out.println("<div style='display: flex;'>");
+			
 			if (loginBean.isLoggedIn()) {
-				out.println("<div style='display: flex;'>");
+
 				out.println("  <img src='../images/user_0.png' width='48' height='48'/>");
 				out.println("  <p class='hallo_user'>Hello, " + loginBean.getUserid() + "!!</p>");
 				out.println("  <form class='logout' action='./LogoutAppl.jsp' method='get'>");
 				out.println(
 				"    <input type='image' alt='Submit' name='logout' value='logout' src='../images/logout.jpg'  width='48' height='48'/>");
 				out.println("    </form>");
-				out.println("</div>");
+
 			} else {
 				out.println("<form action='LoginAppl.jsp'>");
 				out.println("   <input type='text' placeholder='Username' name='userid'>");
@@ -37,24 +39,25 @@
 				out.println("<button type='submit'>Login</button>");
 				out.println("</form>");
 			}
-			out.println("<form action='./HomePageView.jsp' method='get'>" +
-			"<input type='image' alt='Submit' value='home' src='../images/home.png' width='48' height='48'/>						</form>");
-
-			%>
 			
-							
+			out.println("<form action='./HomePageView.jsp' method='get'>" +
+					"<input type='image' alt='Submit' value='home' src='../images/home.png' width='48' height='48'/>						</form>");
+
+			out.println("</div>");
+			%>
+
+
 		</div>
 	</div>
 
 
 	<div class="signup__container">
 		<div class="container__child signup__thumbnail">
-			<div class="thumbnail__logo">
-			</div>
+			<div class="thumbnail__logo"></div>
 			<div class="thumbnail__content text-center">
 				<h1 class="heading--primary">Welcome to Java Star.</h1>
 				<h2 class="heading--secondary">Are you ready to join?</h2>
-			</div>	
+			</div>
 			<div class="signup__overlay"></div>
 		</div>
 		<div class="container__child signup__form">
@@ -66,8 +69,8 @@
 				</div>
 				<div class="form-group">
 					<label for="email">Email</label> <input class="form-control"
-						type="text" name="email" id="email"
-						placeholder="user@name.de" required />
+						type="text" name="email" id="email" placeholder="user@name.de"
+						required />
 				</div>
 				<div class="form-group">
 					<label for="password">Password</label> <input class="form-control"
@@ -83,8 +86,8 @@
 					<ul class="list-inline">
 						<li><input class="btn btn--form" type="submit"
 							value="Register" /></li>
-						<li><a class="signup__link" href="./LoginView.jsp">I am already a
-								register</a></li>
+						<li><a class="signup__link" href="./LoginView.jsp">I am
+								already a register</a></li>
 					</ul>
 				</div>
 			</form>

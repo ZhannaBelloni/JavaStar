@@ -21,15 +21,14 @@
 
 <body>
 
-	<span class="closedSideNav" onclick="openNav()">&#9776;
-		JAVA STAR</span>
+	<span class="closedSideNav" onclick="openNav()">&#9776; JAVA
+		STAR</span>
 
 	<div class="sidenav" id="mySidenav" style="width: 0">
-		<a href="javascript:void(0)" class="closebtn"
-			onclick="closeNav()">&times;</a> 
-			
-			<a href="#">Course</a> <a
-			onclick="toggleExcericeSideBar('exSideBar')" href="#">Exercises</a>
+		<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+
+		<a href="#">Course</a> <a onclick="toggleExcericeSideBar('exSideBar')"
+			href="#">Exercises</a>
 		<div id='exSideBar' style="display: none">
 			<%
 			ExcerciseDB ex = new ExcerciseDB();

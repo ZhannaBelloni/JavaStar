@@ -12,13 +12,14 @@
 <title>Insert title here</title>
 </head>
 <body>
-<input type='image' alt='Submit' value='home' src='../images/home.png' width='48' height='48'/>
+	<input type='image' alt='Submit' value='home' src='../images/home.png'
+		width='48' height='48' />
 	<jsp:useBean id="loginBean" class="de.hwg_lu.java_star.beans.LoginBean"
 		scope="session" />
 	<jsp:useBean id="messageBean"
 		class="de.hwg_lu.java_star.beans.MessageBean" scope="session" />
 
-		
+
 	<%
 	String userid = request.getParameter("userid");
 	String password = request.getParameter("password");

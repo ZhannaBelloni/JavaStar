@@ -11,7 +11,8 @@
 	scope="session" />
 
 <form action='./HomePageView.jsp' method='get'>
-<input type='image' alt='Submit' value='home' src='../images/home.png' width='48' height='48'/>
+	<input type='image' alt='Submit' value='home' src='../images/home.png'
+		width='48' height='48' />
 </form>
 
 <%
@@ -103,16 +104,16 @@ if (!compilationError && !executionOut.isEmpty() && executionOut.substring(index
 <br>
 <div style="display: flex;">
 
-<form action='./ExerciseCode.jsp' method='get'>
-	<!-- input type='submit' value='previous'/-->
-	<input type='image' alt='Submit' value='home'
-		src='../images/previous.png' width='48' height='48' />
-	<%
+	<form action='./ExerciseCode.jsp' method='get'>
+		<!-- input type='submit' value='previous'/-->
+		<input type='image' alt='Submit' value='home'
+			src='../images/previous.png' width='48' height='48' />
+		<%
 	out.println("<input type='hidden' name='exerciseNum' value='" + (numEx - 1) + "'/>");
 	%>
-</form>
+	</form>
 
-<%
+	<%
 out.println("<form action='./ExerciseCode.jsp' method='get'>");
 out.println("<input type='hidden' name='exerciseNum' value=" + exerciseNumber + " />");
 out.println("<input type='hidden' name='sourceCode' value='" + sourceCode + "'/>");

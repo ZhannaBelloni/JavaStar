@@ -25,6 +25,6 @@
 	response.sendRedirect("./HomePageView.jsp");
 
 	%>
-	
+
 </body>
 </html>

@@ -12,30 +12,26 @@
 <link type="text/css" rel="stylesheet" href="../css/Register.css?2">
 
 
-	<jsp:useBean id="loginBean" class="de.hwg_lu.java_star.beans.LoginBean"
-		scope="session" />
+<jsp:useBean id="loginBean" class="de.hwg_lu.java_star.beans.LoginBean"
+	scope="session" />
 
 </head>
 <body>
-
-		
-				
-				
-		<div class='topnav'>
+	<div class='topnav'>
 		<div class='login-container'>
 			<form action='./HomePageView.jsp' method='get'>
-			<input type='image' alt='Submit' value='home' src='../images/home.png' width='48' height='48'/>						</form>
+				<input type='image' alt='Submit' value='home'
+					src='../images/home.png' width='48' height='48' />
+			</form>
 		</div>
 	</div>
 
 	<div class="signup__container">
 		<div class="container__child signup__thumbnail">
-			<div class="thumbnail__logo">
-			</div>
+			<div class="thumbnail__logo"></div>
 			<div class="thumbnail__content text-center">
-				<h1 class="heading--primary">Welcome to Java Star.</h1>
-				<h2 class="heading--secondary">Are you ready to join?</h2>
-			</div>	
+				<h1 class="heading--primary">Welcome back to Java Star.</h1>
+			</div>
 			<div class="signup__overlay"></div>
 		</div>
 		<div class="container__child signup__form">
@@ -52,9 +48,9 @@
 				</div>
 				<div class="m-t-lg">
 					<ul class="list-inline">
-						<li><input class="btn btn--form" type="submit"
-							value="Login" /></li>
-						<li><a class="signup__link" href="./RegisterView.jsp">create a new account</a></li>
+						<li><input class="btn btn--form" type="submit" value="Login" /></li>
+						<li><a class="signup__link" href="./RegisterView.jsp">create
+								a new account</a></li>
 					</ul>
 				</div>
 			</form>
