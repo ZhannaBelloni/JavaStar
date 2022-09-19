@@ -4,10 +4,20 @@ public class Comment {
 
     String user = "";
     String comment = "";
+    String time = "";
     
-    public Comment(String user, String comment) {
+    public Comment(String user, String comment, String timestamp) {
         this.user = user;
         this.comment = comment;
+        this.time = timestamp;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 
     public String getUser() {

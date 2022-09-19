@@ -164,7 +164,7 @@ public class AdminDB {
 			+ ")";
 	
 	String CREATE_COMMENTS_TABLE = "CREATE TABLE IF NOT EXISTS \"comments\" (" 
-			+ "time      TIMESTAMP  NOT NULL, "
+			+ "time      TIMESTAMP  WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP, "
 			+ "userid    CHAR(32)   NOT NULL, "
 			+ "comment   CHAR(512)  NOT NULL  "
 			+ ")";

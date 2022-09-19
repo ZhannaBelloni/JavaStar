@@ -12,6 +12,8 @@
 <meta charset="UTF-8">
 
 <link rel='stylesheet' href='../css/HomePage.css'>
+<link rel='stylesheet' href='../css/sidebar.css'>
+<link rel='stylesheet' href='../css/topnav.css'>
 <script type="text/javascript" src="../js/helper.js"></script>
 
 <title>Java Star</title>
@@ -67,7 +69,7 @@
 			%>
 		</div>
 
-		<a href="./ForumView.jsp">Forum</a> <a href="#">Contact</a>
+		<a href="./ForumView.jsp">Comments</a> <a href="#">Contact</a>
 	</div>
 	<div class='topnav'>
 		<div class='login-container'>
