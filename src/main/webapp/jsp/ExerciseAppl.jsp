@@ -104,7 +104,7 @@ if (!compilationError && !executionOut.isEmpty() && executionOut.substring(index
 <br>
 <div style="display: flex;">
 
-	<form action='./ExerciseCode.jsp' method='get'>
+	<form action='./ExerciseView.jsp' method='get'>
 		<!-- input type='submit' value='previous'/-->
 		<input type='image' alt='Submit' value='home'
 			src='../images/previous.png' width='48' height='48' />
@@ -114,13 +114,13 @@ if (!compilationError && !executionOut.isEmpty() && executionOut.substring(index
 	</form>
 
 	<%
-out.println("<form action='./ExerciseCode.jsp' method='get'>");
+out.println("<form action='./ExerciseView.jsp' method='get'>");
 out.println("<input type='hidden' name='exerciseNum' value=" + exerciseNumber + " />");
 out.println("<input type='hidden' name='sourceCode' value='" + sourceCode + "'/>");
 out.println("<input type='image' alt='Submit' value='home' src='../images/retry.png' width='48' height='48'/>");
 out.println("</form>");
 int next = numEx + 1;
-out.println("<form action='./ExerciseCode.jsp' method='get'>");
+out.println("<form action='./ExerciseView.jsp' method='get'>");
 out.println("<input type='hidden' name='exerciseNum' value=" + next + " />");
 out.println("<input type='image' alt='Submit' value='home' src='../images/next.png' width='48' height='48'/>");
 out.println("</form>");

@@ -8,12 +8,11 @@ public class GuiBean {
 
     public static String getSideNavigation() throws SQLException {
         String html = "";
-        
-        html += "<span class='closedSideNav' onclick='openNav()'>&#9776; JAVA STAR</span>";
-        html += "<div class='sidenav' id='mySidenav' style='width: 0'>";
-        html += "    <a href='javascript:void(0)' class='closebtn' onclick='closeNav()'>&times;</a>";
-        html += "    <a href='./HomePageView.jsp'>Home</a> <a";
-        html += "        onclick='toggleExcericeSideBar('courseSideBar')' href='#'>Course</a>";
+        html += "<span class='closedSideNav' onclick='openNav()'>&#9776; JAVA STAR</span>\n"
+                + "    <div class='sidenav' id='mySidenav' style='width: 0'>\n"
+                + "    <a href='javascript:void(0)' class='closebtn' onclick='closeNav()'>&times;</a>";
+        html += "    <a href='./HomePageView.jsp'>Home</a>";
+        html += "    <a onclick=\"toggleExcericeSideBar('courseSideBar')\" href='#'>Course</a>";
         html += "    <div id='courseSideBar' style='display: none'>";
         html += "        <!-- ============================================= -->";
         html += "        <form action='../html/JavaBasic.html' method='get'>";
@@ -42,13 +41,13 @@ public class GuiBean {
         html += "        </form>";
         html += "        <!-- ============================================= -->";
         html += "    </div>";
-        html += "    <a onclick='toggleExcericeSideBar('exSideBar')' href='#'>Exercises</a>";
+        html += "    <a onclick=\"toggleExcericeSideBar('exSideBar')\" href='#'>Exercises</a>";
         html += "    <div id='exSideBar' style='display: none'>";
                
         ExcerciseDB ex = new ExcerciseDB();
         int numTot = ex.getNumberExcerice();
                 for (int num = 1; num <= numTot; ++num) {
-                    html += "<form action='./ExerciseCode.jsp' method='get'>";
+                    html += "<form action='./ExerciseView.jsp' method='get'>";
                     html += "    <input type='hidden' name='exerciseNum' value=" + num + " />";
                     html += "    <input type='submit' value='Exercise " + num + "' />";
                     html += "</form>";

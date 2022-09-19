@@ -1,0 +1,20 @@
+@charset "UTF-8";
+
+body {
+	font-family: "Lato", sans-serif;
+	background-color: rgb(85, 87, 83);
+	margin-left: 8%;
+	margin-right: 10%;
+}
+
+.title {
+	color: #FFFFFF;
+	padding: 0em;
+	font-size: 30px
+}
+
+.text {
+	color: #FFFFFF;
+	padding: 0em;
+	font-size: 15px
+}

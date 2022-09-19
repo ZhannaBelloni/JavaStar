@@ -8,9 +8,6 @@
 <%@page import="de.hwg_lu.java_star.beans.GuiBean"%>
 <%@page import="de.hwg_lu.java_star.utils.Comment"%>
 
-
-
-
 <jsp:useBean id="loginBean" class="de.hwg_lu.java_star.beans.LoginBean"
 	scope="session" />
 
@@ -18,7 +15,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel='stylesheet' href='../css/ForumPage.css?1'>
+<link rel='stylesheet' href='../css/ForumPage.css?0'>
 <link rel='stylesheet' href='../css/sidebar.css?0'>
 <link rel='stylesheet' href='../css/topnav.css?0'>
 <script type="text/javascript" src="../js/helper.js"></script>

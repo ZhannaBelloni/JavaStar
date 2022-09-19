@@ -11,9 +11,9 @@
 <head>
 <meta charset="UTF-8">
 
-<link rel='stylesheet' href='../css/HomePage.css'>
-<link rel='stylesheet' href='../css/sidebar.css'>
-<link rel='stylesheet' href='../css/topnav.css'>
+<link rel='stylesheet' href='../css/HomePage.css?0'>
+<link rel='stylesheet' href='../css/sidebar.css?0'>
+<link rel='stylesheet' href='../css/topnav.css?0'>
 <script type="text/javascript" src="../js/helper.js"></script>
 
 <title>Java Star</title>
@@ -61,7 +61,7 @@
 			ExcerciseDB ex = new ExcerciseDB();
 			int numTot = ex.getNumberExcerice();
 			for (int num = 1; num <= numTot; ++num) {
-			    out.println("<form action='./ExerciseCode.jsp' method='get'>");
+			    out.println("<form action='./ExerciseView.jsp' method='get'>");
 			    out.println("    <input type='hidden' name='exerciseNum' value=" + num + " />");
 			    out.println("	 <input type='submit' value='Exercise " + num + "' />");
 			    out.println("</form>");

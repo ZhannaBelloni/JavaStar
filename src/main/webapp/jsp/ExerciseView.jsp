@@ -1,13 +1,18 @@
-<%@page import="de.hwg_lu.java_star.jdbc.ExcerciseDB"%>
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	
+<%@page import="java.sql.SQLException"%>
+
+<%@page import="de.hwg_lu.java_star.beans.GuiBean"%>
+<%@page import="de.hwg_lu.java_star.jdbc.ExcerciseDB"%>
+	
 <!DOCTYPE html>
 <html>
 <head>
 
 <link rel="stylesheet" href="../css/excercise.css">
-
+<link rel='stylesheet' href='../css/sidebar.css'>
+<link rel='stylesheet' href='../css/topnav.css'>
 <script type="text/javascript" src="../js/helper.js"></script>
 
 
@@ -21,55 +26,27 @@
 
 <body>
 
-	<span class="closedSideNav" onclick="openNav()">&#9776; JAVA
-		STAR</span>
+	<%
+	// =========================================================================== //
+	//                        SIDE AND TOP NAVIGATION BARS                         //
+	// =========================================================================== //
+	// Force login for this page.
+	if (!loginBean.isLoggedIn()) {
+	    response.sendRedirect("./LoginView.jsp");
+	}
+	// ===================================================== //
+	// Side navigation
+	try {
+	    out.println(GuiBean.getSideNavigation());
+	} catch (SQLException e) {
+	    response.sendRedirect("./LoginView.jsp");
+	}
+	// ===================================================== //
+	// top navigation
+	out.println(GuiBean.getTopNavigation(loginBean.isLoggedIn(), loginBean.getUserid()));
 
-	<div class="sidenav" id="mySidenav" style="width: 0">
-		<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-		<a href="./HomePageView.jsp">Home</a> 
-		<a href="#">Course</a> <a onclick="toggleExcericeSideBar('exSideBar')"
-			href="#">Exercises</a>
-		<div id='exSideBar' style="display: none">
-			<%
-			ExcerciseDB ex = new ExcerciseDB();
-			int numTot = ex.getNumberExcerice();
-			for (int num = 1; num <= numTot; ++num) {
-				out.println("<form action='./ExerciseCode.jsp' method='get'>");
-				out.println("    <input type='hidden' name='exerciseNum' value=" + num + " />");
-				out.println("	 <input type='submit' value='Exercise " + num + "' />");
-				out.println("</form>");
-			}
-			%>
-		</div>
-
-		<a href="#">Forum</a> <a href="#">Contact</a>
-	</div>
-
-	<!-- ======================================== -->
-
-	<div class='topnav'>
-		<div class='login-container'>
-			<%
-			if (!loginBean.isLoggedIn()) {
-				response.sendRedirect("./LoginView.jsp");
-			}
-			%>
-			<div style='display: flex;'>
-				<img src='../images/user_0.png' width='48' height='48' />
-				<%
-				out.println("<p class='hallo_user'>Hello, " + loginBean.getUserid() + "!!</p>");
-				%>
-				<form class='logout' action='./LogoutAppl.jsp' method='get'>
-					<input type='image' alt='Submit' name='logout' value='logout'
-						src='../images/logout.jpg' width='48' height='48' />
-				</form>
-				<form class="homeBtn" action='./HomePageView.jsp' method='get'>
-					<input type='image' alt='Submit' value='home'
-						src='../images/home.png' width='48' height='48' />
-				</form>
-			</div>
-		</div>
-	</div>
+	// =========================================================================== //
+	%>
 
 
 
@@ -79,6 +56,7 @@
 		Integer numEx = Integer.parseInt(exerciseNumber);
 		// ExcerciseDB ex = new ExcerciseDB();
 		out.println("<p class='titleExcercise'> Excercise " + exerciseNumber + "</p>");
+	    ExcerciseDB ex = new ExcerciseDB();
 		String textEx = ex.getExcerciseText(numEx);
 		if (textEx == null) {
 			response.sendRedirect("./HomePageView.jsp");
@@ -89,7 +67,7 @@
 		}
 		%>
 
-		<form action='compileCode.jsp'>
+		<form action='ExerciseAppl.jsp'>
 			<%
 			out.println("<input type='hidden' name='exerciseNum' value='" + exerciseNumber + "'/>");
 			%>
@@ -116,7 +94,7 @@
 		</form>
 
 		<div style="display: flex;">
-			<form action='./ExerciseCode.jsp' method='get'>
+			<form action='./ExerciseView.jsp' method='get'>
 				<!-- input type='submit' value='solution'/-->
 				<input type='image' alt='Submit' value='home'
 					src='../images/solution.jpg' width='48' height='48' />
@@ -125,7 +103,7 @@
 				out.println("<input type='hidden' name='withSolution' value='true'/>");
 				%>
 			</form>
-			<form action='./ExerciseCode.jsp' method='get'>
+			<form action='./ExerciseView.jsp' method='get'>
 				<!-- input type='submit' value='previous'/-->
 				<input type='image' alt='Submit' value='home'
 					src='../images/previous.png' width='48' height='48' />
@@ -134,7 +112,7 @@
 				%>
 			</form>
 
-			<form action='./ExerciseCode.jsp' method='get'>
+			<form action='./ExerciseView.jsp' method='get'>
 				<!-- input type='submit' value='next'/-->
 				<input type='image' alt='Submit' value='home'
 					src='../images/next.png' width='48' height='48' />
