@@ -37,6 +37,12 @@ public class AdminDB {
 		prep.executeUpdate();
 	}
 	
+	public void createTableComments(Connection connection) throws SQLException {
+	        System.out.println("Creating table for 'JAVA_STAR' application comments");
+	        PreparedStatement prep = connection.prepareStatement(this.CREATE_COMMENTS_TABLE);
+	        prep.executeUpdate();
+	}
+	
 	public void createTableExercises(Connection connection) throws SQLException {
 		System.out.println("Creating table for 'JAVA_STAR' application excercises");
 		PreparedStatement prep = connection.prepareStatement(this.CREATE_EXCERCISE_TABLE);
@@ -116,9 +122,12 @@ public class AdminDB {
 		try {
 			PostgreSQLAccess access = new PostgreSQLAccess();
 			adminDB.createJavaStarSchema(access);
-			adminDB.createTableAccounts(access.getConnection());
-			adminDB.createTableExercises(access.getConnection());
-			adminDB.insertExcercise(access.getConnection());
+			Connection conn = access.getConnection();
+			adminDB.createTableAccounts(conn);
+	        adminDB.createTableComments(conn);
+			adminDB.createTableExercises(conn);
+			adminDB.insertExcercise(conn);
+			conn.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -154,10 +163,10 @@ public class AdminDB {
 			+ "correctExcercise INTEGER DEFAULT 0"
 			+ ")";
 	
-	String _CREATE_EXCERCISE_TABLE = "CREATE TABLE IF NOT EXISTS \"excercise\" (" 
-			+ "id INTEGER PRIMARY KEY NOT NULL, "
-			+ "exercise_text  CHAR(1024) NOT NULL, "
-			+ "exercise_out   CHAR(512) NOT NULL"
+	String CREATE_COMMENTS_TABLE = "CREATE TABLE IF NOT EXISTS \"comments\" (" 
+			+ "time      TIMESTAMP  NOT NULL, "
+			+ "userid    CHAR(32)   NOT NULL, "
+			+ "comment   CHAR(512)  NOT NULL  "
 			+ ")";
 	
 	

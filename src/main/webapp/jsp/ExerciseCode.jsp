@@ -26,7 +26,7 @@
 
 	<div class="sidenav" id="mySidenav" style="width: 0">
 		<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-
+		<a href="./HomePageView.jsp">Home</a> 
 		<a href="#">Course</a> <a onclick="toggleExcericeSideBar('exSideBar')"
 			href="#">Exercises</a>
 		<div id='exSideBar' style="display: none">

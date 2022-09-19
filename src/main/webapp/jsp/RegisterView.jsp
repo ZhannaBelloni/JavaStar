@@ -9,14 +9,16 @@
 <!-- meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"-->
 <title>JavaStar-Registration</title>
 <!-- link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/Register.css" -->
-<link type="text/css" rel="stylesheet" href="../css/Register.css?2">
 
+<link type="text/css" rel="stylesheet" href="../css/Register.css">
+<link type="text/css" rel="stylesheet" href="../css/sidebar.css">
+
+
+<jsp:useBean id="loginBean" class="de.hwg_lu.java_star.beans.LoginBean"
+		scope="session" />
 
 </head>
 <body>
-
-	<jsp:useBean id="loginBean" class="de.hwg_lu.java_star.beans.LoginBean"
-		scope="session" />
 
 	<div class='topnav'>
 		<div class='login-container'>
