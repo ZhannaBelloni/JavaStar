@@ -11,9 +11,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="../css/Lesson.css?5">
-<link rel='stylesheet' href='../css/sidebar.css?5'>
-<link rel='stylesheet' href='../css/topnav.css?5'>
+<link rel="stylesheet" href="../css/Lesson.css?6">
+<link rel='stylesheet' href='../css/sidebar.css?6'>
+<link rel='stylesheet' href='../css/topnav.css?6'>
 <script type="text/javascript" src="../js/helper.js"></script>
 
 <title>Variable and Data Type</title>
@@ -59,7 +59,10 @@
 					src='../images/next.png' width='48' height='48' />
 			</form>
 		</div>
-		<p class='text'>Java divides the operators into the following
+		<br>
+		<h1 class='title'>Operators in Java</h1>
+		
+		<p class='text'>JAVA divides the operators into the following
 			groups:
 		<ul class='text'>
 			<li>Arithmetic operators</li>
@@ -122,11 +125,248 @@
 					<td>Increases the value of a variable by 1</td>
 					<td>++x</td>
 				</tr>
+
 				<tr>
 					<td>--</td>
 					<td>Decrement</td>
 					<td>Decreases the value of a variable by 1</td>
 					<td>--x</td>
+				</tr>
+			</tbody>
+		</table>
+		<br> <br>
+		<h2 class='text'>Assignment Operators</h2>
+
+		<p class='text'>
+			These operators are used to assign values to a variable. The left
+			side operand of the assignment operator is a variable, and the right
+			side operand of the assignment operator is a value. The value on the
+			right side must be of the same data type of the operand on the left
+			side. Otherwise, the compiler will raise an error. This means that
+			the assignment operators have right to left associativity, i.e., the
+			value given on the right-hand side of the operator is assigned to the
+			variable on the left. Therefore, the right-hand side value must be
+			declared before using it or should be a constant. <br>A list of
+			all assignment operators:
+		</p>
+
+		<table>
+			<tr>
+				<th style="width: 30%">Operator</th>
+				<th style="width: 35%">Example</th>
+				<th style="width: 35%">Same As</th>
+			</tr>
+			<tr>
+				<td>=</td>
+				<td>x = 5</td>
+				<td>x = 5</td>
+			</tr>
+			<tr>
+				<td>+=</td>
+				<td>x += 3</td>
+				<td>x = x + 3</td>
+			</tr>
+			<tr>
+				<td>-=</td>
+				<td>x -= 3</td>
+				<td>x = x - 3</td>
+			</tr>
+			<tr>
+				<td>*=</td>
+				<td>x *= 3</td>
+				<td>x = x * 3</td>
+			</tr>
+			<tr>
+				<td>/=</td>
+				<td>x /= 3</td>
+				<td>x = x / 3</td>
+			</tr>
+			<tr>
+				<td>%=</td>
+				<td>x %= 3</td>
+				<td>x = x % 3</td>
+			</tr>
+			<tr>
+				<td>&amp;=</td>
+				<td>x &amp;= 3</td>
+				<td>x = x &amp; 3</td>
+			</tr>
+			<tr>
+				<td>|=</td>
+				<td>x |= 3</td>
+				<td>x = x | 3</td>
+			</tr>
+			<tr>
+				<td>^=</td>
+				<td>x ^= 3</td>
+				<td>x = x ^ 3</td>
+			</tr>
+			<tr>
+				<td>&gt;&gt;=</td>
+				<td>x &gt;&gt;= 3</td>
+				<td>x = x &gt;&gt; 3</td>
+			</tr>
+			<tr>
+				<td>&lt;&lt;=</td>
+				<td>x &lt;&lt;= 3</td>
+				<td>x = x &lt;&lt; 3</td>
+			</tr>
+		</table>
+
+
+		<br>
+		<h2 class='text'>Java Comparison Operators</h2>
+
+		<p class='text'>Comparison opperators are used to compare two
+			values:</p>
+
+		<table class="ws-table-all notranslate">
+			<tr>
+				<th style="width: 25%">Operator</th>
+				<th style="width: 35%">Name</th>
+				<th style="width: 40%">Example</th>
+			</tr>
+			<tr>
+				<td>==</td>
+				<td>Equal to</td>
+				<td>x == y</td>
+			</tr>
+			<tr>
+				<td>!=</td>
+				<td>Not equal</td>
+				<td>x != y</td>
+			</tr>
+			<tr>
+				<td>&gt;</td>
+				<td>Greater than</td>
+				<td>x &gt; y</td>
+			</tr>
+			<tr>
+				<td>&lt;</td>
+				<td>Less than</td>
+				<td>x &lt; y</td>
+			</tr>
+			<tr>
+				<td>&gt;=</td>
+				<td>Greater than or equal to</td>
+				<td>x &gt;= y</td>
+			</tr>
+			<tr>
+				<td>&lt;=</td>
+				<td>Less than or equal to</td>
+				<td>x &lt;= y</td>
+			</tr>
+		</table>
+		<br>
+		<h2 class='text'>Java Logical Operators</h2>
+		<p class='text'>Logical operators are used to determine the logic
+			between variables or values:</p>
+
+		<table>
+			<tr>
+				<th style="width: 15%">Operator</th>
+				<th style="width: 20%">Name</th>
+				<th style="width: 40%">Description</th>
+				<th style="width: 25%">Example</th>
+			</tr>
+			<tr>
+				<td>&amp;&amp;&nbsp;</td>
+				<td>Logical and</td>
+				<td>Returns true if both statements are true</td>
+				<td>x &lt; 5 &amp;&amp;&nbsp; x &lt; 10</td>
+			</tr>
+			<tr>
+				<td>||&nbsp;</td>
+				<td>Logical or</td>
+				<td>Returns true if one of the statements is true</td>
+				<td>x &lt; 5 || x &lt; 4</td>
+			</tr>
+			<tr>
+				<td>!</td>
+				<td>Logical not</td>
+				<td>Reverse the result, returns false if the result is true</td>
+				<td>!(x &lt; 5 &amp;&amp; x &lt; 10)</td>
+			</tr>
+		</table>
+
+		<br>
+		<h2 class='text'>Bitwise Operators</h2>
+
+		<p class='text'>Bitwise operators are used to performing the
+			manipulation of individual bits of a number. They can be used with
+			any integral type (char, short, int, etc.). They are used when
+			performing update and query operations of the Binary indexed trees.
+			The following table lists the bitwise operators:</p>
+
+		<table class="ws-table-all notranslate">
+			<tbody>
+				<tr>
+					<th style="width: 12%">Operator</th>
+					<th style="width: 40%">Description</th>
+					<th>Example</th>
+					<th>Same as</th>
+					<th>Result</th>
+					<th>Decimal</th>
+				</tr>
+				<tr>
+					<td>&amp;</td>
+					<td>AND - Sets each bit to 1 if both bits are 1</td>
+					<td>5 &amp; 1</td>
+					<td>0101 &amp; 0001</td>
+					<td>0001</td>
+					<td>&nbsp;1</td>
+				</tr>
+				<tr>
+					<td>|</td>
+					<td>OR - Sets each bit to 1 if any of the two bits is 1</td>
+					<td>5 | 1</td>
+					<td>0101 | 0001</td>
+					<td>0101</td>
+					<td>&nbsp;5</td>
+				</tr>
+				<tr>
+					<td>~</td>
+					<td>NOT - Inverts all the bits</td>
+					<td>~ 5</td>
+					<td>&nbsp;~0101</td>
+					<td>1010</td>
+					<td>&nbsp;10</td>
+				</tr>
+				<tr>
+					<td>^</td>
+					<td>XOR - Sets each bit to 1 if only one of the two bits is 1</td>
+					<td>5 ^ 1</td>
+					<td>0101 ^ 0001</td>
+					<td>0100</td>
+					<td>&nbsp;4</td>
+				</tr>
+				<tr>
+					<td>&lt;&lt;</td>
+					<td>Zero-fill left shift - Shift left by pushing zeroes in
+						from the right and letting the leftmost bits fall off</td>
+					<td>9 &lt;&lt; 1</td>
+					<td>1001 &lt;&lt; 1</td>
+					<td>0010</td>
+					<td>2</td>
+				</tr>
+				<tr>
+					<td>&gt;&gt;</td>
+					<td>Signed right shift - Shift right by pushing copies of the
+						leftmost bit in from the left and letting the rightmost bits fall
+						off</td>
+					<td>9 &gt;&gt; 1</td>
+					<td>1001 &gt;&gt; 1</td>
+					<td>1100</td>
+					<td>12</td>
+				</tr>
+				<tr>
+					<td>&gt;&gt;&gt;</td>
+					<td>Zero-fill right shift - Shift right by pushing zeroes in
+						from the left and letting the rightmost bits fall off</td>
+					<td>9 &gt;&gt;&gt; 1</td>
+					<td>1001 &gt;&gt;&gt; 1</td>
+					<td>0100</td>
+					<td>4</td>
 				</tr>
 			</tbody>
 		</table>

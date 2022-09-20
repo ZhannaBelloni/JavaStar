@@ -32,6 +32,7 @@ table, th, td {
   margin-right: 15%;
   border: 1px solid black;
   border-collapse: collapse;
+  color: #FFFFFF;
 }
 
 .longcode {
