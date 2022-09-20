@@ -1,0 +1,451 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+
+<%@page import="java.sql.SQLException"%>
+<%@page import="de.hwg_lu.java_star.beans.GuiBean"%>
+
+<jsp:useBean id="loginBean" class="de.hwg_lu.java_star.beans.LoginBean"
+	scope="session" />
+<!-- web site to color source code: http://hilite.me/ -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../css/Lesson.css?5">
+<link rel='stylesheet' href='../css/sidebar.css?5'>
+<link rel='stylesheet' href='../css/topnav.css?5'>
+<script type="text/javascript" src="../js/helper.js"></script>
+
+<title>Variable and Data Type</title>
+</head>
+<body>
+
+	<%
+	// =========================================================================== //
+	//                        SIDE AND TOP NAVIGATION BARS                         //
+	// =========================================================================== //
+	// Force login for this page.
+	if (!loginBean.isLoggedIn()) {
+	    response.sendRedirect("./LoginView.jsp");
+	}
+	// ===================================================== //
+	// Side navigation
+	try {
+	    out.println(GuiBean.getSideNavigation());
+	} catch (SQLException e) {
+	    response.sendRedirect("./LoginView.jsp");
+	}
+	// ===================================================== //
+	// top navigation
+	out.println(GuiBean.getTopNavigation(loginBean.isLoggedIn(), loginBean.getUserid()));
+
+	// =========================================================================== //
+	%>
+	<div class='main'>
+
+		<div style="display: flex;">
+			<form action='../jsp/JavaBasic.jsp' method='get'>
+
+				<input type='image' alt='Submit' value='home'
+					src='../images/previous.png' width='48' height='48' />
+			</form>
+			<form action='../jsp/HomePageView.jsp' method='get'>
+				<input type='image' alt='Submit' value='home'
+					src='../images/home.png' width='48' height='48' />
+			</form>
+			<form action='../jsp/OperatorsInJava.jsp' method='get'>
+				<!-- input type='submit' value='next'/-->
+				<input type='image' alt='Submit' value='home'
+					src='../images/next.png' width='48' height='48' />
+			</form>
+		</div>
+
+		<h2 class='title'>Variable and Data Type</h2>
+
+		<p class='text'>Variables are containers for storing data values.
+			In Java, there are different types of variables, for example:</p>
+		<ul class='text'>
+			<li><span style="color: #0000a0">String</span> - stores text,
+				such as "Hello". String values are surrounded by double quotes</li>
+			<li><span style="color: #0000a0">int</span> - stores integers
+				(whole numbers), without decimals, such as 123 or -123</li>
+			<li><span style="color: #0000a0">float</span> - stores floating
+				point numbers, with decimals, such as 19.99 or -19.99</li>
+			<li><span style="color: #0000a0">char</span> - stores single
+				characters, such as 'a' or 'B'. Char values are surrounded by single
+				quotes</li>
+			<li><span style="color: #0000a0">boolean</span> - stores values
+				with two states: true or false</li>
+		</ul>
+		<p class='text'>There are three kinds of variables in Java −
+		<ul class='text'>
+			<li><span style="color: white size:25"> Local variables</span></li>
+			<li>Instance variables</li>
+			<li>Class/Static variables</li>
+		</ul>
+		</p>
+		<p>
+		<h3 class='text'>
+			<b>1. Local Variables</b>
+		</h3>
+		<ul class='text'>
+			<li>Local variables are declared in methods, constructors, or
+				blocks.</li>
+
+			<li>Local variables are created when the method, constructor or
+				block is entered and the variable will be destroyed once it exits
+				the method, constructor, or block.</li>
+
+			<li>Access modifiers cannot be used for local variables.</li>
+
+			<li>Local variables are visible only within the declared method,
+				constructor, or block.</li>
+
+			<li>Local variables are implemented at stack level internally.</li>
+
+			<li>There is no default value for local variables, so local
+				variables should be declared and an initial value should be assigned
+				before the first use.</li>
+		</ul>
+		<p>
+		<h3 class='text'>Example</h3>
+		<p class='text'>Here, age is a local variable. This is defined
+			inside pupAge() method and its scope is limited to only this method.
+		</p>
+		<!-- HTML generated using hilite.me -->
+		<div class='longcode'
+			style="background: #ffffff; overflow: auto; width: auto; border: solid gray; border-width: .1em .1em .1em .8em; padding: .2em .6em;">
+			<pre style="margin: 0; line-height: 125%">
+<span style="color: #008800; font-weight: bold">public</span> <span
+					style="color: #008800; font-weight: bold">class</span> <span
+					style="color: #BB0066; font-weight: bold">Test</span> <span
+					style="color: #333333">{</span>
+   <span style="color: #008800; font-weight: bold">public</span> <span
+					style="color: #333399; font-weight: bold">void</span> <span
+					style="color: #0066BB; font-weight: bold">pupAge</span><span
+					style="color: #333333">()</span> <span style="color: #333333">{</span>
+      <span style="color: #333399; font-weight: bold">int</span> age <span
+					style="color: #333333">=</span> <span
+					style="color: #0000DD; font-weight: bold">0</span><span
+					style="color: #333333">;</span>
+      age <span style="color: #333333">=</span> age <span
+					style="color: #333333">+</span> <span
+					style="color: #0000DD; font-weight: bold">7</span><span
+					style="color: #333333">;</span>
+      System<span style="color: #333333">.</span><span
+					style="color: #0000CC">out</span><span style="color: #333333">.</span><span
+					style="color: #0000CC">println</span><span style="color: #333333">(</span><span
+					style="background-color: #fff0f0">&quot;Puppy age is : &quot;</span> <span
+					style="color: #333333">+</span> age<span style="color: #333333">);</span>
+   <span style="color: #333333">}</span>
+<span style="color: #333333">}</span>
+</pre>
+		</div>
+		<p class='text'>
+			This will produce the following result − Puppy age is: 7<br> <br>
+			2. Instance Variables
+		<h3 class='text'>
+			<b> </b>
+		</h3>
+		<ul class='text'>
+
+			<li>Instance variables are declared in a class, but outside a
+				method, constructor or any block.</li>
+
+			<li>When a space is allocated for an object in the heap, a slot
+				for each instance variable value is created.</li>
+
+			<li>Instance variables are created when an object is created
+				with the use of the keyword 'new' and destroyed when the object is
+				destroyed.</li>
+
+			<li>Instance variables hold values that must be referenced by
+				more than one method, constructor or block, or essential parts of an
+				object's state that must be present throughout the class.</li>
+
+			<li>Instance variables can be declared in class level before or
+				after use.</li>
+
+			<li>Access modifiers can be given for instance variables.</li>
+
+			<li>The instance variables are visible for all methods,
+				constructors and block in the class. Normally, it is recommended to
+				make these variables private (access level). However, visibility for
+				subclasses can be given for these variables with the use of access
+				modifiers.</li>
+
+			<li>Instance variables have default values. For numbers, the
+				default value is 0, for Booleans it is false, and for object
+				references it is null. Values can be assigned during the declaration
+				or within the constructor.</li>
+
+			<li>Instance variables can be accessed directly by calling the
+				variable name inside the class. However, within static methods (when
+				instance variables are given accessibility), they should be called
+				using the fully qualified name. ObjectReference.VariableName.</li>
+
+		</ul>
+		<p>
+		<h3 class='text'>Example</h3>
+
+		<!-- HTML generated using hilite.me -->
+		<div class='longcode'
+			style="background: #ffffff; overflow: auto; width: auto; border: solid gray; border-width: .1em .1em .1em .8em; padding: .2em .6em;">
+			<pre style="margin: 0; line-height: 125%">
+<span style="color: #008800; font-weight: bold">public</span> <span
+					style="color: #008800; font-weight: bold">class</span> <span
+					style="color: #BB0066; font-weight: bold">Record</span><span
+					style="color: #333333">{</span>
+
+    <span style="color: #008800; font-weight: bold">public</span> String name<span
+					style="color: #333333">;</span><span style="color: #888888">// this instance variable is visible for any child class.</span>
+
+    <span style="color: #008800; font-weight: bold">private</span> <span
+					style="color: #333399; font-weight: bold">int</span> age<span
+					style="color: #333333">;</span><span style="color: #888888">// this instance age variable is visible in Record class only.</span>
+
+    <span style="color: #008800; font-weight: bold">public</span> <span
+					style="color: #0066BB; font-weight: bold">Record</span> <span
+					style="color: #333333">(</span>String RecName<span
+					style="color: #333333">)</span>
+    <span style="color: #333333">{</span>
+        name <span style="color: #333333">=</span> RecName<span
+					style="color: #333333">;</span>
+    <span style="color: #333333">}</span>
+
+    <span style="color: #008800; font-weight: bold">public</span> <span
+					style="color: #333399; font-weight: bold">void</span> <span
+					style="color: #0066BB; font-weight: bold">setAge</span><span
+					style="color: #333333">(</span><span
+					style="color: #333399; font-weight: bold">int</span> RecSal<span
+					style="color: #333333">)</span>
+    <span style="color: #333333">{</span>
+        age <span style="color: #333333">=</span> RecSal<span
+					style="color: #333333">;</span>
+    <span style="color: #333333">}</span>
+
+    <span style="color: #008800; font-weight: bold">public</span> <span
+					style="color: #333399; font-weight: bold">void</span> <span
+					style="color: #0066BB; font-weight: bold">printRec</span><span
+					style="color: #333333">()</span>
+    <span style="color: #333333">{</span>
+        System<span style="color: #333333">.</span><span
+					style="color: #0000CC">out</span><span style="color: #333333">.</span><span
+					style="color: #0000CC">println</span><span style="color: #333333">(</span><span
+					style="background-color: #fff0f0">&quot;name : &quot;</span> <span
+					style="color: #333333">+</span> name <span style="color: #333333">);</span> <span
+					style="color: #888888">// print the value for “name”</span>
+        System<span style="color: #333333">.</span><span
+					style="color: #0000CC">out</span><span style="color: #333333">.</span><span
+					style="color: #0000CC">println</span><span style="color: #333333">(</span><span
+					style="background-color: #fff0f0">&quot;age :&quot;</span> <span
+					style="color: #333333">+</span> age<span style="color: #333333">);</span> <span
+					style="color: #888888">//prints the value for “age”</span>
+    <span style="color: #333333">}</span>
+
+    <span style="color: #008800; font-weight: bold">public</span> <span
+					style="color: #008800; font-weight: bold">static</span> <span
+					style="color: #333399; font-weight: bold">void</span> <span
+					style="color: #0066BB; font-weight: bold">main</span><span
+					style="color: #333333">(</span>String args<span
+					style="color: #333333">[])</span>
+    <span style="color: #333333">{</span>
+        Record r <span style="color: #333333">=</span> <span
+					style="color: #008800; font-weight: bold">new</span> Record<span
+					style="color: #333333">(</span><span
+					style="background-color: #fff0f0">&quot;Ram&quot;</span><span
+					style="color: #333333">);</span>
+        r<span style="color: #333333">.</span><span
+					style="color: #0000CC">setAge</span><span style="color: #333333">(</span><span
+					style="color: #0000DD; font-weight: bold">23</span><span
+					style="color: #333333">);</span>
+        r<span style="color: #333333">.</span><span
+					style="color: #0000CC">printRec</span><span style="color: #333333">();</span>
+    <span style="color: #333333">}</span>
+<span style="color: #333333">}</span>
+</pre>
+		</div>
+		<br>
+		<br>
+		<h3 class='text'>
+			<b> 3.Class/Static Variables</b>
+		</h3>
+		<ul class='text'>
+
+			<li>Class variables also known as static variables are declared
+				with the static keyword in a class, but outside a method,
+				constructor or a block.</li>
+
+			<li>There would only be one copy of each class variable per
+				class, regardless of how many objects are created from it.</li>
+
+			<li>Static variables are rarely used other than being declared
+				as constants. Constants are variables that are declared as
+				public/private, final, and static. Constant variables never change
+				from their initial value.</li>
+
+			<li>Static variables are stored in the static memory. It is rare
+				to use static variables other than declared final and used as either
+				public or private constants.</li>
+
+			<li>Static variables are created when the program starts and
+				destroyed when the program stops.</li>
+
+			<li>Visibility is similar to instance variables. However, most
+				static variables are declared public since they must be available
+				for users of the class.</li>
+
+			<li>Default values are same as instance variables. For numbers,
+				the default value is 0; for Booleans, it is false; and for object
+				references, it is null. Values can be assigned during the
+				declaration or within the constructor. Additionally, values can be
+				assigned in special static initializer blocks.</li>
+
+			<li>Static variables can be accessed by calling with the class
+				name ClassName.VariableName.</li>
+
+			<li>When declaring class variables as public static final, then
+				variable names (constants) are all in upper case. If the static
+				variables are not public and final, the naming syntax is the same as
+				instance and local variables.</li>
+
+		</ul>
+		<p>
+		<h3 class='text'>Example</h3>
+
+		<!-- HTML generated using hilite.me -->
+		<div class='longcode'
+			style="background: #ffffff; overflow: auto; width: auto; border: solid gray; border-width: .1em .1em .1em .8em; padding: .2em .6em;">
+			<pre style="margin: 0; line-height: 125%">
+<span style="color: #008800; font-weight: bold">import</span> <span
+					style="color: #0e84b5; font-weight: bold">java.io.*</span><span
+					style="color: #333333">;</span>
+<span style="color: #008800; font-weight: bold">public</span> <span
+					style="color: #008800; font-weight: bold">class</span> <span
+					style="color: #BB0066; font-weight: bold">Employee</span> <span
+					style="color: #333333">{</span>
+
+   <span style="color: #888888">// salary  variable is a private static variable</span>
+   <span style="color: #008800; font-weight: bold">private</span> <span
+					style="color: #008800; font-weight: bold">static</span> <span
+					style="color: #333399; font-weight: bold">double</span> salary<span
+					style="color: #333333">;</span>
+
+   <span style="color: #888888">// DEPARTMENT is a constant</span>
+   <span style="color: #008800; font-weight: bold">public</span> <span
+					style="color: #008800; font-weight: bold">static</span> <span
+					style="color: #008800; font-weight: bold">final</span> String DEPARTMENT <span
+					style="color: #333333">=</span> <span
+					style="background-color: #fff0f0">&quot;Development &quot;</span><span
+					style="color: #333333">;</span>
+
+   <span style="color: #008800; font-weight: bold">public</span> <span
+					style="color: #008800; font-weight: bold">static</span> <span
+					style="color: #333399; font-weight: bold">void</span> <span
+					style="color: #0066BB; font-weight: bold">main</span><span
+					style="color: #333333">(</span>String args<span
+					style="color: #333333">[])</span> <span style="color: #333333">{</span>
+      salary <span style="color: #333333">=</span> <span
+					style="color: #0000DD; font-weight: bold">1000</span><span
+					style="color: #333333">;</span>
+      System<span style="color: #333333">.</span><span
+					style="color: #0000CC">out</span><span style="color: #333333">.</span><span
+					style="color: #0000CC">println</span><span style="color: #333333">(</span>DEPARTMENT <span
+					style="color: #333333">+</span> <span
+					style="background-color: #fff0f0">&quot;average salary:&quot;</span> <span
+					style="color: #333333">+</span> salary<span style="color: #333333">);</span>
+   <span style="color: #333333">}</span>
+<span style="color: #333333">}</span>
+</pre>
+		</div>
+		<br>
+		<h2 class='text'>Java Data Types</h2>
+		<p class='text'>Data types are divided into two groups:
+		<ul class='text'>
+
+
+			<li>Primitive data types - includes byte, short, int, long,
+				float, double, boolean and char</li>
+			<li>Non-primitive data types - such as String, Arrays and
+				Classes (you will learn more about these in a later chapter)</li>
+
+		</ul>
+		<br>
+		<h2 class='text'>Primitive Data Types</h2>
+
+		<p class='text'>A primitive data type specifies the size and type
+			of variable values, and it has no additional methods. There are eight
+			primitive data types in Java:</p>
+		<table>
+			<tbody>
+				<tr>
+					<th style="width: 20%">Data Type</th>
+					<th style="width: 17%">Size</th>
+					<th style="width: 63%">Description</th>
+				</tr>
+				<tr>
+					<td><code class="codespan">byte</code></td>
+					<td>1 byte</td>
+					<td class='text'>Stores whole numbers from -128 to 127</td>
+				</tr>
+				<tr>
+					<td><code class="codespan">short</code></td>
+					<td>2 bytes</td>
+					<td class='text'>Stores whole numbers from -32,768 to 32,767</td>
+				</tr>
+				<tr>
+					<td><code class="codespan">int</code></td>
+					<td>4 bytes</td>
+					<td class='text'>Stores whole numbers from -2,147,483,648 to
+						2,147,483,647</td>
+				</tr>
+				<tr>
+					<td><code class="codespan">long</code></td>
+					<td>8 bytes</td>
+					<td class='text'>Stores whole numbers from
+						-9,223,372,036,854,775,808 to 9,223,372,036,854,775,807</td>
+				</tr>
+				<tr>
+					<td><code class="codespan">float</code></td>
+					<td>4 bytes</td>
+					<td class='text'>Stores fractional numbers. Sufficient for
+						storing 6 to 7 decimal digits</td>
+				</tr>
+				<tr>
+					<td><code class="codespan">double</code></td>
+					<td>8 bytes</td>
+					<td class='text'>Stores fractional numbers. Sufficient for
+						storing 15 decimal digits</td>
+				</tr>
+				<tr>
+					<td><code class="codespan">boolean</code></td>
+					<td>1 bit</td>
+					<td class='text'>Stores true or false values</td>
+				</tr>
+				<tr>
+					<td><code class="codespan">char</code></td>
+					<td>2 bytes</td>
+					<td class='text'>Stores a single character/letter or ASCII
+						values</td>
+				</tr>
+
+			</tbody>
+		</table>
+		<br>
+<h2 class='text'>Non-Primitive Data Types</h2>
+
+<p class='text'>Non-primitive data types are called reference types because they refer to objects.
+The main difference between primitive and non-primitive data types are:
+<ul class='text'>
+    <li>Primitive types are predefined (already defined) in Java. Non-primitive types are created by the programmer and is not defined by Java (except for String).</li>
+    <li>Non-primitive types can be used to call methods to perform certain operations, while primitive types cannot.</li>
+    <li>A primitive type has always a value, while non-primitive types can be null.</li>
+    <li>A primitive type starts with a lowercase letter, while non-primitive types starts with an uppercase letter.</li>
+    <li>The size of a primitive type depends on the data type, while non-primitive types have all the same size.</li>
+</ul><br>
+<p class='text'>Examples of non-primitive types are Strings, Arrays, Classes, Interface, etc. 
+	</p>
+	</div>
+
+</body>
+</html>

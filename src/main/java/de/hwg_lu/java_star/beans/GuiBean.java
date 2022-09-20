@@ -15,7 +15,7 @@ public class GuiBean {
         html += "    <a onclick=\"toggleExcericeSideBar('courseSideBar')\" href='#'>Course</a>";
         html += "    <div id='courseSideBar' style='display: none'>";
         html += "        <!-- ============================================= -->";
-        html += "        <form action='../html/JavaBasic.html' method='get'>";
+        html += "        <form action='./JavaBasic.jsp' method='get'>";
         html += "            <input type='hidden' name='exerciseNum' value='1'> <input";
         html += "                type='submit' value='Java Basics' />";
         html += "        </form>";

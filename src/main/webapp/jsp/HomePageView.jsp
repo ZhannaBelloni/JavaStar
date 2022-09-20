@@ -11,7 +11,7 @@
 <head>
 <meta charset="UTF-8">
 
-<link rel='stylesheet' href='../css/HomePage.css?0'>
+<link rel='stylesheet' href='../css/HomePage.css?1'>
 <link rel='stylesheet' href='../css/sidebar.css?0'>
 <link rel='stylesheet' href='../css/topnav.css?0'>
 <script type="text/javascript" src="../js/helper.js"></script>
@@ -29,7 +29,7 @@
 			onclick="toggleExcericeSideBar('courseSideBar')" href="#">Course</a>
 		<div id='courseSideBar' style="display: none">
 			<!-- ============================================= -->
-			<form action="../html/JavaBasic.html" method='get'>
+			<form action="./JavaBasic.jsp" method='get'>
 				<input type='hidden' name='exerciseNum' value="1"> <input
 					type='submit' value='Java Basics' />
 			</form>

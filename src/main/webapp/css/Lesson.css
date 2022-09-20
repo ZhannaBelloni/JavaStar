@@ -3,8 +3,12 @@
 body {
 	font-family: "Lato", sans-serif;
 	background-color: rgb(85, 87, 83);
-	margin-left: 8%;
-	margin-right: 10%;
+
+}
+
+.main {
+	margin-left: 15%;
+	margin-right: 20%;	
 }
 
 .title {
@@ -17,4 +21,20 @@ body {
 	color: #FFFFFF;
 	padding: 0em;
 	font-size: 15px
+}
+
+.codespan {
+	color: #008800";
+}
+
+table, th, td {
+  margin-left: 15%;
+  margin-right: 15%;
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+.longcode {
+  margin-left: 15%;
+  margin-right: 15%;
 }

@@ -1,14 +1,51 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
+<%@page import="java.sql.SQLException"%>
+<%@page import="de.hwg_lu.java_star.beans.GuiBean"%>
+
+<jsp:useBean id="loginBean" class="de.hwg_lu.java_star.beans.LoginBean"
+	scope="session" />
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-</head>
+<link rel="stylesheet" href="../css/Lesson.css?2">
+<link rel='stylesheet' href='../css/sidebar.css?2'>
+<link rel='stylesheet' href='../css/topnav.css?2'>
+<script type="text/javascript" src="../js/helper.js"></script>
 
-<link rel="stylesheet" href="../css/Lesson.css">
+
 
 <title>Java Basic</title>
+</head>
+
 <body>
 
+	<%
+	// =========================================================================== //
+	//                        SIDE AND TOP NAVIGATION BARS                         //
+	// =========================================================================== //
+	// Force login for this page.
+	if (!loginBean.isLoggedIn()) {
+	    response.sendRedirect("./LoginView.jsp");
+	}
+	// ===================================================== //
+	// Side navigation
+	try {
+	    out.println(GuiBean.getSideNavigation());
+	} catch (SQLException e) {
+	    response.sendRedirect("./LoginView.jsp");
+	}
+	// ===================================================== //
+	// top navigation
+	out.println(GuiBean.getTopNavigation(loginBean.isLoggedIn(), loginBean.getUserid()));
+
+	// =========================================================================== //
+	%>
+	<div class='main'>
+	
 	<div style="display: flex;">
 		<form action='../jsp/HomePageView.jsp' method='get'>
 
@@ -19,8 +56,7 @@
 			<input type='image' alt='Submit' value='home'
 				src='../images/home.png' width='48' height='48' />
 		</form>
-		<form action='../html/VariableAndDataType.html' method='get'>
-			<!-- input type='submit' value='next'/-->
+		<form action='../jsp/VariableAndDataType.jsp' method='get'>
 			<input type='image' alt='Submit' value='home'
 				src='../images/next.png' width='48' height='48' />
 		</form>
@@ -55,5 +91,7 @@
 		released under the GNU General Public License (GPL) terms. Java is a
 		powerful programming language and is used almost everywhere, including
 		small microchips to powerful supercomputers.
+		</p>
+		</div>
 </body>
 </html>
