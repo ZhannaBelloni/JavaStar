@@ -22,24 +22,20 @@
 
 	<%
 	// =========================================================================== //
-	//                        SIDE AND TOP NAVIGATION BARS                         //
-	// =========================================================================== //
-	// Force login for this page.
-	if (!loginBean.isLoggedIn()) {
-	    response.sendRedirect("./LoginView.jsp");
-	}
-	// ===================================================== //
-	// Side navigation
-	try {
-	    out.println(GuiBean.getSideNavigation());
-	} catch (SQLException e) {
-	    response.sendRedirect("./LoginView.jsp");
-	}
-	// ===================================================== //
-	// top navigation
-	out.println(GuiBean.getTopNavigation(loginBean.isLoggedIn(), loginBean.getUserid()));
-
-	// =========================================================================== //
+		//                        SIDE AND TOP NAVIGATION BARS                         //
+		// =========================================================================== //
+		// Force login for this page.
+		try {
+			// ===================================================== //
+			// Side navigation
+			out.println(GuiBean.getSideNavigation());
+			// ===================================================== //
+			// top navigation
+			out.println(GuiBean.getTopNavigation(loginBean.isLoggedIn(), loginBean.getUserid()));
+		} catch (SQLException e) {
+			response.sendRedirect("./LoginView.jsp");
+		}
+		// =========================================================================== //
 	%>
 	<div class='main'>
 

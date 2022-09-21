@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
+ <%@page import="java.sql.SQLException"%>
 <%@page import="de.hwg_lu.java_star.jdbc.ExcerciseDB"%>
+
 <jsp:useBean id="loginBean" class="de.hwg_lu.java_star.beans.LoginBean"
 	scope="session" />
 
@@ -58,6 +60,7 @@
 		<a onclick="toggleExcericeSideBar('exSideBar')" href="#">Exercises</a>
 		<div id='exSideBar' style="display: none">
 			<%
+			try {
 			ExcerciseDB ex = new ExcerciseDB();
 			int numTot = ex.getNumberExcerice();
 			for (int num = 1; num <= numTot; ++num) {
@@ -65,6 +68,9 @@
 			    out.println("    <input type='hidden' name='exerciseNum' value=" + num + " />");
 			    out.println("	 <input type='submit' value='Exercise " + num + "' />");
 			    out.println("</form>");
+			}
+			} catch (SQLException e ) {
+				out.println("<p>Contact the webmaster</p>");
 			}
 			%>
 		</div>

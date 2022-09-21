@@ -18,6 +18,7 @@
 <link rel='stylesheet' href='../css/ForumPage.css?0'>
 <link rel='stylesheet' href='../css/sidebar.css?0'>
 <link rel='stylesheet' href='../css/topnav.css?0'>
+<link rel='stylesheet' href='../css/default.css?2'>
 <script type="text/javascript" src="../js/helper.js"></script>
 
 <title>Comments</title>
@@ -31,18 +32,18 @@
 	// Force login for this page.
 	if (!loginBean.isLoggedIn()) {
 	    response.sendRedirect("./LoginView.jsp");
+	} else {
+		try {
+			// ===================================================== //
+			// Side navigation
+		    out.println(GuiBean.getSideNavigation());
+		 	// ===================================================== //
+			// top navigation
+			out.println(GuiBean.getTopNavigation(loginBean.isLoggedIn(), loginBean.getUserid()));
+		} catch (SQLException e) {
+		    response.sendRedirect("./LoginView.jsp");
+		}
 	}
-	// ===================================================== //
-	// Side navigation
-	try {
-	    out.println(GuiBean.getSideNavigation());
-	} catch (SQLException e) {
-	    response.sendRedirect("./LoginView.jsp");
-	}
-	// ===================================================== //
-	// top navigation
-	out.println(GuiBean.getTopNavigation(loginBean.isLoggedIn(), loginBean.getUserid()));
-
 	// =========================================================================== //
 	%>
 	<div class='main'>
@@ -50,10 +51,15 @@
 	
 	<p class='subtitleForum'>Comments by Users</p>
 	<%
+	try {
 	ArrayList<Comment> listOfComments = CommentsDB.getComments(0);
 	for (Comment comment : listOfComments) {
 	    out.println("<hr><p class='textForum'>" + comment.getComment().replace("\n", "<br>\n") + "</p>");
 	    out.println("<p class='byUserForum'> by " + comment.getUser() + " on " + comment.getTime() + "</p>");
+	}
+	} catch (SQLException e) {
+		out.println("<hr><p class='default_error_text'> Contect the webmaster: something went wrong!</p>");
+	    out.println("<p class='byUserForum'> by webmaster </p>");
 	}
 	%>
 	<br><br>
