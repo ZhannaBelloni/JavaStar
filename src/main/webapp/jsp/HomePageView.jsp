@@ -18,6 +18,9 @@
 <link rel='stylesheet' href='../css/sidebar.css?0'>
 <link rel='stylesheet' href='../css/topnav.css?0'>
 <script type="text/javascript" src="../js/helper.js"></script>
+ <script src="jquery.js"></script> 
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+
 
 <title>Java Star</title>
 </head>
@@ -45,6 +48,7 @@
 	    out.println("</div>");
 	}
 	%>
+	
 
 </body>
 </html>

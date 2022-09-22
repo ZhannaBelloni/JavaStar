@@ -95,5 +95,23 @@ public class GuiBean {
 	public static String getNavigationElements(boolean isLoggedIn, String userName) throws SQLException {
 	    return getSideNavigation(isLoggedIn, userName) + "<br>" + getTopNavigation(isLoggedIn, userName);
 	}
+	
+	public static String getNavigationCourse() {
+	    return "   <div style=\"display: flex;\">\n"
+	            + "            <form action='../jsp/HomePageView.jsp' method='get'>\n"
+	            + "\n"
+	            + "                <input type='image' alt='Submit' value='home'\n"
+	            + "                    src='../images/previous.png' width='48' height='48' />\n"
+	            + "            </form>\n"
+	            + "            <form action='../jsp/HomePageView.jsp' method='get'>\n"
+	            + "                <input type='image' alt='Submit' value='home'\n"
+	            + "                    src='../images/home.png' width='48' height='48' />\n"
+	            + "            </form>\n"
+	            + "            <form action='../jsp/VariableAndDataType.jsp' method='get'>\n"
+	            + "                <input type='image' alt='Submit' value='home'\n"
+	            + "                    src='../images/next.png' width='48' height='48' />\n"
+	            + "            </form>\n"
+	            + "        </div>";
+	}
 
 }
