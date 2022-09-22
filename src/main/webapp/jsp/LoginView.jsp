@@ -1,19 +1,23 @@
 
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-
+<%@page import="de.hwg_lu.java_star.beans.MessageBean"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+
+<jsp:useBean id="loginBean" class="de.hwg_lu.java_star.beans.LoginBean"
+	scope="session" />
+<jsp:useBean id="messageBean"
+	class="de.hwg_lu.java_star.beans.MessageBean" scope="session" />
+
 <!-- meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"-->
 <title>JavaStar-Registration</title>
 <!-- link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/Register.css" -->
 <link type="text/css" rel="stylesheet" href="../css/Register.css?2">
+<link type="text/css" rel="stylesheet" href="../css/default.css?2">
 
-
-<jsp:useBean id="loginBean" class="de.hwg_lu.java_star.beans.LoginBean"
-	scope="session" />
 
 </head>
 <body>
@@ -53,7 +57,15 @@
 								a new account</a></li>
 					</ul>
 				</div>
+				<%
+					if (messageBean.isWithError()) {
+	    out.println("<p class='default_error_text'>"+  messageBean.getInfoMessage() + ": " + messageBean.getActionMessage() + "</p>");;
+	    messageBean.setWithError(false);
+	}
+	%>
 			</form>
 		</div>
+
+
 	</div>
 </html>

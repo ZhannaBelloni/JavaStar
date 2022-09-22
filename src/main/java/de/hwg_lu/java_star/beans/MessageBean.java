@@ -5,6 +5,7 @@ public class MessageBean {
 
 	String infoMessage;
 	String actionMessage;
+	boolean isWithError = false;
 	
 	public MessageBean() {
 		this.setGeneralWelcome();
@@ -24,8 +25,9 @@ public class MessageBean {
 		this.setActionMessage("bitte waehlen Sie eine Anwendung");
 	}
 	public void setLoginFailed(){
-		this.setInfoMessage("Ihre Anmeldung ist fehlgeschlagen");
-		this.setActionMessage("bitte versuchen Sie es noch einmal");
+		this.setInfoMessage("Username or password are incorrect");
+		this.setActionMessage("try again or register");
+		setWithError(true);
 	}
 	public void setLoggedOut(){
 		this.setInfoMessage("Sie haben sich abgemeldet");
@@ -70,7 +72,15 @@ public class MessageBean {
 	
 	
 	
-	public String getInfoMessage() {
+	public boolean isWithError() {
+        return isWithError;
+    }
+
+    public void setWithError(boolean isWithError) {
+        this.isWithError = isWithError;
+    }
+
+    public String getInfoMessage() {
 		return infoMessage;
 	}
 	public void setInfoMessage(String infoMessage) {
