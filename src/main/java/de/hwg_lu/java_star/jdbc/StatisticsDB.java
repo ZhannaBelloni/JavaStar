@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class StatisticsDB {
     
@@ -13,6 +14,8 @@ public class StatisticsDB {
         COMPILE_ERROR,
         TEST_ERROR
     }
+    
+    public static String WHITE = "#FFFFFF";
 
     public String getColorForExcercise(String userid, Integer exerciseId) {
         try {
@@ -42,6 +45,41 @@ public class StatisticsDB {
             return "#FFFFFF";
         }
         return "#FFFFFF";
+
+    }
+    
+    public ArrayList<String> getColorForAllExcercise(String userid, Integer totalNumberExcercises) {
+        ArrayList<String> colors = new ArrayList<String>();
+        String color = WHITE;
+        for (int i = 0; i < totalNumberExcercises; ++i ) {colors.add(color);}
+    	try {
+            String sql = "SELECT exerciseid, tried_to_solved, compile_error, test_error  FROM bwi420_6xxxxx.statistics WHERE userid = ?";
+            System.out.println(sql + " userid = " + userid);
+            Connection dbConn = new PostgreSQLAccess().getConnection();
+            PreparedStatement prep = dbConn.prepareStatement(sql);
+            prep.setString(1, userid);
+            prep.execute();
+
+            ResultSet dbRes = prep.executeQuery();
+            while (dbRes.next()) {
+                dbConn.close();
+                int exNum = dbRes.getInt(1);
+                if (!dbRes.getBoolean(2)) {
+                    color = "#FFFFFF"; // white
+                } else if (dbRes.getBoolean(3)) {
+                	color = "#ff8000"; // orange
+                } else if (dbRes.getBoolean(4)) {
+                	color = "#ff0000"; // red
+                } else {
+                	color = "#00ff04"; // green
+                }
+                colors.add(exNum, color);
+            }
+            dbConn.close();
+        } catch (SQLException e) {
+            return colors;
+        }
+        return colors;
 
     }
 

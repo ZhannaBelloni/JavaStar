@@ -1,6 +1,7 @@
 package de.hwg_lu.java_star.beans;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import de.hwg_lu.java_star.jdbc.ExcerciseDB;
 import de.hwg_lu.java_star.jdbc.StatisticsDB;
@@ -44,24 +45,22 @@ public class GuiBean {
 		html += "    </div>";
 		html += "    <a onclick=\"toggleExcericeSideBar('exSideBar')\" href='#'>Exercises</a>";
 		html += "    <div id='exSideBar' style='display: none'>";
+		if (isLoggedIn) {
 
 		ExcerciseDB ex = new ExcerciseDB();
 		StatisticsDB stat = new StatisticsDB();
 		try {
 			int numTot = ex.getNumberExcerice();
-			
+			ArrayList<String> colors = stat.getColorForAllExcercise(userName, numTot);
 			for (int num = 1; num <= numTot; ++num) {
 				html += "<form style='margin-left:22px;' action='./ExerciseView.jsp' method='get'>";
 				html += "    <input type='hidden' name='exerciseNum' value=" + num + " />";
-				if (isLoggedIn) {
-				    html += "    <input type='submit' value='Exercise " + num + "' style=\"border:3px solid " + stat.getColorForExcercise(userName, num) + "\"/>";
-				} else {
-				    html += "    <input type='submit' value='Exercise " + num + "' />";
-				}
+				html += "    <input type='submit' value='Exercise " + num + "' style=\"border:3px solid " + colors.get(num) + "\"/>";
 				html += "</form>";
 			}
 		} catch (SQLException e) {
 			html += "<p class='default_error_text'>Ops! something went wrong: excerice are temporarly non available!</p>";
+		}
 		}
 		html += "</div>";
 		html += "<a href='./ForumView.jsp'>Comments</a> <a href='#'>Contact</a></div>";
