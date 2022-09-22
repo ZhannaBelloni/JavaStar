@@ -33,3 +33,10 @@ pre {
 	float: right;
 }
 
+.main {
+	margin-left: 15%;
+	font-size: 20px; /* Increased text to enable scrolling */
+	padding: 0px 50px;
+	height: 100%;
+	padding-top: 10px;
+}
