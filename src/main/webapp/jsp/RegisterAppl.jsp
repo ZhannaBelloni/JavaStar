@@ -16,16 +16,17 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Register in JavaStar</title>
-<link rel="stylesheet" href="../css/JavaStarBasic.css">
+
 </head>
 
-
-<body>
-	<jsp:useBean id="accountBean"
+<jsp:useBean id="accountBean"
 		class="de.hwg_lu.java_star.beans.AccountBean" scope="session" />
 	<jsp:useBean id="loginBean" class="de.hwg_lu.java_star.beans.LoginBean"
 		scope="session" />
+		<jsp:useBean id="messageBean"
+	class="de.hwg_lu.java_star.beans.MessageBean" scope="session" />
 
+<body>
 
 	<%!public String denullify(String s) {
 		if (s == null)
@@ -58,6 +59,8 @@
 	out.println("btnZumLogin: " + btnZumLogin + "<br>");
 
 	try {
+		
+		 //TODO :do in one transaction!
 		accountBean.insertAccountNoCheck();
 		loginBean.setUserid(userid);
 		loginBean.setPassword(password);
@@ -75,7 +78,9 @@
 		
 		response.sendRedirect("./HomePageView.jsp");
 	} catch (SQLException e) {
-		out.println("Error: " + e.toString());
+		loginBean.setLoggedIn(false);
+		messageBean.setLoginOnFailed();
+		response.sendRedirect("./RegisterView.jsp");
 	}
 	%>
 </body>

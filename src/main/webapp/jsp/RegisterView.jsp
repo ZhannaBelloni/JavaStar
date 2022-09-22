@@ -12,10 +12,12 @@
 
 <link type="text/css" rel="stylesheet" href="../css/Register.css">
 <link type="text/css" rel="stylesheet" href="../css/sidebar.css">
-
+<link rel="stylesheet" href="../css/default.css?1">
 
 <jsp:useBean id="loginBean" class="de.hwg_lu.java_star.beans.LoginBean"
 		scope="session" />
+<jsp:useBean id="messageBean"
+	class="de.hwg_lu.java_star.beans.MessageBean" scope="session" />
 
 </head>
 <body>
@@ -68,6 +70,12 @@
 								already a register</a></li>
 					</ul>
 				</div>
+				<%
+					if (messageBean.isWithError()) {
+	    out.println("<p class='default_error_text'>"+  messageBean.getInfoMessage() + ": " + messageBean.getActionMessage() + "</p>");;
+	    messageBean.setWithError(false);
+	}
+	%>
 			</form>
 		</div>
 	</div>

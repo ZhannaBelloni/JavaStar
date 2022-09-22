@@ -29,6 +29,11 @@ public class MessageBean {
 		this.setActionMessage("try again or register");
 		setWithError(true);
 	}
+	public void setLoginOnFailed(){
+		this.setInfoMessage("Username exsists already");
+		this.setActionMessage("try again or register with another username");
+		setWithError(true);
+	}
 	public void setLoggedOut(){
 		this.setInfoMessage("Sie haben sich abgemeldet");
 		this.setActionMessage("bitte melden Sie sich wieder an");

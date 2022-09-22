@@ -15,7 +15,8 @@
 <link rel="stylesheet" href="../css/Lesson.css?2">
 <link rel='stylesheet' href='../css/sidebar.css?2'>
 <link rel='stylesheet' href='../css/topnav.css?2'>
-<link rel='stylesheet' href='../css/default.css?2'>
+
+
 <script type="text/javascript" src="../js/helper.js"></script>
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 
@@ -26,8 +27,6 @@
 
 
 	<%
-	// =========================================================================== //
-	//                        SIDE AND TOP NAVIGATION BARS                         //
 	try {
 	    out.println(GuiBean.getNavigationElements(loginBean.isLoggedIn(), loginBean.getUserid()));
 	} catch (SQLException e) {
@@ -36,9 +35,18 @@
 	%>
 
 	<div class='main'>
-	<% out.println(GuiBean.getNavigationCourse());%>
-	<%@include  file="../html/JavaBasic.html"%>
+	<% 
+	// String pagePath = "../html/JavaBasic.html";
+	String pagePath = request.getParameter("currentPage");
+	if (pagePath == null ) {
+		pagePath = "../html/JavaBasic.html";
+		out.println("<p>There is an error: contact the administrator</p>");
+	}
+	out.println(GuiBean.getNavigationCourse(pagePath));
+	String pagePathFull = "../html/" + pagePath;
+	%>
+	<jsp:include page="<%= pagePathFull %>" ></jsp:include>
 	
-</div>
+	</div>
 </body>
 </html>

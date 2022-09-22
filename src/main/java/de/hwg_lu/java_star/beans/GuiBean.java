@@ -8,6 +8,8 @@ import de.hwg_lu.java_star.jdbc.StatisticsDB;
 
 public class GuiBean {
 
+	public static String[] lessonList = { "JavaBasic.html", "VariableAndDataType.html", "OperatorsInJava.html", };
+
 	public static String getSideNavigation(boolean isLoggedIn, String userName) throws SQLException {
 		String html = "";
 		html += "<span class='closedSideNav' onclick='openNav()'>&#9776; JAVA STAR</span>\n"
@@ -16,51 +18,32 @@ public class GuiBean {
 		html += "    <a href='./HomePageView.jsp'>Home</a>";
 		html += "    <a onclick=\"toggleExcericeSideBar('courseSideBar')\" href='#'>Course</a>";
 		html += "    <div id='courseSideBar' style='display: none'>";
-		html += "        <!-- ============================================= -->";
-		html += "        <form style='margin-left:20px;' action='./JavaBasic.jsp' method='get'>";
-		html += "            <input type='hidden' name='exerciseNum' value='1'> <input";
-		html += "                type='submit' value='Java Basics' />";
-		html += "        </form>";
-		html += "        <form style='margin-left:20px;' method='get'>";
-		html += "            <input type='hidden' name='exerciseNum' value='1'> <input";
-		html += "                type='submit' value='Variables and Data Types' />;";
-		html += "        </form>";
-		html += "        <form style='margin-left:20px;' method='get'>";
-		html += "            <input type='hidden' name='exerciseNum' value='1'> <input";
-		html += "                type='submit' value='Input and Output in Java' />";
-		html += "        </form>";
-		html += "                <form style='margin-left:20px;' method='get'>";
-		html += "            <input type='hidden' name='exerciseNum' value='1'> <input";
-		html += "                type='submit' value='Operators in Java' />";
-		html += "        </form>";
-		html += "                <form style='margin-left:20px;'  method='get'>";
-		html += "            <input type='hidden' name='exerciseNum' value='1'> <input";
-		html += "                type='submit' value='Flow Control in Java'/>";
-		html += "                </form>";
-		html += "                <form style='margin-left:20px;' method='get'>";
-		html += "            <input type='hidden' name='exerciseNum' value='1'> <input";
-		html += "                type='submit' value='Arrays in Java' />";
-		html += "        </form>";
-		html += "        <!-- ============================================= -->";
+		for (String page : lessonList) {
+			html += "        <form style='margin-left:20px;' action='./Lesson.jsp' method='get'>";
+			html += "            <input type='hidden' name='currentPage' value='" + page +"'> <input";
+			html += "                type='submit' value='" + page.replace(".html", "") + "' />";
+			html += "        </form>";
+		}
 		html += "    </div>";
 		html += "    <a onclick=\"toggleExcericeSideBar('exSideBar')\" href='#'>Exercises</a>";
 		html += "    <div id='exSideBar' style='display: none'>";
 		if (isLoggedIn) {
 
-		ExcerciseDB ex = new ExcerciseDB();
-		StatisticsDB stat = new StatisticsDB();
-		try {
-			int numTot = ex.getNumberExcerice();
-			ArrayList<String> colors = stat.getColorForAllExcercise(userName, numTot);
-			for (int num = 1; num <= numTot; ++num) {
-				html += "<form style='margin-left:22px;' action='./ExerciseView.jsp' method='get'>";
-				html += "    <input type='hidden' name='exerciseNum' value=" + num + " />";
-				html += "    <input type='submit' value='Exercise " + num + "' style=\"border:3px solid " + colors.get(num) + "\"/>";
-				html += "</form>";
+			ExcerciseDB ex = new ExcerciseDB();
+			StatisticsDB stat = new StatisticsDB();
+			try {
+				int numTot = ex.getNumberExcerice();
+				ArrayList<String> colors = stat.getColorForAllExcercise(userName, numTot);
+				for (int num = 1; num <= numTot; ++num) {
+					html += "<form style='margin-left:22px;' action='./ExerciseView.jsp' method='get'>";
+					html += "    <input type='hidden' name='exerciseNum' value=" + num + " />";
+					html += "    <input type='submit' value='Exercise " + num + "' style=\"border:3px solid "
+							+ colors.get(num) + "\"/>";
+					html += "</form>";
+				}
+			} catch (SQLException e) {
+				html += "<p class='default_error_text'>Ops! something went wrong: excerice are temporarly non available!</p>";
 			}
-		} catch (SQLException e) {
-			html += "<p class='default_error_text'>Ops! something went wrong: excerice are temporarly non available!</p>";
-		}
 		}
 		html += "</div>";
 		html += "<a href='./ForumView.jsp'>Comments</a> <a href='#'>Contact</a></div>";
@@ -90,32 +73,46 @@ public class GuiBean {
 		html += "</div></div>";
 		return html;
 	}
-	
+
 	public static String getNavigationElements(boolean isLoggedIn, String userName) throws SQLException {
-	    return getSideNavigation(isLoggedIn, userName) + "<br>" + getTopNavigation(isLoggedIn, userName);
+		return getSideNavigation(isLoggedIn, userName) + "<br>" + getTopNavigation(isLoggedIn, userName);
 	}
-	
-	public static String getNavigationCourse() {
-	    return "   <div style=\"display: flex;\">\n"
-	            + "            <form action='../jsp/HomePageView.jsp' method='get'>\n"
-	            + "\n"
-	            + "                <input type='image' alt='Submit' value='home'\n"
-	            + "                    src='../images/previous.png' width='48' height='48' />\n"
-	            + "            </form>\n"
-	            + "            <form action='../jsp/HomePageView.jsp' method='get'>\n"
-	            + "                <input type='image' alt='Submit' value='home'\n"
-	            + "                    src='../images/home.png' width='48' height='48' />\n"
-	            + "            </form>\n"
-	            + "            <form action='../jsp/VariableAndDataType.jsp' method='get'>\n"
-	            + "                <input type='image' alt='Submit' value='home'\n"
-	            + "                    src='../images/next.png' width='48' height='48' />\n"
-	            + "            </form>\n"
-	            + "        </div>";
+
+	public static String getNavigationCourse(String currentPage) {
+		int position = 0;
+		for (; position < lessonList.length; ++position) {
+			if (lessonList[position].equals(currentPage)) {
+				break;
+			}
+		}
+
+		String previous = (position - 1 < 0) ? null : lessonList[position - 1];
+		String next = (position + 1 >= lessonList.length) ? null : lessonList[position + 1];
+
+		String html = "   <div style=\"display: flex;\">\n";
+		if (previous != null) {
+			html += "            <form action='../jsp/Lesson.jsp' method='get'>\n"
+					+ "                <input type='hidden' name='currentPage' value='" + previous + "'>"
+					+ "                <input type='image' alt='Submit' value='home'\n"
+					+ "                    src='../images/previous.png' width='48' height='48' />\n"
+					+ "            </form>\n";
+		}
+		html += "            <form action='../jsp/HomePageView.jsp' method='get'>\n"
+				+ "                <input type='image' alt='Submit' value='home'\n"
+				+ "                    src='../images/home.png' width='48' height='48' />\n" + "            </form>\n";
+		if (next != null) {
+			html += "            <form action='../jsp/Lesson.jsp' method='get'>\n"
+					+ "                <input type='hidden' name='currentPage' value='" + next + "'>"
+					+ "                <input type='image' alt='Submit' value='home'\n"
+					+ "                    src='../images/next.png' width='48' height='48' />\n"
+					+ "            </form>\n";
+		}
+		html += "        </div>";
+		return html;
 	}
-	
+
 	public static String getExerciseResult(boolean compilationError, boolean testError) {
 		String html = "";
-		
 		html += "<div style='display: flex;'>";
 		html += "  <p class='hallo_user'>Compilation: </p>";
 		if (compilationError) {
@@ -124,7 +121,7 @@ public class GuiBean {
 			html += "  <img src='../images/ok.png' width='48' height='48'/>";
 		}
 		html += "</div><br>";
-		
+
 		html += "<div style='display: flex;'>";
 		html += "  <p class='hallo_user'>Test: </p>";
 		if (testError) {
@@ -133,7 +130,7 @@ public class GuiBean {
 			html += "  <img src='../images/ok.png' width='48' height='48'/>";
 		}
 		html += "</div><br>";
-		
+
 		return html;
 	}
 
