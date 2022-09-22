@@ -51,7 +51,7 @@ public class StatisticsDB {
     public ArrayList<String> getColorForAllExcercise(String userid, Integer totalNumberExcercises) {
         ArrayList<String> colors = new ArrayList<String>();
         String color = WHITE;
-        for (int i = 0; i < totalNumberExcercises; ++i ) {colors.add(color);}
+        for (int i = 0; i <= totalNumberExcercises; ++i ) {colors.add(color);}
     	try {
             String sql = "SELECT exerciseid, tried_to_solved, compile_error, test_error  FROM bwi420_6xxxxx.statistics WHERE userid = ?";
             System.out.println(sql + " userid = " + userid);

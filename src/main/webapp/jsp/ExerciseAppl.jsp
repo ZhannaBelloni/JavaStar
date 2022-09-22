@@ -1,11 +1,25 @@
 <%@page import="de.hwg_lu.java_star.jdbc.ExcerciseDB"%>
 <%@page import="de.hwg_lu.java_star.jdbc.StatisticsDB"%>
 <%@page import="java.util.regex.*"%>
+	
+<%@page import="java.sql.SQLException"%>
+
+<%@page import="de.hwg_lu.java_star.beans.GuiBean"%>
+<%@page import="de.hwg_lu.java_star.jdbc.ExcerciseDB"%>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<link rel="stylesheet" href="../css/JavaStarBasic.css">
+<head>
+
+<link rel="stylesheet" href="../css/excercise.css?1">
+<link rel='stylesheet' href='../css/sidebar.css'>
+<link rel='stylesheet' href='../css/topnav.css'>
+<script type="text/javascript" src="../js/helper.js"></script>
+
+<meta charset="UTF-8">
+<title>Exercise: Results</title>
+</head>
 
 <jsp:useBean id="tester" class="de.hwg_lu.java_star.excercises.Tester" />
 <jsp:useBean id="loginBean" class="de.hwg_lu.java_star.beans.LoginBean"
@@ -16,17 +30,22 @@
 		width='48' height='48' />
 </form>
 
-<%
-if (loginBean.isLoggedIn()) {
-	out.println("<p style=\"text-align:right;\"> hallo, " + loginBean.getUserid() + "</p>");
-	/*
-	out.println("<p style=\"text-align:right;\"> execise done " + loginBean.getNumberExDone() + "</p>" );
-	out.println("<p style=\"text-align:right;\"> execise correct " + loginBean.getCorrectEx() + "</p>" );
-	*/
-	out.println("<form action=\"./LogoutAppl.jsp\" method=\"get\">"
-	+ "<input style=\"float: right;\" type=\"submit\" name=\"logout\" value=\"logout\" />" + "</form>");
-}
-%>
+	<%
+	// =========================================================================== //
+	//                        SIDE AND TOP NAVIGATION BARS                         //
+	// =========================================================================== //
+	// Force login for this page.
+	if (!loginBean.isLoggedIn()) {
+	    response.sendRedirect("./LoginView.jsp");
+	} else {
+		try {
+			out.println(GuiBean.getNavigationElements(loginBean.isLoggedIn(), loginBean.getUserid()));
+		} catch (SQLException e) {
+		    response.sendRedirect("./LoginView.jsp");
+		}
+	}
+	// =========================================================================== //
+	%>
 
 <%
 String exerciseNumber = request.getParameter("exerciseNum");
@@ -44,6 +63,7 @@ String sourceCode = request.getParameter("sourceCode");
 // 
 
 String executionOut = "";
+String compilationOutput = "";
 boolean compilationError = false;
 
 /*
@@ -70,28 +90,41 @@ out.println(preparedSourceCode + "<br>");
 out.println("preparedRequest<br>");
 out.println(tester.prepareRequest(preparedSourceCode) + "<br>");
 */
-executionOut = tester.testExcercise(sourceCode, numEx);
+compilationOutput = tester.compileExcercise(sourceCode, numEx);
 
-// out.print("##################################<br>");
-executionOut = executionOut.replace("error:", "\nerror:");
-String pattern = ".{1,80}(?!\\S)";
-Pattern r = Pattern.compile(pattern);
-Matcher m = r.matcher(executionOut);
-
-out.print("<pre><code>");
-while (m.find()) {
-	out.println(m.group(0).trim());
-}
-out.println("</code></pre>");
-
-if (executionOut.contains("Compiler exited with result code")) {
+if (compilationOutput.contains("Compiler exited with result code") && !compilationOutput.contains("should be declared in a file named")) {
 	out.print("Try again there was an error<br>");
 	compilationError = true;
 	stat.updateExcerciseForUser(loginBean.getUserid(), numEx, StatisticsDB.ExerciseTag.COMPILE_ERROR);
+	compilationOutput = compilationOutput.replace("error:", "\nerror:");
+	String pattern = ".{1,80}(?!\\S)";
+	Pattern r = Pattern.compile(pattern);
+	Matcher m = r.matcher(compilationOutput);
+
+	out.print("<pre style='background-color: #FFFF; margin-left:15% ; margin-right:15%'><code>");
+	while (m.find()) {
+		out.println(m.group(0).trim());
+	}
+	out.println("</code></pre>");
+	
 } else {
 	out.print("Compiled: Very good!<br>");
-}
-// }
+	
+	executionOut = tester.testExcercise(sourceCode, numEx);
+
+	// out.print("##################################<br>");
+	executionOut = executionOut.replace("error:", "\nerror:");
+	String pattern = ".{1,80}(?!\\S)";
+	Pattern r = Pattern.compile(pattern);
+	Matcher m = r.matcher(executionOut);
+
+	out.print("<pre><code>");
+	while (m.find()) {
+		out.println(m.group(0).trim());
+	}
+	out.println("</code></pre>");
+
+
 
 int indexOut = executionOut.indexOf("out:");
 
@@ -104,6 +137,9 @@ if (!compilationError && !executionOut.isEmpty() && executionOut.substring(index
 	stat.updateExcerciseForUser(loginBean.getUserid(), numEx, StatisticsDB.ExerciseTag.TEST_ERROR);
 
 }
+	
+}
+
 //out.print("Expected " + expectedOut + ", got " + executionOut.substring(executionOut.isEmpty() ? 0 : (indexOut + 4)));
 %>
 

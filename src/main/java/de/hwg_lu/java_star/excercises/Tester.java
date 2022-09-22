@@ -18,13 +18,17 @@ public class Tester {
 	
 	public String testExcercise(String sourceCode, int excerciseNumber) throws IOException, SQLException {
 		String extendedClass = prepareSourceCode(sourceCode, excerciseNumber);
-		return this.execute(extendedClass);				
+		return this.execute(extendedClass, true);				
+	}
+	
+	public String compileExcercise(String sourceCode, int excerciseNumber) throws IOException, SQLException {
+		return this.execute(sourceCode, false);				
 	}
 	
 	public String prepareSourceCode(String sourceCode, int excerciseNumber) throws SQLException {
 		String stringTest = new ExcerciseDB().getExcericeTestSourceCode(excerciseNumber);
-		
-		return stringTest.replace(this.TAG, sourceCode);
+		String pattern = "import .*;";
+		return stringTest.replace(this.TAG, sourceCode.replaceAll(pattern, ""));
 				
 	}
 	
@@ -38,17 +42,24 @@ public class Tester {
 		  .replace("\"", "\\\"");
 	}
 	
-	public String prepareRequest(String sourceCode) {
+	public String prepareRequest(String sourceCode, boolean execute) {
 		String jsonInputString = "{";
 		jsonInputString += "\"source\": \"" + cleanStringForRequest(sourceCode) + "\"";
-		jsonInputString += ", \"options\": {" + "\"compilerOptions\": {" + "    \"executorRequest\": true" + "},"
-				+ "\"filters\": {" + "    \"execute\": true" + "}";
+		jsonInputString += ", \"options\": {" + "\"compilerOptions\": {" + "    \"executorRequest\": "; 
+		jsonInputString += execute ? "true" : "false";
+		jsonInputString += "},"
+				+ "\"filters\": {" + "    \"execute\": ";
+		jsonInputString += execute ? "true" : "false";
+		jsonInputString += " }";
 		jsonInputString += "}}";
 		return jsonInputString.trim().replaceAll(" +", " ");
 
 	}
 	
-	public String execute(String sourceCode) throws IOException {
+	public String execute(String sourceCode, boolean execute) throws IOException {
+		
+		System.out.println("[DEBUG] Running execute with");
+		
 		URL url = new URL("https://godbolt.org/api/compiler/java1800/compile");
 		HttpURLConnection con = (HttpURLConnection) url.openConnection();
 		con.setRequestMethod("POST");
@@ -56,7 +67,9 @@ public class Tester {
 		con.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
 		con.setDoOutput(true);
 
-		String jsonInputString = prepareRequest(sourceCode);
+		String jsonInputString = prepareRequest(sourceCode, execute);
+		System.out.println("executing request with data:");
+		System.out.println(jsonInputString);
 
 		try (OutputStream os = con.getOutputStream()) {
 			byte[] input = jsonInputString.getBytes("utf-8");
@@ -80,7 +93,7 @@ public class Tester {
 		} catch (IOException e ) {
 			return e.toString() + " for data: " + jsonInputString;
 		}
-
+		System.out.println("[DEBUG] Response: "+ stdOut);
 		return stdOut;
 	}
 	
