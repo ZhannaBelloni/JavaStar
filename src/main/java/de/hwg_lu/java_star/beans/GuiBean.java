@@ -112,5 +112,29 @@ public class GuiBean {
 	            + "            </form>\n"
 	            + "        </div>";
 	}
+	
+	public static String getExerciseResult(boolean compilationError, boolean testError) {
+		String html = "";
+		
+		html += "<div style='display: flex;'>";
+		html += "  <p class='hallo_user'>Compilation: </p>";
+		if (compilationError) {
+			html += "  <img src='../images/error.png' width='48' height='48'/>";
+		} else {
+			html += "  <img src='../images/ok.png' width='48' height='48'/>";
+		}
+		html += "</div><br>";
+		
+		html += "<div style='display: flex;'>";
+		html += "  <p class='hallo_user'>Test: </p>";
+		if (testError) {
+			html += "  <img src='../images/error.png' width='48' height='48'/>";
+		} else {
+			html += "  <img src='../images/ok.png' width='48' height='48'/>";
+		}
+		html += "</div><br>";
+		
+		return html;
+	}
 
 }

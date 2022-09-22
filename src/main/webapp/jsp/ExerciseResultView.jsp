@@ -42,48 +42,6 @@
 	%>
 
 	<div class='main'>
-	<%
-	String exerciseNumber = request.getParameter("exerciseNum");
-	Integer numEx = Integer.parseInt(exerciseNumber);
-	ExcerciseDB ex = new ExcerciseDB();
-	StatisticsDB stat = new StatisticsDB();
-	String expectedOut = ex.getExcericeSolution(numEx);
-	String sourceCode = request.getParameter("sourceCode");
-	String executionOut = "";
-	String compilationOutput = "";
-	String output = "";
-	boolean compilationError = false;
-	boolean testError = false;
-
-
-	compilationOutput = tester.compileExcercise(sourceCode, numEx);
-
-	if (compilationOutput.contains("Compiler exited with result code")
-			&& !compilationOutput.contains("should be declared in a file named")) {
-		compilationError = true;
-		testError = true;
-		stat.updateExcerciseForUser(loginBean.getUserid(), numEx, StatisticsDB.ExerciseTag.COMPILE_ERROR);
-		output = compilationOutput.replace("Compiler exited with result code", "\nCompiler exited with result code\n").replace("error:", "\nerror:\n");
-
-	} else {
-		compilationError = false;
-		executionOut = tester.testExcercise(sourceCode, numEx);
-
-		// out.print("##################################<br>");
-		output = executionOut.replace("error:", "\nerror:\n");
-		
-		int indexOut = executionOut.indexOf("out:");
-
-		if (!compilationError && !executionOut.isEmpty() && executionOut.substring(indexOut + 4).equals(expectedOut)) {
-			testError = false;
-			stat.updateExcerciseForUser(loginBean.getUserid(), numEx, StatisticsDB.ExerciseTag.NO_ERROR);
-
-		} else {
-			testError = true;
-			stat.updateExcerciseForUser(loginBean.getUserid(), numEx, StatisticsDB.ExerciseTag.TEST_ERROR);
-		}
-
-	}
 	
 	out.println(GuiBean.getExerciseResult(compilationError, testError));
 	
