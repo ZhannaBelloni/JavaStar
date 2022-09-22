@@ -120,7 +120,7 @@ public class AdminDB {
 			PostgreSQLAccess access = new PostgreSQLAccess();
 			admin.cleanupJavaStarSchema(access);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("[WARNING]" + e.toString());
 		}
 		
 		

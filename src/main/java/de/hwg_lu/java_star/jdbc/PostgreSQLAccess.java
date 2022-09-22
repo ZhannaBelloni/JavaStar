@@ -7,13 +7,17 @@ public class PostgreSQLAccess extends JDBCAccess {
 	}
 	public void setDBParms(){
 		dbDrivername = "org.postgresql.Driver";
-		// dbURL        = "jdbc:postgresql://143.93.200.243:5432/BWUEBDB";
-		// dbUser       = "user1";
-		// dbPassword   = "pgusers";
+		/**/
+		dbURL        = "jdbc:postgresql://143.93.200.243:5432/BWUEBDB";
+		dbUser       = "user1";
+		dbPassword   = "pgusers";
+		/**/
+		/*
 		dbURL        = "jdbc:postgresql://localhost:5432/BWUEBDB";
     	dbUser       = "postgres";
 		dbPassword   = "belloni";
-		dbSchema     = "bwi420_6xxxxx"; // hier Matrikelnummer eintragen
+		*/
+		dbSchema     = "bwi420_624675"; // hier Matrikelnummer eintragen
 		
 	}
 	
