@@ -9,7 +9,7 @@ public class ExcerciseDB {
 	
 	public String getExcerciseText(Integer exerciseNumber) throws SQLException {
 		
-		String sql = "SELECT exercise_text FROM bwi420_6xxxxx.excercise WHERE id = ?";
+		String sql = "SELECT exercise_text FROM excercise WHERE id = ?";
 		System.out.println(sql + ", id = " + exerciseNumber);
 		Connection dbConn = new PostgreSQLAccess().getConnection();
 		PreparedStatement prep = dbConn.prepareStatement(sql);
@@ -26,7 +26,7 @@ public class ExcerciseDB {
 	}
 	
 	public String getExcericeSolution(Integer exerciseNumber) throws SQLException {
-		String sql = "SELECT exercise_out FROM bwi420_6xxxxx.excercise WHERE id = ?";
+		String sql = "SELECT exercise_out FROM excercise WHERE id = ?";
 		System.out.println(sql + ", id = " + exerciseNumber);
 		Connection dbConn = new PostgreSQLAccess().getConnection();
 		PreparedStatement prep = dbConn.prepareStatement(sql);
@@ -45,7 +45,7 @@ public class ExcerciseDB {
 	}
 	
 	public String getExcericeTestSourceCode(Integer exerciseNumber) throws SQLException {
-		String sql = "SELECT exercise_test FROM bwi420_6xxxxx.excercise WHERE id = ?";
+		String sql = "SELECT exercise_test FROM excercise WHERE id = ?";
 		System.out.println(sql + ", id = " + exerciseNumber);
 		Connection dbConn = new PostgreSQLAccess().getConnection();
 		PreparedStatement prep = dbConn.prepareStatement(sql);
@@ -63,7 +63,7 @@ public class ExcerciseDB {
 	}
 	
 	public String getExcericeSourceCodeSolution(Integer exerciseNumber) throws SQLException {
-		String sql = "SELECT exercise_solution FROM bwi420_6xxxxx.excercise WHERE id = ?";
+		String sql = "SELECT exercise_solution FROM excercise WHERE id = ?";
 		System.out.println(sql + ", id = " + exerciseNumber);
 		Connection dbConn = new PostgreSQLAccess().getConnection();
 		PreparedStatement prep = dbConn.prepareStatement(sql);
@@ -81,7 +81,7 @@ public class ExcerciseDB {
 	}
 	
 	public int getNumberExcerice() throws SQLException {
-		String sql = "SELECT COUNT(*) FROM bwi420_6xxxxx.excercise";
+		String sql = "SELECT COUNT(*) FROM excercise";
 		System.out.println(sql);
 		Connection dbConn = new PostgreSQLAccess().getConnection();
 		PreparedStatement prep = dbConn.prepareStatement(sql);

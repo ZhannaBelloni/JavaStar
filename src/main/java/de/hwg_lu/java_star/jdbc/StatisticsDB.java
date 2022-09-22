@@ -19,7 +19,7 @@ public class StatisticsDB {
 
     public String getColorForExcercise(String userid, Integer exerciseId) {
         try {
-            String sql = "SELECT tried_to_solved, compile_error, test_error  FROM bwi420_6xxxxx.statistics WHERE userid = ? AND exerciseid = ?";
+            String sql = "SELECT tried_to_solved, compile_error, test_error  FROM statistics WHERE userid = ? AND exerciseid = ?";
             System.out.println(sql + ", id = " + exerciseId + ", userid = " + userid);
             Connection dbConn = new PostgreSQLAccess().getConnection();
             PreparedStatement prep = dbConn.prepareStatement(sql);
@@ -53,7 +53,7 @@ public class StatisticsDB {
         String color = WHITE;
         for (int i = 0; i <= totalNumberExcercises; ++i ) {colors.add(color);}
     	try {
-            String sql = "SELECT exerciseid, tried_to_solved, compile_error, test_error  FROM bwi420_6xxxxx.statistics WHERE userid = ?";
+            String sql = "SELECT exerciseid, tried_to_solved, compile_error, test_error  FROM statistics WHERE userid = ?";
             System.out.println(sql + " userid = " + userid);
             Connection dbConn = new PostgreSQLAccess().getConnection();
             PreparedStatement prep = dbConn.prepareStatement(sql);
@@ -84,7 +84,7 @@ public class StatisticsDB {
     }
 
     public void updateExcerciseForUser(String userid, Integer exerciseId, ExerciseTag tag) throws SQLException {
-        String sql = "SELECT tried_to_solved, compile_error, test_error  FROM bwi420_6xxxxx.statistics WHERE userid = ? AND exerciseid = ?";
+        String sql = "SELECT tried_to_solved, compile_error, test_error  FROM statistics WHERE userid = ? AND exerciseid = ?";
 
         Connection dbConn = new PostgreSQLAccess().getConnection();
         PreparedStatement prepSelect = dbConn.prepareStatement(sql);

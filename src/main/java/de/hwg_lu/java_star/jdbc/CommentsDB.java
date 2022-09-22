@@ -12,7 +12,7 @@ public class CommentsDB {
 	
 	static public ArrayList<Comment> getComments(Integer last) throws SQLException {
 	    ArrayList<Comment> comments = new ArrayList<>();
-	    String sql = "SELECT userid, comment, time FROM bwi420_6xxxxx.comments ORDER BY time DESC ";
+	    String sql = "SELECT userid, comment, time FROM comments ORDER BY time DESC ";
 	    if (last != null && last > 0) {
 	        sql += " LIMIT " + last;
 	    }
@@ -30,7 +30,7 @@ public class CommentsDB {
 	}
 	
 	public void insertComment(String userid, String comment) throws SQLException {
-	    String sql = "INSERT INTO bwi420_6xxxxx.comments (userid, comment) VALUES (?, ?)";
+	    String sql = "INSERT INTO comments (userid, comment) VALUES (?, ?)";
 	    System.out.println(sql + ": " + userid + ", " + comment);
         Connection dbConn = new PostgreSQLAccess().getConnection();
         PreparedStatement prep = dbConn.prepareStatement(sql);
