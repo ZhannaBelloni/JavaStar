@@ -3,10 +3,11 @@ package de.hwg_lu.java_star.beans;
 import java.sql.SQLException;
 
 import de.hwg_lu.java_star.jdbc.ExcerciseDB;
+import de.hwg_lu.java_star.jdbc.StatisticsDB;
 
 public class GuiBean {
 
-	public static String getSideNavigation() throws SQLException {
+	public static String getSideNavigation(boolean isLoggedIn, String userName) throws SQLException {
 		String html = "";
 		html += "<span class='closedSideNav' onclick='openNav()'>&#9776; JAVA STAR</span>\n"
 				+ "    <div class='sidenav' id='mySidenav' style='width: 0'>\n"
@@ -15,27 +16,27 @@ public class GuiBean {
 		html += "    <a onclick=\"toggleExcericeSideBar('courseSideBar')\" href='#'>Course</a>";
 		html += "    <div id='courseSideBar' style='display: none'>";
 		html += "        <!-- ============================================= -->";
-		html += "        <form action='./JavaBasic.jsp' method='get'>";
+		html += "        <form style='margin-left:20px;' action='./JavaBasic.jsp' method='get'>";
 		html += "            <input type='hidden' name='exerciseNum' value='1'> <input";
 		html += "                type='submit' value='Java Basics' />";
 		html += "        </form>";
-		html += "        <form method='get'>";
+		html += "        <form style='margin-left:20px;' method='get'>";
 		html += "            <input type='hidden' name='exerciseNum' value='1'> <input";
 		html += "                type='submit' value='Variables and Data Types' />;";
 		html += "        </form>";
-		html += "        <form method='get'>";
+		html += "        <form style='margin-left:20px;' method='get'>";
 		html += "            <input type='hidden' name='exerciseNum' value='1'> <input";
 		html += "                type='submit' value='Input and Output in Java' />";
 		html += "        </form>";
-		html += "                <form method='get'>";
+		html += "                <form style='margin-left:20px;' method='get'>";
 		html += "            <input type='hidden' name='exerciseNum' value='1'> <input";
 		html += "                type='submit' value='Operators in Java' />";
 		html += "        </form>";
-		html += "                <form method='get'>";
+		html += "                <form style='margin-left:20px;'  method='get'>";
 		html += "            <input type='hidden' name='exerciseNum' value='1'> <input";
 		html += "                type='submit' value='Flow Control in Java'/>";
 		html += "                </form>";
-		html += "                <form method='get'>";
+		html += "                <form style='margin-left:20px;' method='get'>";
 		html += "            <input type='hidden' name='exerciseNum' value='1'> <input";
 		html += "                type='submit' value='Arrays in Java' />";
 		html += "        </form>";
@@ -45,13 +46,18 @@ public class GuiBean {
 		html += "    <div id='exSideBar' style='display: none'>";
 
 		ExcerciseDB ex = new ExcerciseDB();
+		StatisticsDB stat = new StatisticsDB();
 		try {
 			int numTot = ex.getNumberExcerice();
 			
 			for (int num = 1; num <= numTot; ++num) {
-				html += "<form action='./ExerciseView.jsp' method='get'>";
+				html += "<form style='margin-left:22px;' action='./ExerciseView.jsp' method='get'>";
 				html += "    <input type='hidden' name='exerciseNum' value=" + num + " />";
-				html += "    <input type='submit' value='Exercise " + num + "' />";
+				if (isLoggedIn) {
+				    html += "    <input type='submit' value='Exercise " + num + "' style=\"border:3px solid " + stat.getColorForExcercise(userName, num) + "\"/>";
+				} else {
+				    html += "    <input type='submit' value='Exercise " + num + "' />";
+				}
 				html += "</form>";
 			}
 		} catch (SQLException e) {
@@ -84,6 +90,10 @@ public class GuiBean {
 		}
 		html += "</div></div>";
 		return html;
+	}
+	
+	public static String getNavigationElements(boolean isLoggedIn, String userName) throws SQLException {
+	    return getSideNavigation(isLoggedIn, userName) + "<br>" + getTopNavigation(isLoggedIn, userName);
 	}
 
 }

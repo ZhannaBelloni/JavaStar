@@ -22,36 +22,12 @@
 
 	<div class='topnav'>
 		<div class='login-container'>
-			<%
-			out.println("<div style='display: flex;'>");
-			
-			if (loginBean.isLoggedIn()) {
-
-				out.println("  <img src='../images/user_0.png' width='48' height='48'/>");
-				out.println("  <p class='hallo_user'>Hello, " + loginBean.getUserid() + "!!</p>");
-				out.println("  <form class='logout' action='./LogoutAppl.jsp' method='get'>");
-				out.println(
-				"    <input type='image' alt='Submit' name='logout' value='logout' src='../images/logout.jpg'  width='48' height='48'/>");
-				out.println("    </form>");
-
-			} else {
-				out.println("<form action='LoginAppl.jsp'>");
-				out.println("   <input type='text' placeholder='Username' name='userid'>");
-				out.println("   <input type='text' placeholder='Password' name='password'>");
-				out.println("<button type='submit'>Login</button>");
-				out.println("</form>");
-			}
-			
-			out.println("<form action='./HomePageView.jsp' method='get'>" +
-					"<input type='image' alt='Submit' value='home' src='../images/home.png' width='48' height='48'/>						</form>");
-
-			out.println("</div>");
-			%>
-
-
+			<form action='./HomePageView.jsp' method='get'>
+				<input type='image' alt='Submit' value='home'
+					src='../images/home.png' width='48' height='48' />
+			</form>
 		</div>
 	</div>
-
 
 	<div class="signup__container">
 		<div class="container__child signup__thumbnail">

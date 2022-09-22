@@ -6,6 +6,7 @@ import java.sql.SQLException;
 
 import de.hwg_lu.java_star.jdbc.NoConnectionException;
 import de.hwg_lu.java_star.jdbc.PostgreSQLAccess;
+import de.hwg_lu.java_star.utils.UserStatistics;
 
 public class AccountBean {
 
@@ -15,11 +16,8 @@ public class AccountBean {
 	String admin;
 	String email;
 	
-	int numberExcerciseDone;
-	int numberExcerciseCorrect;
-		
-
-	public AccountBean() {
+	
+    public AccountBean() {
 		this.userid = "";
 		this.password = "";
 		this.active = "";

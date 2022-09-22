@@ -21,21 +21,13 @@
 <body>
 
 	<%
-		// =========================================================================== //
-		//                        SIDE AND TOP NAVIGATION BARS                         //
-		// =========================================================================== //
-		// Force login for this page.
-		try {
-			// ===================================================== //
-			// Side navigation
-			out.println(GuiBean.getSideNavigation());
-			// ===================================================== //
-			// top navigation
-			out.println(GuiBean.getTopNavigation(loginBean.isLoggedIn(), loginBean.getUserid()));
-		} catch (SQLException e) {
-			response.sendRedirect("./LoginView.jsp");
-		}
-		// =========================================================================== //
+	// =========================================================================== //
+	//                        SIDE AND TOP NAVIGATION BARS                         //
+	try {
+	    out.println(GuiBean.getNavigationElements(loginBean.isLoggedIn(), loginBean.getUserid()));
+	} catch (SQLException e) {
+	    response.sendRedirect("./LoginView.jsp");
+	}
 	%>
 	<div class='main'>
 

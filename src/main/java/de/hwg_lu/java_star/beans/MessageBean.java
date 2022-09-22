@@ -12,7 +12,7 @@ public class MessageBean {
 	}
 	
 	public void setGeneralWelcome(){
-		this.setInfoMessage("Willkommen am BW4S-Portal");
+		this.setInfoMessage("");
 		this.setActionMessage("bitte melden Sie sich an");
 	}
 	public void setRegistrationWelcome(){

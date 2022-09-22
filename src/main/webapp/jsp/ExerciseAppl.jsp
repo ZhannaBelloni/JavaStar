@@ -1,4 +1,5 @@
 <%@page import="de.hwg_lu.java_star.jdbc.ExcerciseDB"%>
+<%@page import="de.hwg_lu.java_star.jdbc.StatisticsDB"%>
 <%@page import="java.util.regex.*"%>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -31,6 +32,8 @@ if (loginBean.isLoggedIn()) {
 String exerciseNumber = request.getParameter("exerciseNum");
 Integer numEx = Integer.parseInt(exerciseNumber);
 ExcerciseDB ex = new ExcerciseDB();
+StatisticsDB stat = new StatisticsDB();
+
 String expectedOut = ex.getExcericeSolution(numEx);
 
 String sourceCode = request.getParameter("sourceCode");
@@ -84,6 +87,7 @@ out.println("</code></pre>");
 if (executionOut.contains("Compiler exited with result code")) {
 	out.print("Try again there was an error<br>");
 	compilationError = true;
+	stat.updateExcerciseForUser(loginBean.getUserid(), numEx, StatisticsDB.ExerciseTag.COMPILE_ERROR);
 } else {
 	out.print("Compiled: Very good!<br>");
 }
@@ -93,8 +97,12 @@ int indexOut = executionOut.indexOf("out:");
 
 if (!compilationError && !executionOut.isEmpty() && executionOut.substring(indexOut + 4).equals(expectedOut)) {
 	out.print("Very good!<br>");
+	stat.updateExcerciseForUser(loginBean.getUserid(), numEx, StatisticsDB.ExerciseTag.NO_ERROR);
+
 } else {
 	out.print("Error!<br>");
+	stat.updateExcerciseForUser(loginBean.getUserid(), numEx, StatisticsDB.ExerciseTag.TEST_ERROR);
+
 }
 //out.print("Expected " + expectedOut + ", got " + executionOut.substring(executionOut.isEmpty() ? 0 : (indexOut + 4)));
 %>

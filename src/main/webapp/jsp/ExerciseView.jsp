@@ -33,18 +33,13 @@
 	// Force login for this page.
 	if (!loginBean.isLoggedIn()) {
 	    response.sendRedirect("./LoginView.jsp");
+	} else {
+		try {
+			out.println(GuiBean.getNavigationElements(loginBean.isLoggedIn(), loginBean.getUserid()));
+		} catch (SQLException e) {
+		    response.sendRedirect("./LoginView.jsp");
+		}
 	}
-	// ===================================================== //
-	// Side navigation
-	try {
-	    out.println(GuiBean.getSideNavigation());
-	} catch (SQLException e) {
-	    response.sendRedirect("./LoginView.jsp");
-	}
-	// ===================================================== //
-	// top navigation
-	out.println(GuiBean.getTopNavigation(loginBean.isLoggedIn(), loginBean.getUserid()));
-
 	// =========================================================================== //
 	%>
 
@@ -76,8 +71,7 @@
 					src='../images/verify.png' height='48' />
 			</div>
 			<br>
-			<textarea id="sourceCode" name="sourceCode" rows="10" cols="80">
-				<%
+			<textarea id="sourceCode" name="sourceCode" rows="10" cols="80"><%
 				String sourceCode = request.getParameter("sourceCode");
 				String withSolution = request.getParameter("withSolution");
 				if (withSolution != null) {
@@ -88,8 +82,7 @@
 				} else {
 					// Insert Code
 				}
-				%>
-			</textarea>
+				%></textarea>
 			<br>
 		</form>
 

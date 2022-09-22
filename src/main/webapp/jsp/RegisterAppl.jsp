@@ -1,6 +1,11 @@
 <%@page import="java.sql.SQLException"%>
 <%@page import="de.hwg_lu.java_star.jdbc.NoConnectionException"%>
 
+<%@page import="de.hwg_lu.java_star.jdbc.ExcerciseDB"%>
+<%@page import="de.hwg_lu.java_star.utils.ExerciseStatistics"%>
+<%@page import="de.hwg_lu.java_star.utils.UserStatistics"%>
+
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 
@@ -54,11 +59,20 @@
 
 	try {
 		accountBean.insertAccountNoCheck();
-		// response.sendRedirect("./LoginView.jsp");
-
 		loginBean.setUserid(userid);
 		loginBean.setPassword(password);
 		loginBean.setLoggedIn(true);
+		
+		UserStatistics userstat = new UserStatistics(userid);
+		
+		ExcerciseDB ex = new ExcerciseDB();
+		int numTot = ex.getNumberExcerice();
+		for (int i = 1; i < numTot; ++i) {
+			ExerciseStatistics stat = new ExerciseStatistics(i);
+			userstat.addStatistics(i, stat);
+		}
+		loginBean.setUserStatistics(userstat);
+		
 		response.sendRedirect("./HomePageView.jsp");
 	} catch (SQLException e) {
 		out.println("Error: " + e.toString());

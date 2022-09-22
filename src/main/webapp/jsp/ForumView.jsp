@@ -34,12 +34,7 @@
 	    response.sendRedirect("./LoginView.jsp");
 	} else {
 		try {
-			// ===================================================== //
-			// Side navigation
-		    out.println(GuiBean.getSideNavigation());
-		 	// ===================================================== //
-			// top navigation
-			out.println(GuiBean.getTopNavigation(loginBean.isLoggedIn(), loginBean.getUserid()));
+			out.println(GuiBean.getNavigationElements(loginBean.isLoggedIn(), loginBean.getUserid()));
 		} catch (SQLException e) {
 		    response.sendRedirect("./LoginView.jsp");
 		}

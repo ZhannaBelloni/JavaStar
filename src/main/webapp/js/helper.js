@@ -19,12 +19,3 @@ function openNav() {
 function closeNav() {
   document.getElementById("mySidenav").style.width = "0";
 }
-
-function dynamicOpenNav() {
-  document.getElementById("mySidenav").style.width = "15%";
-
-}
-
-function dynamicCloseNav() {
-  document.getElementById("mySidenav").style.width = "0";
-}

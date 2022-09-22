@@ -49,6 +49,12 @@ public class AdminDB {
 		prep.executeUpdate();
 	}
 	
+	   public void createStatisticsExercises(Connection connection) throws SQLException {
+	        System.out.println("Creating table for 'JAVA_STAR' application statistics");
+	        PreparedStatement prep = connection.prepareStatement(this.CREATE_STATISTICS_TABLE);
+	        prep.executeUpdate();
+	    }
+	
 	private void insertExercise(Connection connection, int number) {
 		String string_instructions = this.readFile(
 				this.pathToData + File.separator + 
@@ -127,6 +133,7 @@ public class AdminDB {
 	        adminDB.createTableComments(conn);
 			adminDB.createTableExercises(conn);
 			adminDB.insertExcercise(conn);
+			adminDB.createStatisticsExercises(conn);
 			conn.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -177,6 +184,15 @@ public class AdminDB {
 			+ "exercise_solution   VARCHAR(2048)             NOT NULL,"
 			+ "exercise_test       VARCHAR(2048)             NOT NULL"
 			+ ")";
+	
+	   String CREATE_STATISTICS_TABLE = "CREATE TABLE IF NOT EXISTS \"statistics\" ("
+	            + "userid              CHAR(32)  NOT NULL,  "
+	            + "exerciseid          INTEGER   NOT NULL, "
+	            + "tried_to_solved     BOOL      NOT NULL DEFAULT FALSE, "
+	            + "compile_error       BOOL      NOT NULL DEFAULT FALSE,"
+	            + "test_error          BOOL      NOT NULL DEFAULT FALSE,"
+	            + "FOREIGN KEY (userid) REFERENCES account(userid)"
+	            + ")";
 	
 	
 }

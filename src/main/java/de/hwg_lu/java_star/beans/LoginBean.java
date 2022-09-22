@@ -7,20 +7,29 @@ import java.sql.SQLException;
 
 import de.hwg_lu.java_star.jdbc.NoConnectionException;
 import de.hwg_lu.java_star.jdbc.PostgreSQLAccess;
+import de.hwg_lu.java_star.utils.UserStatistics;
 
 public class LoginBean {
 
 	String userid;
 	String password;
-	int numberExDone;
-	int correctEx;
 	boolean isLoggedIn;
+	
+	UserStatistics userStatistics;
+
+    public UserStatistics getUserStatistics() {
+        return userStatistics;
+    }
+
+    public void setUserStatistics(UserStatistics userStatistics) {
+        this.userStatistics = userStatistics;
+    }
+
 
 	public LoginBean() {
 		this.userid = "";
 		this.password = "";
-		this.numberExDone = 0;
-		this.correctEx = 0;
+
 		this.isLoggedIn = false;
 	}
 	
@@ -35,8 +44,6 @@ public class LoginBean {
 		prep.setString(2, this.password);
 		ResultSet dbRes = prep.executeQuery();
 		if (dbRes.next()) {
-			this.numberExDone = dbRes.getInt(1);
-			this.correctEx = dbRes.getInt(2);
 			return true;
 		}
 		
@@ -66,22 +73,6 @@ public class LoginBean {
 	}
 	public void setLoggedIn(boolean isLoggedIn) {
 		this.isLoggedIn = isLoggedIn;
-	}
-
-	public int getNumberExDone() {
-		return numberExDone;
-	}
-
-	public void setNumberExDone(int numberExDone) {
-		this.numberExDone = numberExDone;
-	}
-
-	public int getCorrectEx() {
-		return correctEx;
-	}
-
-	public void setCorrectEx(int correctEx) {
-		this.correctEx = correctEx;
 	}
 	
 }
