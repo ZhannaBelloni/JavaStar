@@ -25,11 +25,11 @@ public class AccountBean {
 		this.email = "";
 	}
 
-	public void insertAccountNoCheck() throws NoConnectionException, SQLException {
+	public void insertAccountNoCheck(Connection connection) throws NoConnectionException, SQLException {
 		String sql = "insert into account " + "(userid, password, active, admin, email) " + "values (?,?,?,?,?)";
 		System.out.println(sql);
-		Connection dbConn = new PostgreSQLAccess().getConnection();
-		PreparedStatement prep = dbConn.prepareStatement(sql);
+		// Connection connection = new PostgreSQLAccess().getConnection();
+		PreparedStatement prep = connection.prepareStatement(sql);
 		prep.setString(1, this.userid);
 		prep.setString(2, this.password);
 		prep.setString(3, this.active);
@@ -37,6 +37,7 @@ public class AccountBean {
 		prep.setString(5, this.email);
 		prep.executeUpdate();
 		System.out.println("Account " + this.userid + " erfolgreich angelegt");
+		connection.close();
 	}
 
 	public String getUserid() {

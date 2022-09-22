@@ -44,9 +44,12 @@ public class GuiBean {
 			} catch (SQLException e) {
 				html += "<p class='default_error_text'>Ops! something went wrong: excerice are temporarly non available!</p>";
 			}
+		} else {
+			html += "<p style='margin-left:22px; color:#FFF'>Login to see the exercises</p>";
+
 		}
 		html += "</div>";
-		html += "<a href='./ForumView.jsp'>Comments</a> <a href='#'>Contact</a></div>";
+		html += "<a href='./ForumView.jsp'>Comments</a> <a href='./Contacts.jsp'>Contact</a></div>";
 
 		return html;
 	}

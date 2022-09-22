@@ -36,7 +36,7 @@ public class LoginBean {
 	public boolean checkUseridPassword() throws NoConnectionException, SQLException{
 		//true  - ein Datensatz mit this.userid und this.password existiert in DB in table account
 		//false - ein Datensatz mit this.userid existiert nicht in DB in table account
-		String sql = "SELECT totalExcercises, correctExcercise FROM account where userid = ? and password = ?";
+		String sql = "SELECT * FROM account where userid = ? and password = ?";
 		System.out.println(sql);
 		Connection dbConn = new PostgreSQLAccess().getConnection();
 		PreparedStatement prep = dbConn.prepareStatement(sql);

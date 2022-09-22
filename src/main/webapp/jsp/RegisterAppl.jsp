@@ -5,6 +5,9 @@
 <%@page import="de.hwg_lu.java_star.utils.ExerciseStatistics"%>
 <%@page import="de.hwg_lu.java_star.utils.UserStatistics"%>
 
+<%@page import="java.sql.Connection"%>
+<%@page import="de.hwg_lu.java_star.jdbc.PostgreSQLAccess"%>
+
 
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
@@ -57,17 +60,16 @@
 	out.println("email: " + email + "<br>");
 	out.println("btnRegister: " + btnRegister + "<br>");
 	out.println("btnZumLogin: " + btnZumLogin + "<br>");
-
+	Connection connection = null;
 	try {
-		
-		 //TODO :do in one transaction!
-		accountBean.insertAccountNoCheck();
+		connection = new PostgreSQLAccess().getConnection();
+		accountBean.insertAccountNoCheck(connection);
 		loginBean.setUserid(userid);
 		loginBean.setPassword(password);
 		loginBean.setLoggedIn(true);
 		
 		UserStatistics userstat = new UserStatistics(userid);
-		
+		/*
 		ExcerciseDB ex = new ExcerciseDB();
 		int numTot = ex.getNumberExcerice();
 		for (int i = 1; i < numTot; ++i) {
@@ -75,9 +77,15 @@
 			userstat.addStatistics(i, stat);
 		}
 		loginBean.setUserStatistics(userstat);
-		
+		*/
+		connection.close();
 		response.sendRedirect("./HomePageView.jsp");
+
 	} catch (SQLException e) {
+		if (connection != null) {
+			connection.rollback();
+			connection.close();
+		}
 		loginBean.setLoggedIn(false);
 		messageBean.setLoginOnFailed();
 		response.sendRedirect("./RegisterView.jsp");

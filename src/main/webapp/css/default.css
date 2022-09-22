@@ -4,8 +4,12 @@
 	color: #ff8040;
 }
 
+body {
+	font-family: "Lato", sans-serif;
+	background-color: rgb(85, 87, 83);
+}
+
 .main {
-	margin-left: 15%;
 	font-size: 28px; /* Increased text to enable scrolling */
 	padding: 0px 50px;
 	height: 100%;
