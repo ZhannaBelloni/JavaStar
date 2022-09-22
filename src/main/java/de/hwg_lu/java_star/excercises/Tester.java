@@ -16,6 +16,14 @@ public class Tester {
 
 	private final String TAG = "%%INSERT_CODE_HERE%%";
 	
+	public String getTextCodeForSource(String sourceCode, int excerciseNumber) throws IOException, SQLException {
+		return prepareSourceCode(sourceCode, excerciseNumber);	
+	}
+	
+	public String testExcerciseSourceCodeWithtesterClass(String sourceCode) throws IOException, SQLException {
+		return this.execute(sourceCode, true);				
+	}
+	
 	public String testExcercise(String sourceCode, int excerciseNumber) throws IOException, SQLException {
 		String extendedClass = prepareSourceCode(sourceCode, excerciseNumber);
 		return this.execute(extendedClass, true);				

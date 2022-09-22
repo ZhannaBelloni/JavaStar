@@ -7,6 +7,7 @@ public class ExerciseResultBean {
 	boolean compilationError = false;
 	boolean testError = false;
 	int exerciseId = 0;
+	
 	public String getOutput() {
 		return output;
 	}

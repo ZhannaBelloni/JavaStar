@@ -25,6 +25,8 @@
 <jsp:useBean id="tester" class="de.hwg_lu.java_star.excercises.Tester" />
 <jsp:useBean id="loginBean" class="de.hwg_lu.java_star.beans.LoginBean"
 	scope="session" />
+<jsp:useBean id="exerciseResultBean" class="de.hwg_lu.java_star.beans.ExerciseResultBean"
+	scope="session" />
 
 <body>
 
@@ -42,6 +44,13 @@
 	%>
 
 	<div class='main'>
+	<%
+	boolean compilationError = exerciseResultBean.isCompilationError();
+	boolean testError = exerciseResultBean.isTestError();
+	String sourceCode = exerciseResultBean.getSourceCode();
+	String output = exerciseResultBean.getOutput();
+	int exerciseNumber = exerciseResultBean.getExerciseId();
+	String testClass = exerciseResultBean.getTestCode();
 	
 	out.println(GuiBean.getExerciseResult(compilationError, testError));
 	
@@ -68,7 +77,7 @@
 			<input type='image' alt='Submit' value='home'
 				src='../images/previous.png' width='48' height='48' />
 			<%
-			out.println("<input type='hidden' name='exerciseNum' value='" + (numEx - 1) + "'/>");
+			out.println("<input type='hidden' name='exerciseNum' value='" + (exerciseNumber - 1) + "'/>");
 			%>
 		</form>
 
@@ -78,7 +87,7 @@ out.println("<input type='hidden' name='exerciseNum' value=" + exerciseNumber + 
 out.println("<input type='hidden' name='sourceCode' value='" + sourceCode + "'/>");
 out.println("<input type='image' alt='Submit' value='home' src='../images/retry.png' width='48' height='48'/>");
 out.println("</form>");
-int next = numEx + 1;
+int next = exerciseNumber + 1;
 out.println("<form action='./ExerciseView.jsp' method='get'>");
 out.println("<input type='hidden' name='exerciseNum' value=" + next + " />");
 out.println("<input type='image' alt='Submit' value='home' src='../images/next.png' width='48' height='48'/>");
