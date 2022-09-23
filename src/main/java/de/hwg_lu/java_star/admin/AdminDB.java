@@ -35,6 +35,7 @@ public class AdminDB {
 		System.out.println("Creating table for 'JAVA_STAR' application accounts");
 		PreparedStatement prep = connection.prepareStatement(this.CREATE_ACCOUNT_TABLE);
 		prep.executeUpdate();
+		insertAdmin(connection);
 	}
 	
 	public void createTableComments(Connection connection) throws SQLException {
@@ -53,6 +54,30 @@ public class AdminDB {
 	        System.out.println("Creating table for 'JAVA_STAR' application statistics");
 	        PreparedStatement prep = connection.prepareStatement(this.CREATE_STATISTICS_TABLE);
 	        prep.executeUpdate();
+	    }
+	   
+	   private void insertAdmin(Connection connection) {
+	        
+	        String sql = "INSERT INTO account ("
+	                + "userid, "
+	                + "email, "
+	                + "password,  "
+	                + "admin, "
+	                + "active) "
+	                + "VALUES (?, ?, ?, ?, ?)";
+	        try {
+	            PreparedStatement prep = connection.prepareStatement(sql);
+	            prep.setString(1, "admin");
+	            prep.setString(2, "admin@admin.lu");
+	            prep.setString(3, "admin");
+	            prep.setString(4, "Y");
+	            prep.setString(5, "Y");
+	            prep.executeUpdate();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	        System.out.println("DONE");
+	        
 	    }
 	
 	private void insertExercise(Connection connection, int number) {
@@ -170,7 +195,8 @@ public class AdminDB {
 			+ "correctExcercise INTEGER DEFAULT 0"
 			+ ")";
 	
-	String CREATE_COMMENTS_TABLE = "CREATE TABLE IF NOT EXISTS \"comments\" (" 
+	String CREATE_COMMENTS_TABLE = "CREATE TABLE IF NOT EXISTS \"comments\" ("
+	        + "id        SERIAL PRIMARY KEY,"
 			+ "time      TIMESTAMP  WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP, "
 			+ "userid    CHAR(32)   NOT NULL, "
 			+ "comment   CHAR(512)  NOT NULL  "

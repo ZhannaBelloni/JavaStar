@@ -63,7 +63,9 @@
 	    }
 	}
 	} catch (SQLException e) {
-		out.println("<hr><p class='default_error_text'> Contact the webmaster: something went wrong!</p>");
+		out.println("<hr><p style='font-size:25px' class='default_error_text'> Contact the webmaster: something went wrong!</p>");
+		out.println("<a style='font-size:15px' onclick=\"toggleExcericeSideBar('errormessage')\" href='#'>show output</a>");
+		out.println("<hr><p id = 'errormessage' style='font-size:15px;display:none'> " + e.toString() + "</p>");
 	    out.println("<p class='byUserForum'> by webmaster </p>");
 	}
 	%>
