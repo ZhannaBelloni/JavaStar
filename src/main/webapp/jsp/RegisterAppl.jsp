@@ -5,6 +5,9 @@
 <%@page import="de.hwg_lu.java_star.utils.ExerciseStatistics"%>
 <%@page import="de.hwg_lu.java_star.utils.UserStatistics"%>
 
+<%@page import="java.util.regex.Matcher"%>
+<%@page import="java.util.regex.Pattern"%>
+
 <%@page import="java.sql.Connection"%>
 <%@page import="de.hwg_lu.java_star.jdbc.PostgreSQLAccess"%>
 
@@ -23,10 +26,10 @@
 </head>
 
 <jsp:useBean id="accountBean"
-		class="de.hwg_lu.java_star.beans.AccountBean" scope="session" />
-	<jsp:useBean id="loginBean" class="de.hwg_lu.java_star.beans.LoginBean"
-		scope="session" />
-		<jsp:useBean id="messageBean"
+	class="de.hwg_lu.java_star.beans.AccountBean" scope="session" />
+<jsp:useBean id="loginBean" class="de.hwg_lu.java_star.beans.LoginBean"
+	scope="session" />
+<jsp:useBean id="messageBean"
 	class="de.hwg_lu.java_star.beans.MessageBean" scope="session" />
 
 <body>
@@ -38,57 +41,87 @@
 			return s;
 		//return (s == null)?"":s;
 	}
+	
+	public boolean isValid(String email)
+    {
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+
+                            "[a-zA-Z0-9_+&*-]+)*@" +
+                            "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
+                            "A-Z]{2,7}$";
+                              
+        Pattern pat = Pattern.compile(emailRegex);
+        if (email == null)
+            return false;
+        return pat.matcher(email).matches();
+    }
 
 	public String[] denullify(String[] sA) {
 		return (sA == null) ? new String[0] : sA;
 	}%>
 	<%
 	String userid = request.getParameter("userid");
-	String password = request.getParameter("password");
-	String email = request.getParameter("email");
+	String password = this.denullify(request.getParameter("password"));
+	String email = this.denullify(request.getParameter("email"));
+	String passwordRepeted = this.denullify(request.getParameter("passwordRepeat"));
 	String btnRegister = this.denullify(request.getParameter("btnRegister"));
 	String btnZumLogin = this.denullify(request.getParameter("btnZumLogin"));
 
-	accountBean.setUserid(userid);
-	accountBean.setPassword(password);
-	accountBean.setEmail(email);
-	accountBean.setActive("Y");
-	accountBean.setAdmin("N");
-
-	out.println("userid: " + userid + "<br>");
-	out.println("password: " + password + "<br>");
-	out.println("email: " + email + "<br>");
-	out.println("btnRegister: " + btnRegister + "<br>");
-	out.println("btnZumLogin: " + btnZumLogin + "<br>");
-	Connection connection = null;
-	try {
-		connection = new PostgreSQLAccess().getConnection();
-		accountBean.insertAccountNoCheck(connection);
-		loginBean.setUserid(userid);
-		loginBean.setPassword(password);
-		loginBean.setLoggedIn(true);
-		
-		UserStatistics userstat = new UserStatistics(userid);
-		/*
-		ExcerciseDB ex = new ExcerciseDB();
-		int numTot = ex.getNumberExcerice();
-		for (int i = 1; i < numTot; ++i) {
-			ExerciseStatistics stat = new ExerciseStatistics(i);
-			userstat.addStatistics(i, stat);
-		}
-		loginBean.setUserStatistics(userstat);
-		*/
-		connection.close();
-		response.sendRedirect("./HomePageView.jsp");
-
-	} catch (SQLException e) {
-		if (connection != null) {
-			connection.rollback();
-			connection.close();
-		}
+	if (password.isEmpty()) {
 		loginBean.setLoggedIn(false);
-		messageBean.setLoginOnFailed();
+		messageBean.setFieldIsEmpty("password");
 		response.sendRedirect("./RegisterView.jsp");
+	} else if (userid.isEmpty()) {
+		loginBean.setLoggedIn(false);
+		messageBean.setFieldIsEmpty("username");
+		response.sendRedirect("./RegisterView.jsp");
+	} else if (email.isEmpty()) {
+		loginBean.setLoggedIn(false);
+		messageBean.setFieldIsEmpty("email");
+		response.sendRedirect("./RegisterView.jsp");
+	} else if (!password.equals(passwordRepeted)) {
+		loginBean.setLoggedIn(false);
+		messageBean.setRepeatedPasswordMismatch();
+		response.sendRedirect("./RegisterView.jsp");
+	} else if (!isValid(email)) {
+		// https://www.geeksforgeeks.org/check-email-address-valid-not-java/
+		loginBean.setLoggedIn(false);
+		messageBean.emailIsInvalid();
+		response.sendRedirect("./RegisterView.jsp");
+	} else {
+
+		accountBean.setUserid(userid);
+		accountBean.setPassword(password);
+		accountBean.setEmail(email);
+		accountBean.setActive("Y");
+		accountBean.setAdmin("N");
+
+		out.println("userid: " + userid + "<br>");
+		out.println("password: " + password + "<br>");
+		out.println("email: " + email + "<br>");
+		out.println("btnRegister: " + btnRegister + "<br>");
+		out.println("btnZumLogin: " + btnZumLogin + "<br>");
+		Connection connection = null;
+		try {
+			connection = new PostgreSQLAccess().getConnection();
+			connection.setAutoCommit(false);
+			accountBean.insertAccountNoCheck(connection);
+			loginBean.setUserid(userid);
+			loginBean.setPassword(password);
+			loginBean.setLoggedIn(true);
+			connection.commit();
+			response.sendRedirect("./HomePageView.jsp");
+
+		} catch (SQLException e) {
+			loginBean.setLoggedIn(false);
+			messageBean.setLoginOnFailed();
+			response.sendRedirect("./RegisterView.jsp");
+		} finally {
+			if (connection != null) {
+				connection.rollback();
+				connection.setAutoCommit(true);
+				connection.close();
+			}
+		}
 	}
 	%>
 </body>

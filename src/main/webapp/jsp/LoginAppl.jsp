@@ -19,32 +19,48 @@
 	<jsp:useBean id="messageBean"
 		class="de.hwg_lu.java_star.beans.MessageBean" scope="session" />
 
+	<%!public String denullify(String s) {
+		if (s == null)
+			return "";
+		else
+			return s;
+		//return (s == null)?"":s;
+	}%>
 
 	<%
-	String userid = request.getParameter("userid");
-	String password = request.getParameter("password");
+	String userid = this.denullify(request.getParameter("userid"));
+	String password = this.denullify(request.getParameter("password"));
 
-	loginBean.setUserid(userid);
-	loginBean.setPassword(password);
-	try {
-		boolean accountGefunden = loginBean.checkUseridPassword();
-		if (accountGefunden) {
-			loginBean.setLoggedIn(true);
-			messageBean.setLoginSuccessful(userid);
-			response.sendRedirect("./HomePageView.jsp");
-		} else {
-			loginBean.setLoggedIn(false);
-			messageBean.setLoginFailed();
+	if (password.isEmpty()) {
+		loginBean.setLoggedIn(false);
+		messageBean.setFieldIsEmpty("password");
+		response.sendRedirect("./LoginView.jsp");
+	} else if (userid.isEmpty()) {
+		loginBean.setLoggedIn(false);
+		messageBean.setFieldIsEmpty("username");
+		response.sendRedirect("./LoginView.jsp");
+	} else {
+
+		loginBean.setUserid(userid);
+		loginBean.setPassword(password);
+		try {
+			boolean accountFound = loginBean.checkUseridPassword();
+			if (accountFound) {
+				loginBean.setLoggedIn(true);
+				messageBean.setLoginSuccessful(userid);
+				response.sendRedirect("./HomePageView.jsp");
+			} else {
+				loginBean.setLoggedIn(false);
+				messageBean.setLoginFailed();
+				response.sendRedirect("./LoginView.jsp");
+			}
+		} catch (NoConnectionException e) {
+			messageBean.setNoJDBCConnection();
+			response.sendRedirect("./LoginView.jsp");
+		} catch (SQLException e) {
+			messageBean.setDBError();
 			response.sendRedirect("./LoginView.jsp");
 		}
-	} catch (NoConnectionException e) {
-		messageBean.setNoJDBCConnection();
-		e.printStackTrace();
-		response.sendRedirect("./LoginView.jsp");
-	} catch (SQLException e) {
-		messageBean.setDBError();
-		e.printStackTrace();
-		response.sendRedirect("./LoginView.jsp");
 	}
 	%>
 </body>

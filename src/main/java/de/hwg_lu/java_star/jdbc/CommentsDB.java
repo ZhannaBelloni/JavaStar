@@ -12,7 +12,7 @@ public class CommentsDB {
 	
 	static public ArrayList<Comment> getComments(Integer last) throws SQLException {
 	    ArrayList<Comment> comments = new ArrayList<>();
-	    String sql = "SELECT userid, comment, time FROM comments ORDER BY time DESC ";
+	    String sql = "SELECT userid, comment, time, id FROM comments ORDER BY time DESC ";
 	    if (last != null && last > 0) {
 	        sql += " LIMIT " + last;
 	    }
@@ -23,7 +23,7 @@ public class CommentsDB {
 	        
 	    ResultSet dbRes = prep.executeQuery();
 	    while (dbRes.next()) {
-	        comments.add(new Comment(dbRes.getString(1), dbRes.getString(2), dbRes.getTimestamp(3).toString()));
+	        comments.add(new Comment(dbRes.getInt(4), dbRes.getString(1), dbRes.getString(2), dbRes.getTimestamp(3).toString()));
 	    }
         dbConn.close();
 	    return comments;
@@ -36,6 +36,17 @@ public class CommentsDB {
         PreparedStatement prep = dbConn.prepareStatement(sql);
         prep.setString(1, userid);
         prep.setString(2, comment);
+        prep.executeUpdate();
+        System.out.println(" ... DONE");
+	}
+	
+	// delete comment replace the text with 'comment delete by the admin'
+	public void deleteComment(int commentId) throws SQLException {
+	    String sql = "UPDATE comments SET comment = 'comment delete by the admin' WHERE id = ?";
+	    System.out.println(sql + ": " + commentId);
+        Connection dbConn = new PostgreSQLAccess().getConnection();
+        PreparedStatement prep = dbConn.prepareStatement(sql);
+        prep.setInt(1, commentId);
         prep.executeUpdate();
         System.out.println(" ... DONE");
 	}

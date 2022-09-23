@@ -14,9 +14,9 @@
 <head>
 <meta charset="UTF-8">
 
-<link rel='stylesheet' href='../css/HomePage.css?1'>
-<link rel='stylesheet' href='../css/sidebar.css?0'>
-<link rel='stylesheet' href='../css/topnav.css?0'>
+<link rel='stylesheet' href='../css/HomePage.css?2'>
+<link rel='stylesheet' href='../css/sidebar.css?2'>
+<link rel='stylesheet' href='../css/topnav.css?2'>
 <script type="text/javascript" src="../js/helper.js"></script>
  <script src="jquery.js"></script> 
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>

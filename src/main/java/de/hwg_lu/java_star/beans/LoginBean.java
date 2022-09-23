@@ -14,6 +14,7 @@ public class LoginBean {
 	String userid;
 	String password;
 	boolean isLoggedIn;
+	boolean isAdmin = false;
 	
 	UserStatistics userStatistics;
 
@@ -29,14 +30,35 @@ public class LoginBean {
 	public LoginBean() {
 		this.userid = "";
 		this.password = "";
-
 		this.isLoggedIn = false;
+		this.isAdmin = false;
+
 	}
 	
 	public boolean checkUseridPassword() throws NoConnectionException, SQLException{
 		//true  - ein Datensatz mit this.userid und this.password existiert in DB in table account
 		//false - ein Datensatz mit this.userid existiert nicht in DB in table account
-		String sql = "SELECT * FROM account where userid = ? and password = ?";
+		String sql = "SELECT userid, password, admin FROM account where userid = ? and password = ?";
+		System.out.println(sql);
+		Connection dbConn = new PostgreSQLAccess().getConnection();
+		PreparedStatement prep = dbConn.prepareStatement(sql);
+		prep.setString(1, this.userid);
+		prep.setString(2, this.password);
+		ResultSet dbRes = prep.executeQuery();
+		dbConn.close();
+		if (dbRes.next()) {
+			this.userid = dbRes.getString(1);
+			this.isLoggedIn = true;
+			String resultAdminColumn = dbRes.getString(3);
+			this.isAdmin = "Y".equals(resultAdminColumn);
+			return true;
+		}
+		
+		return false;
+	}
+	
+	public boolean checkUseridIsAdmin() throws NoConnectionException, SQLException{
+		String sql = "SELECT userid, password, admin FROM account where userid = ? and password = ? and admin == 'Y'";
 		System.out.println(sql);
 		Connection dbConn = new PostgreSQLAccess().getConnection();
 		PreparedStatement prep = dbConn.prepareStatement(sql);
@@ -73,6 +95,10 @@ public class LoginBean {
 	}
 	public void setLoggedIn(boolean isLoggedIn) {
 		this.isLoggedIn = isLoggedIn;
+	}
+	
+	public boolean isAdmin() {
+		return this.isAdmin;
 	}
 	
 }

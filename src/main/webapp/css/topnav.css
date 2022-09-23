@@ -44,10 +44,10 @@
 }
 
 /* Style the input field inside the navbar */
-.topnav input[type=text] {
+.topnav input[type=text][type=password][type=submit] {
 	padding: 6px;
-	margin-top: 8px;
-	font-size: 17px;
+	margin-top: 10px;
+	font-size: 27px;
 	border: none;
 	width: 150px;
 	/* adjust as needed (as long as it doesn't break the topnav) */

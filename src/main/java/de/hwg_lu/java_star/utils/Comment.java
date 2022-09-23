@@ -5,14 +5,24 @@ public class Comment {
     String user = "";
     String comment = "";
     String time = "";
+    int id = 0;
     
-    public Comment(String user, String comment, String timestamp) {
+    public Comment(int id, String user, String comment, String timestamp) {
         this.user = user;
         this.comment = comment;
         this.time = timestamp;
+        this.id = id;
     }
 
-    public String getTime() {
+    public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getTime() {
         return time;
     }
 

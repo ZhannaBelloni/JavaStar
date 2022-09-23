@@ -25,14 +25,16 @@ public class MessageBean {
 		this.setActionMessage("bitte waehlen Sie eine Anwendung");
 	}
 	public void setLoginFailed(){
+		setWithError(true);
 		this.setInfoMessage("Username or password are incorrect");
 		this.setActionMessage("try again or register");
-		setWithError(true);
+
 	}
 	public void setLoginOnFailed(){
+		setWithError(true);
 		this.setInfoMessage("Username exsists already");
 		this.setActionMessage("try again or register with another username");
-		setWithError(true);
+
 	}
 	public void setLoggedOut(){
 		this.setInfoMessage("Sie haben sich abgemeldet");
@@ -62,6 +64,41 @@ public class MessageBean {
 		this.setInfoMessage("Es ist ein Fehler aufgetreten");
 		this.setActionMessage("bitte kontaktieren Sie Ihren Administrator");
 	}
+	public void setCommentIsTooLong() {
+		this.setWithError(true);
+		this.setInfoMessage("The comment is too long");
+		this.setActionMessage("thanks for your comment, please try to be more syntetic!");
+	}
+	public void setCommentIsEmpty() {
+		this.setWithError(true);
+		this.setInfoMessage("The comment is empty");
+		this.setActionMessage("thanks for your comment, please try to be more esplicit!");
+	}
+	
+	public void setErrorInsertingComment() {
+		this.setWithError(true);
+		this.setInfoMessage("there was a problem to insert your comment ");
+		this.setActionMessage("contact the administrator.");
+	}
+	
+	public void setRepeatedPasswordMismatch() {
+		this.setWithError(true);
+		this.setInfoMessage("passwords mismatch");
+		this.setActionMessage("try again");
+	}
+	
+	public void setFieldIsEmpty(String field) {
+		this.setWithError(true);
+		this.setInfoMessage("field " + field + " cannot be empty.");
+		this.setActionMessage("try again");
+	}
+	
+	public void emailIsInvalid() {
+		this.setWithError(true);
+		this.setInfoMessage("email is not valid");
+		this.setActionMessage("try again");
+	}
+	
 	public void setAttributeTooLong(
 							String attributeName,
 							String attributeValue,
@@ -83,6 +120,8 @@ public class MessageBean {
 
     public void setWithError(boolean isWithError) {
         this.isWithError = isWithError;
+        this.infoMessage = "";
+        this.actionMessage = "";
     }
 
     public String getInfoMessage() {

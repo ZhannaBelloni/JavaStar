@@ -69,8 +69,10 @@ public class GuiBean {
 		} else {
 			html += "<form action='LoginAppl.jsp'>";
 			html += "   <input type='text' placeholder='Username' name='userid'>";
-			html += "   <input type='text' placeholder='Password' name='password'>";
-			html += "<button type='submit'>Login</button>";
+			html += "   <input type='password' placeholder='Password' name='password'>";
+//			html += "<button type='submit' >Login</button>";
+			html += "    <input type='image' alt='Submit' name='login' value='logout' src='../images/login.png'  width='48' height='48'/>";
+
 			html += "</form>";
 		}
 		html += "</div></div>";

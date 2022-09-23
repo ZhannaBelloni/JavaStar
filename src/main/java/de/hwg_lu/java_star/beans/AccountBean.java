@@ -37,7 +37,6 @@ public class AccountBean {
 		prep.setString(5, this.email);
 		prep.executeUpdate();
 		System.out.println("Account " + this.userid + " erfolgreich angelegt");
-		connection.close();
 	}
 
 	public String getUserid() {
@@ -64,8 +63,8 @@ public class AccountBean {
 		this.active = active;
 	}
 
-	public String getAdmin() {
-		return admin;
+	public boolean isAdmin() {
+		return admin.equals("Y");
 	}
 
 	public void setAdmin(String admin) {

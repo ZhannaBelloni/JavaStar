@@ -10,6 +10,8 @@
 
 <jsp:useBean id="loginBean" class="de.hwg_lu.java_star.beans.LoginBean"
 	scope="session" />
+<jsp:useBean id="messageBean"
+	class="de.hwg_lu.java_star.beans.MessageBean" scope="session" />
 
 <!DOCTYPE html>
 <html>
@@ -46,14 +48,22 @@
 	
 	<p class='subtitleForum'>Comments by Users</p>
 	<%
+	// TODO: make the number of comments retrieved dynamic
 	try {
 	ArrayList<Comment> listOfComments = CommentsDB.getComments(0);
 	for (Comment comment : listOfComments) {
 	    out.println("<hr><p class='textForum'>" + comment.getComment().replace("\n", "<br>\n") + "</p>");
 	    out.println("<p class='byUserForum'> by " + comment.getUser() + " on " + comment.getTime() + "</p>");
+	    if (loginBean.isAdmin()) {
+	    	out.println("<form action='ForumAppl.jsp'>");
+	    	out.println("<input alt='Submit' type='image' src='../images/trashbin.jpg' height='28' name='send' >");
+	    	out.println("<input type='hidden' name='idToDelete' value='" + comment.getId() +"'/>");
+	    	out.println("</form>");
+
+	    }
 	}
 	} catch (SQLException e) {
-		out.println("<hr><p class='default_error_text'> Contect the webmaster: something went wrong!</p>");
+		out.println("<hr><p class='default_error_text'> Contact the webmaster: something went wrong!</p>");
 	    out.println("<p class='byUserForum'> by webmaster </p>");
 	}
 	%>
@@ -61,8 +71,15 @@
 	<h2 class='subtitleForum'>Leave a comment</h2>
 	<form action='ForumAppl.jsp'>
 	<textarea id="commentArea" name="commentArea" rows="10" cols="80"></textarea><br>
-	<input class='send' type='image' alt='Submit' value='send' src='../images/send.png' height='48' />
+	<input class='send' name='send' type='image' alt='Submit' value='send' src='../images/send.png' height='48' />
 	</form>
+	
+	<%
+		if (messageBean.isWithError()) {
+	    out.println("<p class='default_error_text'>"+  messageBean.getInfoMessage() + "<br> " + messageBean.getActionMessage() + "</p>");;
+	    messageBean.setWithError(false);
+	}
+	%>
 	
 	
 	</div>
