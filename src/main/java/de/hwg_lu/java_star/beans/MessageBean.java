@@ -12,7 +12,6 @@ public class MessageBean {
         setWithError(true);
         this.setInfoMessage("Username or password are incorrect");
         this.setActionMessage("try again or register");
-
     }
     
     public void setLoginSuccessful(String userid) {
