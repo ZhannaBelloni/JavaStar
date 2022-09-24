@@ -10,7 +10,7 @@ public class ExcerciseDB {
 	public String getExcerciseText(Integer exerciseNumber) throws SQLException {
 		
 		String sql = "SELECT exercise_text FROM excercise WHERE id = ?";
-		System.out.println(sql + ", id = " + exerciseNumber);
+		System.out.println("[INFO] " +sql + ", id = " + exerciseNumber);
 		Connection dbConn = new PostgreSQLAccess().getConnection();
 		PreparedStatement prep = dbConn.prepareStatement(sql);
 		prep.setInt(1, exerciseNumber);
@@ -27,7 +27,7 @@ public class ExcerciseDB {
 	
 	public String getExcericeSolution(Integer exerciseNumber) throws SQLException {
 		String sql = "SELECT exercise_out FROM excercise WHERE id = ?";
-		System.out.println(sql + ", id = " + exerciseNumber);
+		System.out.println("[INFO] " +sql + ", id = " + exerciseNumber);
 		Connection dbConn = new PostgreSQLAccess().getConnection();
 		PreparedStatement prep = dbConn.prepareStatement(sql);
 		prep.setInt(1, exerciseNumber);

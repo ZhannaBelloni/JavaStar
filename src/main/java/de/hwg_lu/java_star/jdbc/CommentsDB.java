@@ -16,7 +16,7 @@ public class CommentsDB {
 	    if (last != null && last > 0) {
 	        sql += " LIMIT " + last;
 	    }
-	    System.out.println(sql);
+	    System.out.println("[INFO] " +sql);
 	    Connection dbConn = new PostgreSQLAccess().getConnection();
 	    PreparedStatement prep = dbConn.prepareStatement(sql);
 	    prep.execute();
@@ -31,7 +31,7 @@ public class CommentsDB {
 	
 	public void insertComment(String userid, String comment) throws SQLException {
 	    String sql = "INSERT INTO comments (userid, comment) VALUES (?, ?)";
-	    System.out.println(sql + ": " + userid + ", " + comment);
+	    System.out.println("[INFO] " +sql + ": " + userid + ", " + comment);
         Connection dbConn = new PostgreSQLAccess().getConnection();
         PreparedStatement prep = dbConn.prepareStatement(sql);
         prep.setString(1, userid);
@@ -43,7 +43,7 @@ public class CommentsDB {
 	// delete comment replace the text with 'comment delete by the admin'
 	public void deleteComment(int commentId) throws SQLException {
 	    String sql = "UPDATE comments SET comment = 'comment delete by the admin' WHERE id = ?";
-	    System.out.println(sql + ": " + commentId);
+	    System.out.println("[INFO] " +sql + ": " + commentId);
         Connection dbConn = new PostgreSQLAccess().getConnection();
         PreparedStatement prep = dbConn.prepareStatement(sql);
         prep.setInt(1, commentId);

@@ -39,7 +39,7 @@
 		// String pagePath = "../html/JavaBasic.html";
 		String pagePath = request.getParameter("currentPage");
 		if (pagePath == null) {
-			pagePath = "../html/JavaBasic.html";
+			pagePath = "JavaBasic.html";
 			out.println("<p>There is an error: contact the administrator</p>");
 		}
 		out.println(GuiBean.getNavigationCourse(pagePath));

@@ -28,7 +28,7 @@ public class AccountBean {
     
     public boolean isEmailOrUseridPresent(Connection connection) throws NoConnectionException, SQLException {
         String sql = "SELECT * FROM account where email = ? or userid = ?";
-        System.out.println(sql);
+        System.out.println("[INFO] " +sql);
         Connection dbConn = new PostgreSQLAccess().getConnection();
         PreparedStatement prep = dbConn.prepareStatement(sql);
         prep.setString(1, this.email);
@@ -43,7 +43,7 @@ public class AccountBean {
 
 	public void insertAccount(Connection connection) throws NoConnectionException, SQLException {
 		String sql = "insert into account " + "(userid, password, active, admin, email) " + "values (?,?,?,?,?)";
-		System.out.println(sql);
+		System.out.println("[INFO] " +sql);
 		// Connection connection = new PostgreSQLAccess().getConnection();
 		PreparedStatement prep = connection.prepareStatement(sql);
 		prep.setString(1, this.userid);
