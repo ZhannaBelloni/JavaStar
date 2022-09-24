@@ -7,6 +7,7 @@
 <%@page import="de.hwg_lu.java_star.jdbc.CommentsDB"%>
 <%@page import="de.hwg_lu.java_star.beans.GuiBean"%>
 <%@page import="de.hwg_lu.java_star.utils.Comment"%>
+<%@page import="de.hwg_lu.java_star.jdbc.NoConnectionException" %>
 
 <jsp:useBean id="loginBean" class="de.hwg_lu.java_star.beans.LoginBean"
 	scope="session" />
@@ -22,6 +23,8 @@
 <link rel='stylesheet' href='../css/topnav.css?0'>
 <link rel='stylesheet' href='../css/default.css?2'>
 <script type="text/javascript" src="../js/helper.js"></script>
+
+<jsp:getProperty name="loginBean" property="checkLoggedIn" />
 
 <title>Comments</title>
 </head>
@@ -48,25 +51,27 @@
 	
 	<p class='subtitleForum'>Comments by Users</p>
 	<%
+	if (loginBean.isLoggedIn()) {
 	// TODO: make the number of comments retrieved dynamic
 	try {
-	ArrayList<Comment> listOfComments = CommentsDB.getComments(0);
-	for (Comment comment : listOfComments) {
-	    out.println("<hr><p class='textForum'>" + comment.getComment().replace("\n", "<br>\n") + "</p>");
-	    out.println("<p class='byUserForum'> by " + comment.getUser() + " on " + comment.getTime() + "</p>");
-	    if (loginBean.isAdmin()) {
-	    	out.println("<form action='ForumAppl.jsp'>");
-	    	out.println("<input alt='Submit' type='image' src='../images/trashbin.jpg' height='28' name='send' >");
-	    	out.println("<input type='hidden' name='idToDelete' value='" + comment.getId() +"'/>");
-	    	out.println("</form>");
-
-	    }
-	}
+		ArrayList<Comment> listOfComments = CommentsDB.getComments(0);
+		for (Comment comment : listOfComments) {
+		    out.println("<hr><p class='textForum'>" + comment.getComment().replace("\n", "<br>\n") + "</p>");
+		    out.println("<p class='byUserForum'> by " + comment.getUser() + " on " + comment.getTime() + "</p>");
+		    if (loginBean.isAdmin()) {
+		    	out.println("<form action='ForumAppl.jsp'>");
+		    	out.println("<input alt='Submit' type='image' src='../images/trashbin.jpg' height='28' name='send' >");
+		    	out.println("<input type='hidden' name='idToDelete' value='" + comment.getId() +"'/>");
+		    	out.println("</form>");
+	
+		    }
+		} 
 	} catch (SQLException e) {
 		out.println("<hr><p style='font-size:25px' class='default_error_text'> Contact the webmaster: something went wrong!</p>");
 		out.println("<a style='font-size:15px' onclick=\"toggleExcericeSideBar('errormessage')\" href='#'>show output</a>");
 		out.println("<hr><p id = 'errormessage' style='font-size:15px;display:none'> " + e.toString() + "</p>");
 	    out.println("<p class='byUserForum'> by webmaster </p>");
+	}
 	}
 	%>
 	<br><br>

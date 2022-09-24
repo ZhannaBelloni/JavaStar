@@ -57,7 +57,13 @@
 
 	public String[] denullify(String[] sA) {
 		return (sA == null) ? new String[0] : sA;
-	}%>
+	}
+	
+	public boolean isFieldTooLong(String value, int maxLength) {
+	    return value.length() > maxLength;
+	}
+	
+	%>
 	<%
 	String userid = request.getParameter("userid");
 	String password = this.denullify(request.getParameter("password"));
@@ -68,7 +74,7 @@
 
 	if (password.isEmpty()) {
 		loginBean.setLoggedIn(false);
-		messageBean.setFieldIsEmpty("password");
+		messageBean.setFieldIsEmpty("password"); 
 		response.sendRedirect("./RegisterView.jsp");
 	} else if (userid.isEmpty()) {
 		loginBean.setLoggedIn(false);
@@ -87,6 +93,18 @@
 		loginBean.setLoggedIn(false);
 		messageBean.emailIsInvalid();
 		response.sendRedirect("./RegisterView.jsp");
+	} else if (isFieldTooLong(userid, 32)) {
+	    loginBean.setLoggedIn(false);
+		messageBean.setAttributeTooLong("username", 32);
+		response.sendRedirect("./RegisterView.jsp");
+	} else if (isFieldTooLong(email, 32)) { 
+	    loginBean.setLoggedIn(false);
+		messageBean.setAttributeTooLong("email", 32);
+		response.sendRedirect("./RegisterView.jsp");
+	} else if (isFieldTooLong(password, 16)) { 
+	    loginBean.setLoggedIn(false);
+		messageBean.setAttributeTooLong("password", 16);
+		response.sendRedirect("./RegisterView.jsp");
 	} else {
 
 		accountBean.setUserid(userid);
@@ -104,13 +122,24 @@
 		try {
 			connection = new PostgreSQLAccess().getConnection();
 			connection.setAutoCommit(false);
-			accountBean.insertAccountNoCheck(connection);
-			loginBean.setUserid(userid);
-			loginBean.setPassword(password);
-			loginBean.setLoggedIn(true);
-			connection.commit();
-			response.sendRedirect("./HomePageView.jsp");
-
+			if (accountBean.isEmailOrUseridPresent(connection)) {
+				loginBean.setUserid("");
+				loginBean.setPassword("");
+				loginBean.setLoggedIn(false);
+				messageBean.setLoginOnFailed();
+				response.sendRedirect("./RegisterView.jsp");
+			} else {
+				accountBean.insertAccount(connection);
+				loginBean.setUserid(userid);
+				loginBean.setPassword(password);
+				loginBean.setLoggedIn(true);
+				connection.commit();
+				response.sendRedirect("./HomePageView.jsp");
+			}
+		}catch (NoConnectionException e) {
+			loginBean.setLoggedIn(false);
+			messageBean.setDBError();
+			response.sendRedirect("./RegisterView.jsp"); 
 		} catch (SQLException e) {
 			loginBean.setLoggedIn(false);
 			messageBean.setLoginOnFailed();

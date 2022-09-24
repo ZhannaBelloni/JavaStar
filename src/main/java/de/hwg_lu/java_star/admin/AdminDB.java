@@ -190,9 +190,7 @@ public class AdminDB {
 			+ "email  CHAR(32) NOT NULL, "
 			+ "password CHAR(16) NOT NULL, "
 			+ "active CHAR(1) NOT NULL DEFAULT 'Y',"
-			+ "admin CHAR(1) NOT NULL DEFAULT 'N',"
-			+ "totalExcercises INTEGER DEFAULT 0,"
-			+ "correctExcercise INTEGER DEFAULT 0"
+			+ "admin CHAR(1) NOT NULL DEFAULT 'N'"
 			+ ")";
 	
 	String CREATE_COMMENTS_TABLE = "CREATE TABLE IF NOT EXISTS \"comments\" ("

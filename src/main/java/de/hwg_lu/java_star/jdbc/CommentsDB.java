@@ -10,7 +10,7 @@ import de.hwg_lu.java_star.utils.Comment;
 
 public class CommentsDB {
 	
-	static public ArrayList<Comment> getComments(Integer last) throws SQLException {
+	static public ArrayList<Comment> getComments(Integer last) throws SQLException, NoConnectionException {
 	    ArrayList<Comment> comments = new ArrayList<>();
 	    String sql = "SELECT userid, comment, time, id FROM comments ORDER BY time DESC ";
 	    if (last != null && last > 0) {

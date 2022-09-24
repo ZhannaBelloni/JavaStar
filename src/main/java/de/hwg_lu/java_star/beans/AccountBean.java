@@ -2,6 +2,7 @@ package de.hwg_lu.java_star.beans;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import de.hwg_lu.java_star.jdbc.NoConnectionException;
@@ -24,8 +25,23 @@ public class AccountBean {
 		this.admin = "";
 		this.email = "";
 	}
+    
+    public boolean isEmailOrUseridPresent(Connection connection) throws NoConnectionException, SQLException {
+        String sql = "SELECT * FROM account where email = ? or userid = ?";
+        System.out.println(sql);
+        Connection dbConn = new PostgreSQLAccess().getConnection();
+        PreparedStatement prep = dbConn.prepareStatement(sql);
+        prep.setString(1, this.email);
+        prep.setString(2, this.userid);
+        ResultSet dbRes = prep.executeQuery();
+        dbConn.close();
+        if (dbRes.next()) {
+            return true;
+        }
+        return false;
+    }
 
-	public void insertAccountNoCheck(Connection connection) throws NoConnectionException, SQLException {
+	public void insertAccount(Connection connection) throws NoConnectionException, SQLException {
 		String sql = "insert into account " + "(userid, password, active, admin, email) " + "values (?,?,?,?,?)";
 		System.out.println(sql);
 		// Connection connection = new PostgreSQLAccess().getConnection();
