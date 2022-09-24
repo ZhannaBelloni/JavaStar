@@ -36,8 +36,10 @@
 	}
 	%>
 	<div class="main">
-	Java Star is a project for ...
-	The intent is demostraive and it is not jet a complete Java course.
+	
+	
+	<a href="http://www.headfirstlabs.com/books/hfjava/"">Head First Java, 2nd Edition</a>
+
 	<br><br>
 	<div style="position: absolute; bottom: 5px;">
 	<address>

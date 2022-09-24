@@ -8,7 +8,7 @@ import de.hwg_lu.java_star.jdbc.StatisticsDB;
 
 public class GuiBean {
 
-	public static String[] lessonList = { "JavaBasic.html", "VariableAndDataType.html", "OperatorsInJava.html", };
+	public static String[] lessonList = { "JavaBasic.html", "VariableAndDataType.html", "OperatorsInJava.html", "ArraysInJava.html"};
 
 	public static String getSideNavigation(boolean isLoggedIn, String userName) throws SQLException {
 		String html = "";

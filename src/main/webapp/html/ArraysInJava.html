@@ -1,0 +1,62 @@
+<p class='text'>Java provides a data structure, the array, which stores a fixed-size sequential collection of elements of the same type. An array is used to store a collection of data, but it is often more useful to think of an array as a collection of variables of the same type.
+
+Instead of declaring individual variables, such as number0, number1, ..., and number99, you declare one array variable such as numbers and use numbers[0], numbers[1], and ..., numbers[99] to represent individual variables.
+<br>
+<h2 class='title'>Declaring Array Variables</h2>
+
+<p class='text'>To use an array in a program, you must declare a variable to reference the array, and you must specify the type of array the variable can reference. Here is the syntax for declaring an array variable−
+
+<p class='text'><b>Syntax</b><br>
+
+<span style="color: #0000a0">dataType[] arrayRefVar</span></p>
+<p class='text'><b>Example</b><br>
+ <span style="color: #0000a0">double[] myList; </span></p>
+ <p class='text'><b>Creating Arrays</b><br>
+ <p class='text'>You can create an array by using the new operator with the following syntax −
+<span style="color: #0000a0">arrayRefVar = new dataType[arraySize];</span>
+The above statement does two things −
+   <ul class='text'>
+   <li> It creates an array using new dataType[arraySize].</li>
+
+   <li> It assigns the reference of the newly created array to the variable arrayRefVar.</li>
+   </ul>
+
+<p class='text'>Declaring an array variable, creating an array, and assigning the reference of the array to the variable can be combined in one statement, as shown below −
+
+<span style="color: #0000a0">dataType[] arrayRefVar = new dataType[arraySize];</span>
+Alternatively you can create arrays as follows −
+
+<span style="color: #0000a0">dataType[] arrayRefVar = {value0, value1, ..., valuek};</span>
+Example
+
+<p class='text'>Here is a complete example showing how to create, initialize, and process arrays −</p>
+
+<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #008800; font-weight: bold">public</span> <span style="color: #008800; font-weight: bold">class</span> <span style="color: #BB0066; font-weight: bold">TestArray</span> <span style="color: #333333">{</span>
+
+   <span style="color: #008800; font-weight: bold">public</span> <span style="color: #008800; font-weight: bold">static</span> <span style="color: #333399; font-weight: bold">void</span> <span style="color: #0066BB; font-weight: bold">main</span><span style="color: #333333">(</span>String<span style="color: #333333">[]</span> args<span style="color: #333333">)</span> <span style="color: #333333">{</span>
+      <span style="color: #333399; font-weight: bold">double</span><span style="color: #333333">[]</span> myList <span style="color: #333333">=</span> <span style="color: #333333">{</span><span style="color: #6600EE; font-weight: bold">1.9</span><span style="color: #333333">,</span> <span style="color: #6600EE; font-weight: bold">2.9</span><span style="color: #333333">,</span> <span style="color: #6600EE; font-weight: bold">3.4</span><span style="color: #333333">,</span> <span style="color: #6600EE; font-weight: bold">3.5</span><span style="color: #333333">};</span>
+
+      <span style="color: #888888">// Print all the array elements</span>
+      <span style="color: #008800; font-weight: bold">for</span> <span style="color: #333333">(</span><span style="color: #333399; font-weight: bold">int</span> i <span style="color: #333333">=</span> <span style="color: #0000DD; font-weight: bold">0</span><span style="color: #333333">;</span> i <span style="color: #333333">&lt;</span> myList<span style="color: #333333">.</span><span style="color: #0000CC">length</span><span style="color: #333333">;</span> i<span style="color: #333333">++)</span> <span style="color: #333333">{</span>
+         System<span style="color: #333333">.</span><span style="color: #0000CC">out</span><span style="color: #333333">.</span><span style="color: #0000CC">println</span><span style="color: #333333">(</span>myList<span style="color: #333333">[</span>i<span style="color: #333333">]</span> <span style="color: #333333">+</span> <span style="background-color: #fff0f0">&quot; &quot;</span><span style="color: #333333">);</span>
+      <span style="color: #333333">}</span>
+     
+      <span style="color: #888888">// Summing all elements</span>
+      <span style="color: #333399; font-weight: bold">double</span> total <span style="color: #333333">=</span> <span style="color: #0000DD; font-weight: bold">0</span><span style="color: #333333">;</span>
+      <span style="color: #008800; font-weight: bold">for</span> <span style="color: #333333">(</span><span style="color: #333399; font-weight: bold">int</span> i <span style="color: #333333">=</span> <span style="color: #0000DD; font-weight: bold">0</span><span style="color: #333333">;</span> i <span style="color: #333333">&lt;</span> myList<span style="color: #333333">.</span><span style="color: #0000CC">length</span><span style="color: #333333">;</span> i<span style="color: #333333">++)</span> <span style="color: #333333">{</span>
+         total <span style="color: #333333">+=</span> myList<span style="color: #333333">[</span>i<span style="color: #333333">];</span>
+      <span style="color: #333333">}</span>
+      System<span style="color: #333333">.</span><span style="color: #0000CC">out</span><span style="color: #333333">.</span><span style="color: #0000CC">println</span><span style="color: #333333">(</span><span style="background-color: #fff0f0">&quot;Total is &quot;</span> <span style="color: #333333">+</span> total<span style="color: #333333">);</span>
+      
+      <span style="color: #888888">// Finding the largest element</span>
+      <span style="color: #333399; font-weight: bold">double</span> max <span style="color: #333333">=</span> myList<span style="color: #333333">[</span><span style="color: #0000DD; font-weight: bold">0</span><span style="color: #333333">];</span>
+      <span style="color: #008800; font-weight: bold">for</span> <span style="color: #333333">(</span><span style="color: #333399; font-weight: bold">int</span> i <span style="color: #333333">=</span> <span style="color: #0000DD; font-weight: bold">1</span><span style="color: #333333">;</span> i <span style="color: #333333">&lt;</span> myList<span style="color: #333333">.</span><span style="color: #0000CC">length</span><span style="color: #333333">;</span> i<span style="color: #333333">++)</span> <span style="color: #333333">{</span>
+         <span style="color: #008800; font-weight: bold">if</span> <span style="color: #333333">(</span>myList<span style="color: #333333">[</span>i<span style="color: #333333">]</span> <span style="color: #333333">&gt;</span> max<span style="color: #333333">)</span> max <span style="color: #333333">=</span> myList<span style="color: #333333">[</span>i<span style="color: #333333">];</span>
+      <span style="color: #333333">}</span>
+      System<span style="color: #333333">.</span><span style="color: #0000CC">out</span><span style="color: #333333">.</span><span style="color: #0000CC">println</span><span style="color: #333333">(</span><span style="background-color: #fff0f0">&quot;Max is &quot;</span> <span style="color: #333333">+</span> max<span style="color: #333333">);</span>  
+   <span style="color: #333333">}</span>
+<span style="color: #333333">}</span>
+</pre></div>
+
+
+ 
