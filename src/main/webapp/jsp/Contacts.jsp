@@ -44,10 +44,10 @@
 	<div style="position: absolute; bottom: 5px;">
 	<address>
 Developed by <a href="mailto:webmaster@example.com">Zhanna Belloni</a> and 
-<a href="mailto:webmaster@example.com">Dymitrov ...</a>.<br>
-HochSchule Ludwigshafen<br>
-... <br>
-... <br>
+<a href="mailto:webmaster@example.com">Dmytro Poliskyi</a>.<br>
+Hochschule für Wirtschaft und Gesellschaft Ludwigshafen<br>
+
+Ernst-Boehe-Straße 4, 67059 Ludwigshafen am Rhein <br>
 Germany
 </address>
 </div>
