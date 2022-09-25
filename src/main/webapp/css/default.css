@@ -10,7 +10,7 @@ body {
 }
 
 .main {
-	font-size: 28px; /* Increased text to enable scrolling */
+	font-size: 28px;
 	padding: 0px 50px;
 	height: 100%;
 	padding-top: 10px;
