@@ -16,7 +16,7 @@ public class GuiBean {
 	 * Ordered list of lesson saved in html directory.
 	 * NOTE: update it if you insert new lessons.
 	 */
-	public static String[] lessonList = { "JavaBasic.html", "VariableAndDataType.html", "OperatorsInJava.html", "ArraysInJava.html"};
+	public static String[] lessonList = { "JavaBasic.html", "VariableAndDataType.html", "OperatorsInJava.html", "ArraysInJava.html", "OOPs.html", "Methods.html"};
 
 	/**
 	 * Generate code for the side navigation.<br>
@@ -71,7 +71,7 @@ public class GuiBean {
 
 		}
 		html += "</div>";
-		html += "<a href='./ForumView.jsp'>Comments</a> <a href='./Contacts.jsp'>Contact</a></div>";
+		html += "<a href='./ForumView.jsp'>Comments</a> <a href='./Contacts.jsp'>More</a></div>";
 
 		return html;
 	}
