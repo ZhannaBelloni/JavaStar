@@ -4,6 +4,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+/**
+ * Basic class to get a connection to the database setting the proper schema.
+ *
+ */
 public abstract class JDBCAccess {
 
 	Connection dbConn;
@@ -37,14 +41,14 @@ public abstract class JDBCAccess {
 	public Connection createConnection() throws NoConnectionException{
 		try{
 			Class.forName(dbDrivername);
-			System.out.println("jdbc driver has been loaded");
+			System.out.println("[INFO] jdbc driver has been loaded");
 		
 			dbConn = DriverManager.getConnection(
 												dbURL,
 												dbUser,
 												dbPassword
 												);
-			System.out.println("  * connection was successful");
+			System.out.println("[INFO]  * connection was successful");
 			return dbConn;
 		}catch(Exception e){
 			e.printStackTrace();

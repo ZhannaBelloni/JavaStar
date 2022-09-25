@@ -9,6 +9,13 @@ import de.hwg_lu.java_star.jdbc.NoConnectionException;
 import de.hwg_lu.java_star.jdbc.PostgreSQLAccess;
 import de.hwg_lu.java_star.utils.UserStatistics;
 
+/**
+ * Bean to store information about logged in user.
+ * 
+ * <br>
+ * It store the username and password and a flag to indicate if the user is an administrator.
+ *
+ */
 public class LoginBean {
 
 	String userid;
@@ -16,6 +23,8 @@ public class LoginBean {
 	boolean isLoggedIn;
 	boolean isAdmin = false;
 	
+	/* it the application is slow, it might be better to store more information,
+	 * instead of sending continuously requests the database.
 	UserStatistics userStatistics;
 
     public UserStatistics getUserStatistics() {
@@ -25,8 +34,12 @@ public class LoginBean {
     public void setUserStatistics(UserStatistics userStatistics) {
         this.userStatistics = userStatistics;
     }
+    */
 
 
+	/**
+	 * default constructor for jsp files.
+	 */
 	public LoginBean() {
 		this.userid = "";
 		this.password = "";
@@ -35,6 +48,14 @@ public class LoginBean {
 
 	}
 	
+	/**
+	 * check if a user is registered in the account table.
+	 * 
+	 * This function will also set the flag isAdmin to the retrieved value.
+	 * @return true if username + password match.
+	 * @throws NoConnectionException
+	 * @throws SQLException
+	 */
 	public boolean checkUseridPassword() throws NoConnectionException, SQLException{
 		//true  - ein Datensatz mit this.userid und this.password existiert in DB in table account
 		//false - ein Datensatz mit this.userid existiert nicht in DB in table account
@@ -57,6 +78,13 @@ public class LoginBean {
 		return false;
 	}
 	
+	/**
+	 * Check if a user is an admin - this is similar to the function checkUseridPassword<br>
+	 * TODO: maybe might be deleted.
+	 * @return true if user+ password corresponds to an administrator.
+	 * @throws NoConnectionException
+	 * @throws SQLException
+	 */
 	public boolean checkUseridIsAdmin() throws NoConnectionException, SQLException{
 		String sql = "SELECT userid, password, admin FROM account where userid = ? and password = ? and admin == 'Y'";
 		System.out.println(sql);
@@ -78,27 +106,62 @@ public class LoginBean {
 		else return "";
 	}
 
+	/**
+	 * @return the userid
+	 */
 	public String getUserid() {
 		return userid;
 	}
+
+	/**
+	 * @param userid the userid to set
+	 */
 	public void setUserid(String userid) {
 		this.userid = userid;
 	}
+
+	/**
+	 * @return the password
+	 */
 	public String getPassword() {
 		return password;
 	}
+
+	/**
+	 * @param password the password to set
+	 */
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	/**
+	 * @return the isLoggedIn
+	 */
 	public boolean isLoggedIn() {
 		return isLoggedIn;
 	}
+
+	/**
+	 * @param isLoggedIn the isLoggedIn to set
+	 */
 	public void setLoggedIn(boolean isLoggedIn) {
 		this.isLoggedIn = isLoggedIn;
 	}
-	
+
+	/**
+	 * @return the isAdmin
+	 */
 	public boolean isAdmin() {
-		return this.isAdmin;
+		return isAdmin;
 	}
+
+	/**
+	 * @param isAdmin the isAdmin to set
+	 */
+	public void setAdmin(boolean isAdmin) {
+		this.isAdmin = isAdmin;
+	}
+
+	
 	
 }

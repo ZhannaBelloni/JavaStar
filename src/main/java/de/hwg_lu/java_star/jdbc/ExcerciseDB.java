@@ -5,8 +5,19 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * class to retrieve data for a given exercise in order to test the solution of the user. 
+ *
+ */
 public class ExcerciseDB {
 	
+	/**
+	 * Get the text of the exercise.
+	 * 
+	 * @param exerciseNumber exercise id
+	 * @return the text of the exercise
+	 * @throws SQLException
+	 */
 	public String getExcerciseText(Integer exerciseNumber) throws SQLException {
 		
 		String sql = "SELECT exercise_text FROM excercise WHERE id = ?";
@@ -25,6 +36,12 @@ public class ExcerciseDB {
 		return null;
 	}
 	
+	/**
+	 * Get the exercise expected output.
+	 * @param exerciseNumber exercise id
+	 * @return
+	 * @throws SQLException
+	 */
 	public String getExcericeSolution(Integer exerciseNumber) throws SQLException {
 		String sql = "SELECT exercise_out FROM excercise WHERE id = ?";
 		System.out.println("[INFO] " +sql + ", id = " + exerciseNumber);
@@ -44,6 +61,12 @@ public class ExcerciseDB {
 		return "";
 	}
 	
+	/**
+	 * Get the sourceCode of the tester to test user solution.
+	 * @param exerciseNumber exercise id
+	 * @return
+	 * @throws SQLException
+	 */
 	public String getExcericeTestSourceCode(Integer exerciseNumber) throws SQLException {
 		String sql = "SELECT exercise_test FROM excercise WHERE id = ?";
 		System.out.println(sql + ", id = " + exerciseNumber);
@@ -62,6 +85,13 @@ public class ExcerciseDB {
 		return "";
 	}
 	
+	/**
+	 * get the solution of the exercise saved in the database.
+	 * 
+	 * @param exerciseNumber exercise id
+	 * @return solution of the exercise.
+	 * @throws SQLException
+	 */
 	public String getExcericeSourceCodeSolution(Integer exerciseNumber) throws SQLException {
 		String sql = "SELECT exercise_solution FROM excercise WHERE id = ?";
 		System.out.println(sql + ", id = " + exerciseNumber);
@@ -80,6 +110,11 @@ public class ExcerciseDB {
 		return "";
 	}
 	
+	/**
+	 * Get the total number of exercises saved in the database.
+	 * @return
+	 * @throws SQLException
+	 */
 	public int getNumberExcerice() throws SQLException {
 		String sql = "SELECT COUNT(*) FROM excercise";
 		System.out.println(sql);

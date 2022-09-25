@@ -6,6 +6,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ * Utility to retrieve/update/insert information about the statistic of an exercise for a given user.
+ *
+ */
 public class StatisticsDB {
     
     public static enum ExerciseTag {
@@ -17,6 +21,12 @@ public class StatisticsDB {
     
     public static String WHITE = "#FFFFFF";
 
+    /**
+     * Return the hex color to be used in html tag for the result of an exercise.
+     * @param userid
+     * @param exerciseId
+     * @return
+     */
     public String getColorForExcercise(String userid, Integer exerciseId) {
         try {
             String sql = "SELECT tried_to_solved, compile_error, test_error  FROM statistics WHERE userid = ? AND exerciseid = ?";
@@ -48,6 +58,12 @@ public class StatisticsDB {
 
     }
     
+    /**
+     * Get a list of color for all exercises present in the database.
+     * @param userid
+     * @param totalNumberExcercises
+     * @return
+     */
     public ArrayList<String> getColorForAllExcercise(String userid, Integer totalNumberExcercises) {
         ArrayList<String> colors = new ArrayList<String>();
         String color = WHITE;
@@ -83,6 +99,15 @@ public class StatisticsDB {
 
     }
 
+    /**
+     * Update the statistic of an exercise for a user.
+     * 
+     * If no data for a userid + exerciseId is present a new entry is created, otherwise the old entry is updated.
+     * @param userid
+     * @param exerciseId
+     * @param tag
+     * @throws SQLException
+     */
     public void updateExcerciseForUser(String userid, Integer exerciseId, ExerciseTag tag) throws SQLException {
         String sql = "SELECT tried_to_solved, compile_error, test_error  FROM statistics WHERE userid = ? AND exerciseid = ?";
 

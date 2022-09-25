@@ -1,5 +1,9 @@
 package de.hwg_lu.java_star.utils;
 
+/**
+ * Utility class to gather all information needed to display the result of an exercise.
+ *
+ */
 public class ExerciseStatistics {
 
     private int exerciseID;

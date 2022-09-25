@@ -7,9 +7,13 @@ import java.sql.SQLException;
 
 import de.hwg_lu.java_star.jdbc.PostgreSQLAccess;
 
+/**
+ * Utility to inspect the content of all the tables used by Java Star.
+ *
+ */
 public class AdminDBViewer {
 	
-	private void dumpTable(Connection conn, String tableName) throws SQLException {
+	private void printTable(Connection conn, String tableName) throws SQLException {
 		System.out.println("============================================================================");
 		System.out.println("Dumping TABLE " + tableName);
 		System.out.println("============================================================================");
@@ -39,6 +43,10 @@ public class AdminDBViewer {
 
 	}
 	
+	/**
+	 * Application: no argument is needed.
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		
 		AdminDBViewer adminDB = new AdminDBViewer();
@@ -46,7 +54,7 @@ public class AdminDBViewer {
 			PostgreSQLAccess access = new PostgreSQLAccess();
 			Connection conn = access.getConnection();
 			for (String tableName : tablesNames) {
-				adminDB.dumpTable(conn, tableName);
+				adminDB.printTable(conn, tableName);
 			}
 			conn.close();
 		} catch (SQLException e) {

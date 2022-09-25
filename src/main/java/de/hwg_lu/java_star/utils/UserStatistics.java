@@ -2,6 +2,12 @@ package de.hwg_lu.java_star.utils;
 
 import java.util.HashMap;
 
+/**
+ * Class to store the statistics all all exercise for a given user.
+ * 
+ * NOTE: This class is not really used. It might be useful to avoid to ask the database at every generation of the Side Navigation bar.
+ *
+ */
 public class UserStatistics {
     
     public UserStatistics(String id) {

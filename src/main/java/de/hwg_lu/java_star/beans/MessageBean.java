@@ -1,5 +1,9 @@
 package de.hwg_lu.java_star.beans;
 
+/**
+ * This class store information to be show to the user and set if an error was encountered.<br>
+ *
+ */
 public class MessageBean {
 
     String infoMessage;

@@ -1,5 +1,11 @@
 package de.hwg_lu.java_star.utils;
 
+/**
+ * Class to store all information of a comment.
+ * 
+ * a comment is made up of an author, an id and the timestamp when it was written.
+ *
+ */
 public class Comment {
 
     String user = "";

@@ -9,6 +9,15 @@ import de.hwg_lu.java_star.jdbc.NoConnectionException;
 import de.hwg_lu.java_star.jdbc.PostgreSQLAccess;
 import de.hwg_lu.java_star.utils.UserStatistics;
 
+/**
+ * class to store information about an account, with functionalities.
+ * 
+ * <br>
+ * <uL> 
+ *    <li>to insert the account into the TABLE account.</li>
+ *    <li>check if a combination of username and password can be found in the account table</li>
+ * </ul> 
+ */
 public class AccountBean {
 
 	String userid;
@@ -18,6 +27,9 @@ public class AccountBean {
 	String email;
 	
 	
+	/**
+	 * Default constructor, to be used in jsp files
+	 */
     public AccountBean() {
 		this.userid = "";
 		this.password = "";
@@ -26,6 +38,14 @@ public class AccountBean {
 		this.email = "";
 	}
     
+    /**
+     * if a combination of username and password can be found in the account table, <br>
+     * i.e. if the user can login.
+     * @param connection connection to the database
+     * @return true if the user is authorized, false otherwise
+     * @throws NoConnectionException there are problem connecting with the database
+     * @throws SQLException jdbc thrown an exception.
+     */
     public boolean isEmailOrUseridPresent(Connection connection) throws NoConnectionException, SQLException {
         String sql = "SELECT * FROM account where email = ? or userid = ?";
         System.out.println("[INFO] " +sql);
@@ -41,6 +61,12 @@ public class AccountBean {
         return false;
     }
 
+    /**
+     * insert the account into the database: no check if the user is already register is made.
+     * @param connection connection to the database
+     * @throws NoConnectionException there are problem connecting with the database
+     * @throws SQLException jdbc thrown an exception.
+     */
 	public void insertAccount(Connection connection) throws NoConnectionException, SQLException {
 		String sql = "insert into account " + "(userid, password, active, admin, email) " + "values (?,?,?,?,?)";
 		System.out.println("[INFO] " +sql);
@@ -55,43 +81,82 @@ public class AccountBean {
 		System.out.println("Account " + this.userid + " erfolgreich angelegt");
 	}
 
+	/**
+	 * @return the userid
+	 */
 	public String getUserid() {
 		return userid;
 	}
 
+	/**
+	 * @param userid the userid to set
+	 */
 	public void setUserid(String userid) {
 		this.userid = userid;
 	}
 
+	/**
+	 * @return the password
+	 */
 	public String getPassword() {
 		return password;
 	}
 
+	/**
+	 * @param password the password to set
+	 */
 	public void setPassword(String password) {
 		this.password = password;
 	}
 
+	/**
+	 * @return the active
+	 */
 	public String getActive() {
 		return active;
 	}
 
+	/**
+	 * @param active the active to set
+	 */
 	public void setActive(String active) {
 		this.active = active;
 	}
 
-	public boolean isAdmin() {
-		return admin.equals("Y");
+	/**
+	 * @return the admin
+	 */
+	public String getAdmin() {
+		return admin;
 	}
 
+	/**
+	 * check if a user is the admin
+	 * @return true if the user is the admin.
+	 */
+	public boolean isAdmin() {
+		return "Y".equals(admin);
+	}
+	
+	/**
+	 * @param admin the admin to set
+	 */
 	public void setAdmin(String admin) {
 		this.admin = admin;
 	}
 
+	/**
+	 * @return the email
+	 */
 	public String getEmail() {
 		return email;
 	}
 
+	/**
+	 * @param email the email to set
+	 */
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
 }

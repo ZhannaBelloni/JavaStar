@@ -11,10 +11,39 @@ import java.sql.SQLException;
 import de.hwg_lu.java_star.beans.LoginBean;
 import de.hwg_lu.java_star.jdbc.PostgreSQLAccess;
 
+/**
+ * Class used to initialize the System.
+ * 
+ * <br>
+ * This class can be run as java application and needs a command line argument, i.e.
+ * the full path to the directory data, where are saved the files '.txt' for the exercises 
+ * 
+ * Create the needed TABLES:
+ * <ul>
+ *   <li> account</li>
+ *   <li> comments</li>
+ *   <li> exercises</li>
+ *   <li> statistics for the exercises</li>
+ * </ul>
+ * Inserts:
+ * <ul>
+ *   <li> "admin" user</li>
+ *   <li> exercises data</li>
+ * </ul> 
+ *
+ * @author 
+ *
+ */
 public class AdminDB {
 
 	static String pathToData = "";
 
+	/**
+	 * Create the schema if exists
+	 * @param conn connection to the Database
+	 * @param schemaName schema name to create
+	 * @throws SQLException thrown by JDBC driver, if something went wrong
+	 */
 	private void createSchema(Connection conn, String schemaName) throws SQLException {
 		System.out.println("[INFO] Creating schema " + schemaName);
 		String sql = "CREATE SCHEMA IF NOT EXISTS \"" + schemaName + "\"";
@@ -22,36 +51,68 @@ public class AdminDB {
 		prep.executeUpdate();
 	}
 
+	/**
+	 * Create the schema for the application Java Star
+	 * @param jdbcAccess class containing information for the connection alonge with the SCHEMA name to be used.
+	 * @throws SQLException thrown by JDBC driver, if something went wrong
+	 */
 	public void createJavaStarSchema(PostgreSQLAccess jdbcAccess) throws SQLException {
 		System.out.println("[INFO] Creating schema for 'JAVA_STAR' application");
 		this.createSchema(jdbcAccess.createConnection(), jdbcAccess.getSchema());
 
 	}
 
+	/**
+	 * Create the table for the account: do not close the connection, it will be used by others
+	 * @param connection connection to the Database
+	 * @throws SQLException thrown by JDBC driver, if something went wrong
+	 */
 	public void createTableAccounts(Connection connection) throws SQLException {
 		System.out.println("[INFO] Creating table for 'JAVA_STAR' application accounts");
 		PreparedStatement prep = connection.prepareStatement(this.CREATE_ACCOUNT_TABLE);
 		prep.executeUpdate();
 	}
 
+	/**
+	 * Create the table for the comments: do not close the connection, it will be used by others
+	 * @param connection connection to the Database
+	 * @throws SQLException thrown by JDBC driver, if something went wrong
+	 */
 	public void createTableComments(Connection connection) throws SQLException {
 		System.out.println("[INFO] Creating table for 'JAVA_STAR' application comments");
 		PreparedStatement prep = connection.prepareStatement(this.CREATE_COMMENTS_TABLE);
 		prep.executeUpdate();
 	}
 
+	/**
+	 * Create the table for the exercises: do not close the connection, it will be used by others
+	 * @param connection connection to the Database
+	 * @throws SQLException thrown by JDBC driver, if something went wrong
+	 */
 	public void createTableExercises(Connection connection) throws SQLException {
 		System.out.println("[INFO] Creating table for 'JAVA_STAR' application excercises");
 		PreparedStatement prep = connection.prepareStatement(this.CREATE_EXCERCISE_TABLE);
 		prep.executeUpdate();
 	}
 
+	/**
+	 * Create the table for the comments: do not close the connection, it will be used by others
+	 * @param connection connection to the Database
+	 * @throws SQLException thrown by JDBC driver, if something went wrong
+	 */
 	public void createStatisticsExercises(Connection connection) throws SQLException {
 		System.out.println("[INFO] Creating table for 'JAVA_STAR' application statistics");
 		PreparedStatement prep = connection.prepareStatement(this.CREATE_STATISTICS_TABLE);
 		prep.executeUpdate();
 	}
 
+	/**
+	 * Insert the admin user, if not present in the table account.<br>
+	 * 
+	 * It will print to the console warning, errors and information.
+	 * @param connection connection to the Database
+	 * @throws SQLException thrown by JDBC driver, if something went wrong
+	 */
 	private void insertAdmin(Connection connection) {
 		
 		LoginBean login = new LoginBean();
@@ -84,6 +145,16 @@ public class AdminDB {
 
 	}
 
+	/**
+	 * Insert into the TABLE "exercises" all information for a given exercise.<br>
+	 * 
+	 * It reads the files from the directory AdminDB.pathToData and insert into the table.
+	 * 
+	 * @param connection connection to the Database
+	 * @param number exercise ID: it must be unique. <br>
+	 *        NOTE: if an exercise with the same id is already present, it will not be updated
+	 * @throws SQLException thrown by JDBC driver, if something went wrong
+	 */
 	private void insertExercise(Connection connection, int number) throws SQLException {
 		String string_instructions = this
 				.readFile(AdminDB.pathToData + File.separator + "exercise_" + number + "_instructions.txt");
@@ -107,6 +178,11 @@ public class AdminDB {
 
 	}
 
+	/**
+	 * Inserts all exercises in the directory AdminDB.pathToData in the Database.
+	 * @param connection connection to the Database
+	 * @throws SQLException thrown by JDBC driver, if something went wrong
+	 */
 	public void insertExcercise(Connection connection) throws SQLException {
 		System.out.println("[INFO] insering exercise ");
 		int numExercises = 1;
@@ -133,6 +209,12 @@ public class AdminDB {
 
 	}
 
+	/**
+	 * Application to initialize Java Star.
+	 * 
+	 * 
+	 * @param args: it needs the first parameter to be set to 'path/to/data'
+	 */
 	public static void main(String[] args) {
 
 		if (args.length == 0) {
@@ -160,6 +242,11 @@ public class AdminDB {
 		}
 	}
 
+	/**
+	 * Utility to read a file into a String.
+	 * @param filename full path to the File to be read.
+	 * @return Content of the File.
+	 */
 	String readFile(String filename) {
 		StringBuilder contentBuilder = new StringBuilder();
 		try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
@@ -177,14 +264,26 @@ public class AdminDB {
 	// ========================================================= //
 	// SQL statements
 
+	/**
+	 * SQL statement to create TABLE account:
+	 * the table saves registration data
+	 */
 	String CREATE_ACCOUNT_TABLE = "CREATE TABLE IF NOT EXISTS \"account\" (" + "userid CHAR(32) PRIMARY KEY NOT NULL, "
 			+ "email  CHAR(32) NOT NULL, " + "password CHAR(16) NOT NULL, " + "active CHAR(1) NOT NULL DEFAULT 'Y',"
 			+ "admin CHAR(1) NOT NULL DEFAULT 'N'" + ")";
 
+	/**
+	 * SQL statement to create TABLE comments
+	 * the table saves comments sent by users
+	 */
 	String CREATE_COMMENTS_TABLE = "CREATE TABLE IF NOT EXISTS \"comments\" (" + "id        SERIAL PRIMARY KEY,"
 			+ "time      TIMESTAMP  WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP, " + "userid    CHAR(32)   NOT NULL, "
 			+ "comment   CHAR(512)  NOT NULL  " + ")";
 
+	/**
+	 * SQL statement to create TABLE excercise
+	 * the table save information about the exercises in the Web Application
+	 */
 	String CREATE_EXCERCISE_TABLE = "CREATE TABLE IF NOT EXISTS \"excercise\" ("
 			+ "id                  INTEGER       PRIMARY KEY NOT NULL, "
 			+ "exercise_text       VARCHAR(1024)             NOT NULL, "
@@ -192,8 +291,13 @@ public class AdminDB {
 			+ "exercise_solution   VARCHAR(2048)             NOT NULL,"
 			+ "exercise_test       VARCHAR(2048)             NOT NULL" + ")";
 
+	/**
+	 * SQL statement to create TABLE statistics
+	 * the table saves the statistics about the individual exercises for the registered users.
+	 */
 	String CREATE_STATISTICS_TABLE = "CREATE TABLE IF NOT EXISTS \"statistics\" ("
-			+ "userid              CHAR(32)  NOT NULL,  " + "exerciseid          INTEGER   NOT NULL, "
+			+ "userid              CHAR(32)  NOT NULL,  " 
+			+ "exerciseid          INTEGER   NOT NULL, "
 			+ "tried_to_solved     BOOL      NOT NULL DEFAULT FALSE, "
 			+ "compile_error       BOOL      NOT NULL DEFAULT FALSE,"
 			+ "test_error          BOOL      NOT NULL DEFAULT FALSE,"
