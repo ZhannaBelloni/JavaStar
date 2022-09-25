@@ -97,13 +97,13 @@
 	    loginBean.setLoggedIn(false);
 		messageBean.setAttributeTooLong("username", 32);
 		response.sendRedirect("./RegisterView.jsp");
-	} else if (isFieldTooLong(email, 32)) { 
+	} else if (isFieldTooLong(email, 64)) { 
 	    loginBean.setLoggedIn(false);
-		messageBean.setAttributeTooLong("email", 32);
+		messageBean.setAttributeTooLong("email", 64);
 		response.sendRedirect("./RegisterView.jsp");
-	} else if (isFieldTooLong(password, 16)) { 
+	} else if (isFieldTooLong(password, 32)) { 
 	    loginBean.setLoggedIn(false);
-		messageBean.setAttributeTooLong("password", 16);
+		messageBean.setAttributeTooLong("password", 32);
 		response.sendRedirect("./RegisterView.jsp");
 	} else {
 

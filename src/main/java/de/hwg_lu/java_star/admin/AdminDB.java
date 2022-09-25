@@ -269,7 +269,7 @@ public class AdminDB {
 	 * the table saves registration data
 	 */
 	String CREATE_ACCOUNT_TABLE = "CREATE TABLE IF NOT EXISTS \"account\" (" + "userid CHAR(32) PRIMARY KEY NOT NULL, "
-			+ "email  CHAR(32) NOT NULL, " + "password CHAR(16) NOT NULL, " + "active CHAR(1) NOT NULL DEFAULT 'Y',"
+			+ "email  CHAR(64) NOT NULL, " + "password CHAR(32) NOT NULL, " + "active CHAR(1) NOT NULL DEFAULT 'Y',"
 			+ "admin CHAR(1) NOT NULL DEFAULT 'N'" + ")";
 
 	/**
