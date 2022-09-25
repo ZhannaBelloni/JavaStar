@@ -9,6 +9,8 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 import de.hwg_lu.java_star.jdbc.ExcerciseDB;
 
@@ -78,7 +80,7 @@ public class Tester {
 	}
 	
 	/**
-	 * Integreate the source code into the Tester class saved into the database.
+	 * Integrate the source code into the Tester class saved into the database.
 	 * @param sourceCode
 	 * @param excerciseNumber
 	 * @return
@@ -87,7 +89,14 @@ public class Tester {
 	public String prepareSourceCode(String sourceCode, int excerciseNumber) throws SQLException {
 		String stringTest = new ExcerciseDB().getExcericeTestSourceCode(excerciseNumber);
 		String pattern = "import .*;";
-		return stringTest.replace(this.TAG, sourceCode.replaceAll(pattern, ""));
+		// search all imports and put at the and of the sourceCode.
+		java.util.regex.Matcher m = Pattern.compile(pattern)
+			     .matcher(sourceCode);
+		String allImports = "";
+		while (m.find()) {
+			allImports += m.group();
+		}
+		return allImports += stringTest.replace(this.TAG, sourceCode.replaceAll(pattern, ""));
 				
 	}
 	
